@@ -265,6 +265,17 @@ def benchmark(args):
     return {"report": str(args.output / "report.md"), "metrics": report["test_metrics"]}
 
 
+def retraining_split(table):
+    dates = sorted(table.signal_date.unique())
+    calibration_sessions = min(252, max(30, int(len(dates) * 0.2)))
+    if len(dates) <= calibration_sessions:
+        raise ValueError("Insufficient dates for separate retraining and calibration")
+    boundary = pd.Timestamp(dates[-calibration_sessions])
+    fit = table.loc[table.label_end < boundary]
+    calibration = table.loc[table.signal_date >= boundary]
+    return fit, calibration
+
+
 def train(args):
     manifest, series = read_dataset(args.data)
     cutoff = pd.Timestamp(args.through)
@@ -273,10 +284,7 @@ def train(args):
         raise ValueError(f"Requested training cutoff exceeds available data ending {latest.date()}")
     series = {symbol: bars.loc[:cutoff] for symbol, bars in series.items()}
     table, features = assemble(series, args.horizon)
-    dates = sorted(table.signal_date.unique())
-    boundary = pd.Timestamp(dates[int(len(dates) * 0.8)])
-    fit = table.loc[table.label_end < boundary]
-    calibration = table.loc[table.signal_date >= boundary]
+    fit, calibration = retraining_split(table)
     if len(fit) < 100 or len(calibration) < 30 or set(fit.target.unique()) != {0, 1, 2}:
         raise ValueError("Insufficient training/calibration data")
     model, name, temperature, selection = select_model(fit, calibration, features)

@@ -55,7 +55,7 @@ python -m backend.historical train --data datasets/us --through 2017-11-10 --out
 python -m backend.historical predict --model benchmark-runs/india/model.joblib --csv datasets/india/RELIANCE.csv --market india --as-of 2020-12-31
 ```
 
-Train reserves the latest 20% of signal dates for blending/calibration and purges boundary-crossing training labels. The earlier portion supplies the three temporal selection folds. It produces a deployment candidate. Extend normalized data by ingesting an updated source archive, benchmark against a new frozen future interval, and retrain with an explicit cutoff. The command rejects training dates beyond available observations.
+Train reserves the latest 20% of signal dates for blending/calibration, capped at 252 sessions and with a minimum of 30 dates. It purges boundary-crossing training labels. The earlier portion supplies the three temporal selection folds. This cap prevents decades of history from forcing an excessively old fitting cutoff. It produces a deployment candidate. Extend normalized data by ingesting an updated source archive, benchmark against a new frozen future interval, and retrain with an explicit cutoff. The command rejects training dates beyond available observations.
 
 Inference requires an observation later than every training/calibration observation and a matching market. Failed or unavailable forecasts do not stop the committee. The output carries training date, model age, prediction horizon and actual probabilities. Models trained only on these old snapshots need current validation before a present-day deployment. An old snapshot cannot establish performance in the current regime.
 

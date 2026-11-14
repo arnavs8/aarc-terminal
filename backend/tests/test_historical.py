@@ -111,3 +111,12 @@ def test_baseline_fallback_never_enters_positions():
     result, trades = strategy_results(table, probabilities, allow_positions=False)
     assert result["TEST"]["active_trades"] == 0
     assert trades.position.sum() == 0
+
+
+def test_long_history_retraining_caps_calibration_at_one_year():
+    from backend.historical import retraining_split
+    table, _ = build_samples(bars(4000), "TEST")
+    fit, calibration = retraining_split(table)
+    assert calibration.signal_date.nunique() == 252
+    assert fit.label_end.max() < calibration.signal_date.min()
+    assert len(fit) > 3000
