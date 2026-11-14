@@ -346,7 +346,11 @@ async def evaluate_risk_consolidated(
             "current_price": quant_data.get("current_price"),
             "action": cro_verdict.get("action"),
             "verdict": cro_verdict.get("verdict"),
-            "calibrated_confidence": cro_verdict.get("confidence"),
+            "calibrated_confidence": None,  # No fitted committee probability model yet.
+            "heuristic_score": cro_verdict.get("confidence"),
+            "confidence_kind": cro_verdict.get("confidence_kind"),
+            "generation_mode": cro_verdict.get("generation_mode"),
+            "evidence_audit": cro_verdict.get("evidence_audit"),
             "raw_confidence": cro_verdict.get("raw_confidence"),
             "bayesian_calibration": cro_verdict.get("bayesian_calibration"),
             "regime_gating": cro_verdict.get("regime_gating"),

@@ -127,3 +127,7 @@ package.json          Root npm scripts for the API and frontend
 - The demo cache stores successful committee runs in `backend/demo_cache.json`; it is a generated runtime artifact, not a dependable market-data source.
 - An index (ticker starting with `^`) is for benchmark analysis only; the committee does not issue trade theses or allocations for it.
 - Validate ticker symbols and all outputs independently. No backtest or model result guarantees future performance.
+
+## Whole-committee evaluation
+
+The final committee answer now passes through an evidence and allocation reviewer. Open `/benchmark` in the frontend to inspect paired historical answers and simulated outcomes. See [COMMITTEE_BENCHMARK.md](COMMITTEE_BENCHMARK.md) for the method, limitations and reproduction commands, and [the recorded pilot results](benchmarks/committee/report.md). These checks evaluate specific consistency failures; they are not a claim of universal factual accuracy or future profitability.

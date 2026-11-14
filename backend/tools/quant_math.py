@@ -28,7 +28,7 @@ TICKER_ALIASES: Dict[str, str] = {
 }
 
 
-def analyze_ticker_quant(ticker: str, cutoff_date: Optional[str] = None) -> Dict[str, Any]:
+def analyze_ticker_quant(ticker: str, cutoff_date: Optional[str] = None, *, price_data: Optional[pd.DataFrame] = None) -> Dict[str, Any]:
     """
     Downloads historical OHLCV data for ticker, flags price/volume anomalies via IsolationForest,
     and computes institutional risk and allocation metrics.
@@ -43,34 +43,38 @@ def analyze_ticker_quant(ticker: str, cutoff_date: Optional[str] = None) -> Dict
         except Exception:
             cutoff_dt = None
 
-    # Fetch data: if cutoff_date is set, fetch 400 days prior and 30 days after.
-    # auto_adjust=False keeps the actual requested ticker's unadjusted daily Close
-    # (yfinance defaults to auto-adjusted prices, which are not the traded close).
-    if cutoff_dt:
-        start_str = (cutoff_dt - pd.Timedelta(days=400)).strftime("%Y-%m-%d")
-        end_str = (cutoff_dt + pd.Timedelta(days=35)).strftime("%Y-%m-%d")
-        raw_df = yf.download(
-            clean_ticker_sym,
-            start=start_str,
-            end=end_str,
-            progress=False,
-            auto_adjust=False,
-        )
+    # Replay passes a local, date-indexed frame; no network fallback is allowed.
+    if price_data is not None:
+        raw_df = price_data.copy()
     else:
-        raw_df = yf.download(
-            clean_ticker_sym,
-            period="1y",
-            progress=False,
-            auto_adjust=False,
-        )
-
-    # Fallback to Ticker.history (same ticker only) if download returned empty
-    if raw_df is None or raw_df.empty:
-        t_obj = yf.Ticker(clean_ticker_sym)
+        # Fetch data: if cutoff_date is set, fetch 400 days prior and 30 days after.
+        # auto_adjust=False keeps the actual requested ticker's unadjusted daily Close
+        # (yfinance defaults to auto-adjusted prices, which are not the traded close).
         if cutoff_dt:
-            raw_df = t_obj.history(start=start_str, end=end_str, auto_adjust=False)
+            start_str = (cutoff_dt - pd.Timedelta(days=400)).strftime("%Y-%m-%d")
+            end_str = (cutoff_dt + pd.Timedelta(days=35)).strftime("%Y-%m-%d")
+            raw_df = yf.download(
+                clean_ticker_sym,
+                start=start_str,
+                end=end_str,
+                progress=False,
+                auto_adjust=False,
+            )
         else:
-            raw_df = t_obj.history(period="1y", auto_adjust=False)
+            raw_df = yf.download(
+                clean_ticker_sym,
+                period="1y",
+                progress=False,
+                auto_adjust=False,
+            )
+
+        # Fallback to Ticker.history (same ticker only) if download returned empty
+        if raw_df is None or raw_df.empty:
+            t_obj = yf.Ticker(clean_ticker_sym)
+            if cutoff_dt:
+                raw_df = t_obj.history(start=start_str, end=end_str, auto_adjust=False)
+            else:
+                raw_df = t_obj.history(period="1y", auto_adjust=False)
 
     if raw_df is None or raw_df.empty:
         raise ValueError(f"No price data found for ticker: {ticker}")
@@ -119,7 +123,7 @@ def analyze_ticker_quant(ticker: str, cutoff_date: Optional[str] = None) -> Dict
 
     # Metrics
     current_price = _clean_number(round(float(history_df["Close"].iloc[-1]), 2))
-    
+
     # Valid daily returns (drop the 0th day which has 0.0 change)
     valid_returns = history_df["Returns"].iloc[1:]
     if len(valid_returns) == 0:
@@ -315,6 +319,8 @@ def analyze_ticker_quant(ticker: str, cutoff_date: Optional[str] = None) -> Dict
 
     return {
         "ticker": clean_ticker_sym,
+        "as_of_date": history_df.index[-1].strftime("%Y-%m-%d"),
+        "is_historical_replay": cutoff_date is not None,
         "learned_forecast": historical_forecast(clean_ticker_sym, history_df),
         "current_price": current_price,
         "annualized_volatility": ann_vol,

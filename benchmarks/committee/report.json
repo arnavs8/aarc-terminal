@@ -1,0 +1,146 @@
+{
+  "baseline_commit": "6087be7a01ac416e8a79b3cd544c6f453efd00e5",
+  "seed": 42,
+  "round_trip_cost_bps": 30,
+  "scope": "Production quant + full streamed rules-fallback committee + final output. Gemini and archived-news truth untested.",
+  "selection": {
+    "india": [
+      "2020-02-03",
+      "2020-03-02",
+      "2020-06-01",
+      "2020-10-01"
+    ],
+    "us": [
+      "2015-08-03",
+      "2016-01-04",
+      "2016-06-01",
+      "2017-10-02"
+    ]
+  },
+  "source_sha256": {
+    "india/HDFCBANK.csv": "5901184b378b558ccaad6242adad953bf7dafc5ee5665abf3516776c05c29b30",
+    "india/HINDUNILVR.csv": "c2a679cbbf42c133c7fd33d606d5a840fd92b0c2eb301382db6ac51df795786d",
+    "india/ICICIBANK.csv": "ae34d7af17f3ae0642252941edb563da8e7355341f1067216ee2be81a8a5e02c",
+    "india/INFY.csv": "6d94fe12fbeac9973ec38974b615f106e58bcc936db50b1b77c6e688f038330d",
+    "india/ITC.csv": "c1136668646724302e33a2503fd2f5e5fe7c86a84ce7b77ec67d1c786b0ec39e",
+    "india/LT.csv": "32c4a962a76d237a538965caca01848ecbd399650dcbbd6c105441fd5b7a5551",
+    "india/MARUTI.csv": "7296aa1990829b2837042849ad85dff7320484a56e0e21889509acd97cfac916",
+    "india/RELIANCE.csv": "c7935f5e69709d15bf20f50d0944c33e6f818da9f1af6cfbaf8df2c11f3c4d26",
+    "india/SBIN.csv": "e0c7be54def6388edff4fc1fe1bdad1a67763ac2cc020b445faca541366f9106",
+    "india/TCS.csv": "7be282225fd7be4913dc635843e1521c99b1412a0e4b57fc8fc1adc985d0bf1f",
+    "us/AAPL.csv": "bd2f9fcc1f444dcdd02b0427550d6221e9efcc2ca7b5380809a9d5f44082f5f8",
+    "us/AMZN.csv": "f784395bd7da7efc58e5ad027ba5910cc2f525aa3a6fb2d881c2e12a5faccce7",
+    "us/GOOGL.csv": "bbcb3b5ac3b817cbba9455ddae1e803aa2f83b70ae0615b2a946ab1d7ecb3119",
+    "us/JNJ.csv": "21afa95bc219092d73bc56e69e8dc5b4bf06c0325ee319c652fa0f10ff210713",
+    "us/JPM.csv": "b3c148c1ba6cf1b5cbe1aafc7e139fbd7840910001c28c7bcd1b7cc6e248cc73",
+    "us/MSFT.csv": "42c00f2893071d39bd267b625f307ecbbf78dbde6684a08f44f8bb2cb580a8f4",
+    "us/NVDA.csv": "e125ef630ce5a4b81af688aaf8895b4f102e19fedb1451fcbde9abecb4588754",
+    "us/PG.csv": "258668631e86adcd829ea8ca72afb3f66b1f68315a92ce78d5f63a5a4387bd6d",
+    "us/WMT.csv": "ffb7b3375d97138f945a382eb8b1a110fed34aa0fe3334e654f62d0451dc5298",
+    "us/XOM.csv": "e494f4c91c2b4db52ffd5fdb072a63f4ad6299388fa4f01d26f287745ad604e8"
+  },
+  "code_hash_line_endings": "LF",
+  "code_sha256": {
+    "backend/graph.py": "8ab028ac8a5ad80b3094d68005dc5f0d155a96bee0c859ceddecd8f3e2b7f268",
+    "backend/committee_audit.py": "396fce6e42263559899182a6c8ad121e07cb769ff2169c4b28fe2fe997037fb7",
+    "backend/tools/quant_math.py": "2c0444b5c1ba0bda051a9424e234a42809f0bb308a25bc9b87b4f259cae036de"
+  },
+  "method": "Same causal snapshots; fresh calibration state; next-open entry; five-session fixed-stop exit; no outcome tuning.",
+  "limitations": [
+    "Selected surviving large caps, four dates per symbol: pilot, not a representative market estimate.",
+    "No archived news, Gemini calls, measured market impact, borrow constraints, dividends or verified corporate-action adjustments.",
+    "Consistency checks test specific known failure classes; they do not measure all factual truth.",
+    "Mean allocated returns are per-decision outcomes, not a compounded portfolio backtest.",
+    "Snapshots are paired/correlated. Win-rate intervals treat trades independently and are descriptive only."
+  ],
+  "results": {
+    "india": {
+      "before": {
+        "cases": 40,
+        "trades": 23,
+        "coverage": 0.575,
+        "net_win_rate": 0.6956521739130435,
+        "win_rate_95pct_wilson": [
+          0.49133870939427393,
+          0.8439617197902755
+        ],
+        "mean_allocated_five_session_return_pct": 0.06914848700122339,
+        "mean_net_trade_return_pct": 2.3941571859076887,
+        "stop_hits": 2,
+        "checks_passed": {
+          "allocation_within_risk_cap": 29,
+          "summary_matches_allocation": 12,
+          "zero_exposure_is_no_trade": 23,
+          "no_unsupported_institutional_flow_claim": 0,
+          "no_unfitted_probability_claim": 0,
+          "score_disclosed_as_heuristic": 0
+        }
+      },
+      "after": {
+        "cases": 40,
+        "trades": 17,
+        "coverage": 0.425,
+        "net_win_rate": 0.8235294117647058,
+        "win_rate_95pct_wilson": [
+          0.5897007098262422,
+          0.9380898628745101
+        ],
+        "mean_allocated_five_session_return_pct": 0.06931005351635139,
+        "mean_net_trade_return_pct": 3.641621137507342,
+        "stop_hits": 0,
+        "checks_passed": {
+          "allocation_within_risk_cap": 40,
+          "summary_matches_allocation": 40,
+          "zero_exposure_is_no_trade": 40,
+          "no_unsupported_institutional_flow_claim": 40,
+          "no_unfitted_probability_claim": 40,
+          "score_disclosed_as_heuristic": 40
+        }
+      }
+    },
+    "us": {
+      "before": {
+        "cases": 40,
+        "trades": 33,
+        "coverage": 0.825,
+        "net_win_rate": 0.6060606060606061,
+        "win_rate_95pct_wilson": [
+          0.4368314280651038,
+          0.7531711776849179
+        ],
+        "mean_allocated_five_session_return_pct": 0.027368192219860015,
+        "mean_net_trade_return_pct": 0.4367565210601495,
+        "stop_hits": 7,
+        "checks_passed": {
+          "allocation_within_risk_cap": 39,
+          "summary_matches_allocation": 30,
+          "zero_exposure_is_no_trade": 33,
+          "no_unsupported_institutional_flow_claim": 0,
+          "no_unfitted_probability_claim": 0,
+          "score_disclosed_as_heuristic": 0
+        }
+      },
+      "after": {
+        "cases": 40,
+        "trades": 21,
+        "coverage": 0.525,
+        "net_win_rate": 0.7142857142857143,
+        "win_rate_95pct_wilson": [
+          0.500432261771624,
+          0.8618632425437179
+        ],
+        "mean_allocated_five_session_return_pct": 0.0547133993058011,
+        "mean_net_trade_return_pct": 1.518586697387186,
+        "stop_hits": 1,
+        "checks_passed": {
+          "allocation_within_risk_cap": 40,
+          "summary_matches_allocation": 40,
+          "zero_exposure_is_no_trade": 40,
+          "no_unsupported_institutional_flow_claim": 40,
+          "no_unfitted_probability_claim": 40,
+          "score_disclosed_as_heuristic": 40
+        }
+      }
+    }
+  }
+}

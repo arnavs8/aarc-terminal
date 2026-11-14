@@ -98,6 +98,7 @@ interface HeadlineItem {
   label: string;
   score: number;
   published_at?: string;
+  source_url?: string;
 }
 
 interface StockSuggestion {
@@ -126,6 +127,8 @@ interface CROVerdict {
   action: 'LONG' | 'SHORT' | 'REJECT_TRADE';
   verdict?: 'LONG' | 'SHORT' | 'REJECT_TRADE';
   confidence: number;
+  generation_mode?: string;
+  evidence_audit?: { corrections: string[]; scope: string };
   recommended_allocation_pct: number;
   stop_loss_pct: number;
   kill_switch_reason: string;
@@ -431,11 +434,10 @@ export default function TerminalPage() {
           <div className="flex items-center gap-2 bg-[#12141C] border border-[#1E2230] px-3 py-1.5 rounded-md">
             <span className="h-2 w-2 rounded-full bg-[#10B981] animate-pulse"></span>
             <span className="text-[#94A3B8]">MODEL:</span>
-            <span className="text-white font-medium">gemini-2.5-flash</span>
+            <span className="text-white font-medium">Evidence-grounded committee</span>
           </div>
           <div className="flex items-center gap-2 bg-[#12141C] border border-[#1E2230] px-3 py-1.5 rounded-md">
-            <span className="text-[#94A3B8]">PORT:</span>
-            <span className="text-[#06B6D4]">8000 (SSE)</span>
+            <a href="/benchmark" className="text-[#06B6D4]">View committee benchmark</a>
           </div>
         </div>
       </header>
@@ -703,7 +705,7 @@ export default function TerminalPage() {
                 <p>Model decision <strong>{quantData.learned_forecast.decision}</strong></p>
               )}
               <p className="text-xs text-[#94A3B8]">
-                Experimental OHLCV model. Committee confidence is calculated separately.
+                Experimental OHLCV model. Committee scores are separate heuristics, not measured success probabilities.
                 Model age at this observation is {quantData.learned_forecast.age_calendar_days} calendar days.
                 Validate on recent data before use.
               </p>
@@ -879,7 +881,7 @@ export default function TerminalPage() {
               </div>
               <div className="flex items-center gap-2 text-[10px] font-mono text-[#64748B]">
                 <span className="px-1.5 py-0.5 rounded bg-[#10B981]/10 text-[#10B981] border border-[#10B981]/30">
-                  GPU ACCELERATED
+                  SEQUENCE ANALYSIS
                 </span>
                 <span>TradingView Engine</span>
               </div>
@@ -1065,7 +1067,7 @@ export default function TerminalPage() {
                     >
                       <div className="flex-1 min-w-0">
                         <p className="text-[#E2E8F0] line-clamp-2 leading-relaxed">
-                          {item.title}
+                          {item.source_url && /^https?:\/\//i.test(item.source_url) ? <a href={item.source_url} target="_blank" rel="noopener noreferrer" className="hover:text-cyan-300 underline">{item.title}</a> : item.title}
                         </p>
                         {item.published_at ? (
                           <div className="flex items-center gap-1.5 mt-1.5 text-[10px] text-[#64748B] font-mono">
@@ -1116,7 +1118,7 @@ export default function TerminalPage() {
                   </h3>
                 </div>
               </div>
-              <span className="text-[10px] font-mono text-[#64748B]">gemini-2.5-flash</span>
+              <span className="text-[10px] font-mono text-[#64748B]">Evidence-grounded committee</span>
             </div>
 
             <div className="text-xs leading-relaxed text-[#E2E8F0] space-y-2 min-h-[120px]">
@@ -1159,7 +1161,7 @@ export default function TerminalPage() {
                   </h3>
                 </div>
               </div>
-              <span className="text-[10px] font-mono text-[#64748B]">gemini-2.5-flash</span>
+              <span className="text-[10px] font-mono text-[#64748B]">Evidence-grounded committee</span>
             </div>
 
             <div className="text-xs leading-relaxed text-[#E2E8F0] space-y-2 min-h-[120px]">
@@ -1216,7 +1218,7 @@ export default function TerminalPage() {
 
               {croData && (
                 <span className="text-xs font-mono text-[#94A3B8]">
-                  Confidence: <span className="text-white font-bold">{croData.confidence}%</span>
+                  Heuristic score: <span className="text-white font-bold">{croData.confidence}/100</span>
                 </span>
               )}
             </div>
@@ -1255,7 +1257,8 @@ export default function TerminalPage() {
         <div className="pt-4">
           <p className="text-xs leading-relaxed text-[#CBD5E1]">
             {croData ? (
-              <span className="font-sans">{croData.verdict_summary}</span>
+              <span className="font-sans">{croData.verdict_summary}
+                  <span className="block mt-3 text-xs text-[#94A3B8]">Decision engine: {croData.generation_mode || "unreported"}. Evidence checks establish consistency with supplied inputs; they do not establish future accuracy.</span></span>
             ) : (
               <span className="text-[#64748B] font-mono text-xs">
                 The Chief Risk Officer evaluates both Bull and Bear arguments alongside IsolationForest anomaly counts,
@@ -1282,7 +1285,7 @@ export default function TerminalPage() {
             {showOutcome && (
               <div className="mt-3 p-4 rounded-lg bg-[#090A0F] border border-[#1E2230] grid grid-cols-1 md:grid-cols-3 gap-4 text-xs font-mono animate-fadeIn">
                 <div className="p-3 bg-[#12141C] border border-[#1E2230] rounded-md">
-                  <span className="text-[#94A3B8] block text-[11px]">Actual 5-Day Return</span>
+                  <span className="text-[#94A3B8] block text-[11px]">Market move · 5 sessions (close-to-close)</span>
                   <div
                     className={`text-xl font-bold mt-1 ${
                       (quantData.time_machine_actual_return_pct ?? 0) >= 0
@@ -1296,14 +1299,14 @@ export default function TerminalPage() {
                 </div>
 
                 <div className="p-3 bg-[#12141C] border border-[#1E2230] rounded-md">
-                  <span className="text-[#94A3B8] block text-[11px]">Actual 5-Day Max Drawdown</span>
+                  <span className="text-[#94A3B8] block text-[11px]">Market closing-price drawdown</span>
                   <div className="text-xl font-bold text-[#F43F5E] mt-1">
                     -{quantData.max_drawdown_5d_pct}%
                   </div>
                 </div>
 
                 <div className="p-3 bg-[#12141C] border border-[#1E2230] rounded-md flex flex-col justify-center">
-                  <span className="text-[#94A3B8] block text-[11px]">Committee Backtest Assessment</span>
+                  <span className="text-[#94A3B8] block text-[11px]">Directional check · not a P&L backtest</span>
                   <div className="text-xs text-white font-sans mt-1">
                     {croData?.recommended_allocation_pct === 0 ? (
                       <span className="text-[#CBD5E1]">No position approved. The observed price move produced no allocated strategy return.</span>

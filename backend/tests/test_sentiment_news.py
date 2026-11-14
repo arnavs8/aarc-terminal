@@ -1,6 +1,7 @@
 """Regression tests for per-ticker news selection, cutoff handling, and unavailability."""
 
 from types import SimpleNamespace
+import pandas as pd
 
 import pytest
 
@@ -120,7 +121,7 @@ def test_sentiment_unavailable_when_provider_returns_no_headlines(monkeypatch):
 
 def test_sentiment_unavailable_when_analyzer_fails(monkeypatch):
     def fake_parse(url):
-        return _feed(_entry("Headline", "Mon, 06 May 2024 07:00:00 GMT"))
+        return _feed(_entry("Headline", (pd.Timestamp.now(tz="UTC") - pd.Timedelta(days=1)).isoformat()))
 
     monkeypatch.setattr(sentiment_nlp.feedparser, "parse", fake_parse)
 
@@ -152,3 +153,12 @@ def test_sentiment_unavailable_when_rss_fetch_fails(monkeypatch):
     assert result["news_available"] is False
     assert result["aggregate_sentiment_score"] is None
     assert "network down" in result["news_error"]
+
+
+def test_historical_news_rejects_stale_and_same_day_after_midnight(monkeypatch, fake_analyzer):
+    monkeypatch.setattr(sentiment_nlp.feedparser, "parse", lambda _: _feed(
+        _entry("Stale", "2023-01-01T00:00:00Z"),
+        _entry("After snapshot", "2024-06-03T22:00:00Z"),
+        _entry("Recent", "2024-06-02T10:00:00Z")))
+    result = sentiment_nlp.analyze_ticker_sentiment("AAPL", "2024-06-03")
+    assert [h["title"] for h in result["headlines"]] == ["Recent"]

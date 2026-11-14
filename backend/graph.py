@@ -103,107 +103,35 @@ def _sentiment_inputs(news_data: Dict[str, Any]) -> tuple:
     return 0.0, "UNAVAILABLE"
 
 
-def run_bull_node(quant_data: Dict[str, Any], news_data: Dict[str, Any]) -> str:
-    """
-    Bull node: Uses Gemini to write 3 sharp, quantitative bullet points
-    arguing for a LONG position using exact numbers from quant and news.
-    """
-    client = _get_gemini_client()
-    ticker = quant_data.get("ticker", "TICKER")
-    price = quant_data.get("current_price", 0.0)
-    vol = quant_data.get("annualized_volatility", 0.0)
-    var = quant_data.get("daily_VaR_95_pct", 0.0)
-    kelly = quant_data.get("half_kelly_allocation_pct", 10.0)
-    anomalies = quant_data.get("recent_10d_anomalies", 0)
-    rsi = quant_data.get("rsi_14", 50.0)
-    ret_5d = quant_data.get("recent_5d_return_pct", 0.0)
-    sma_trend = quant_data.get("sma20_trend", "BULLISH")
-    sentiment, sentiment_label = _sentiment_inputs(news_data)
-    headlines = [h.get("title", "") for h in news_data.get("headlines", [])[:3]]
-
-    prompt = f"""You are the Lead Quantitative Bull Analyst at an elite multi-strategy hedge fund.
-Your task is to write EXACTLY 3 sharp, aggressive, institutional-grade quantitative bullet points arguing for a LONG position in {ticker}.
-
-Exact Quantitative Metrics:
-- Current Price: ₹{price} / ${price}
-- 20-day Trend: {sma_trend} (Recent 5-day return: {ret_5d}%)
-- 14-day RSI: {rsi}
-- Annualized Volatility: {vol}%
-- 95% Daily VaR: {var}%
-- Half-Kelly Capacity Floor: {kelly}%
-- Recent 10-day Anomalies: {anomalies}
-- News Sentiment Score: {sentiment_label} (-1.0 to +1.0)
-- Recent Headlines: {headlines}
-
-Rules:
-1. Exactly 3 bullet points, each starting with '• '.
-2. Cite the specific numbers (price, Kelly fraction {kelly}%, RSI {rsi}, SMA trend, or sentiment {sentiment_label}) to justify upside.
-3. Keep each bullet point under 35 words. Be ultra-concise and professional.
-"""
-    if client:
-        res = _call_gemini(client, prompt)
-        if res and res.text:
-            return res.text.strip()
-
-    # Dynamic metric-rich institutional fallback
-    return (
-        f"• Trend regime is {sma_trend} with 5-day momentum at {ret_5d}%, supporting an active Half-Kelly capacity allocation of {kelly}%.\n"
-        f"• RSI-14 sits at {rsi} with contained 95% daily VaR of {var}%, providing an asymmetrical entry window against {vol}% annualized vol.\n"
-        f"• Aggregate news sentiment reads {sentiment_label} with {anomalies} price/volume anomalies reflecting institutional accumulation."
-    )
+def run_bull_node(quant_data, news_data):
+    from backend.committee_audit import grounded_arguments
+    return grounded_arguments(quant_data, news_data)[0]
 
 
-def run_bear_node(quant_data: Dict[str, Any], news_data: Dict[str, Any], bull_thesis: str) -> str:
-    """
-    Bear node: Acts as a ruthless short-seller tearing apart the bull case
-    using anomaly count, VaR, volatility, RSI, and negative headlines.
-    """
-    client = _get_gemini_client()
-    ticker = quant_data.get("ticker", "TICKER")
-    price = quant_data.get("current_price", 0.0)
-    vol = quant_data.get("annualized_volatility", 0.0)
-    var = quant_data.get("daily_VaR_95_pct", 0.0)
-    kelly = quant_data.get("half_kelly_allocation_pct", 10.0)
-    anomalies = quant_data.get("recent_10d_anomalies", 0)
-    rsi = quant_data.get("rsi_14", 50.0)
-    ret_5d = quant_data.get("recent_5d_return_pct", 0.0)
-    sentiment, sentiment_label = _sentiment_inputs(news_data)
-    headlines = [h.get("title", "") for h in news_data.get("headlines", [])]
-
-    prompt = f"""You are a ruthless short-seller and Head of Adversarial Stress Testing at a Tier-1 macro fund.
-Your task is to ruthlessly dismantle the Bull Case for {ticker}.
-
-Quantitative Metrics:
-- Current Price: ₹{price} / ${price}
-- 14-day RSI: {rsi} (5-day return: {ret_5d}%)
-- Annualized Volatility: {vol}%
-- 95% Daily VaR: {var}%
-- Recent 10-day Anomalies: {anomalies}
-- News Sentiment Score: {sentiment_label}
-- Key Headlines: {headlines}
-
-Bull Case:
-{bull_thesis}
-
-Rules:
-1. Write 3 savage, numbers-driven counterarguments exposing liquidity traps, tail risks, or overbought conditions.
-2. Weaponize the RSI ({rsi}), anomaly count ({anomalies}), VaR ({var}%), and annualized volatility ({vol}%).
-3. Exactly 3 bullet points starting with '• '. Keep each bullet point under 35 words.
-"""
-    if client:
-        res = _call_gemini(client, prompt)
-        if res and res.text:
-            return res.text.strip()
-
-    # Dynamic metric-rich institutional fallback
-    return (
-        f"• Tail risk is severe: 95% daily VaR of {var}% with {vol}% annualized vol exposes any {kelly}% allocation to fat-tail liquidation.\n"
-        f"• 14-day RSI sits at {rsi}; any momentum stalling will trigger abrupt mean-reversion and trap retail longs chasing {price}.\n"
-        f"• {anomalies} price/volume anomalies in 10 sessions combined with headline sentiment ({sentiment_label}) flag institutional distribution risk."
-    )
+def run_bear_node(quant_data, news_data, bull_thesis):
+    from backend.committee_audit import grounded_arguments
+    return grounded_arguments(quant_data, news_data)[1]
 
 
-def run_cro_node(
+def run_cro_node(quant_data, news_data, bull_thesis, bear_thesis):
+    from backend.committee_audit import finalize_verdict
+    proposal = _run_cro_proposal(quant_data, news_data, bull_thesis, bear_thesis)
+    result = finalize_verdict(proposal, quant_data, news_data)
+    # Track only the final approved decision, not a proposal later rejected by audit.
+    if not quant_data.get("is_historical_replay", False) and result["recommended_allocation_pct"] > 0:
+        import datetime
+        RollingAccuracyTracker().log_prediction(
+            ticker=quant_data.get("ticker", "TICKER"), action=result["action"],
+            raw_confidence=result.get("raw_confidence", result["confidence"]),
+            current_price=quant_data.get("current_price", 0),
+            date_str=quant_data.get("as_of_date", datetime.date.today().isoformat()),
+            garch_var_pct=quant_data.get("daily_VaR_95_pct", 0),
+            stop_loss_pct=result["stop_loss_pct"],
+            expected_shortfall_pct=quant_data.get("expected_shortfall_95_pct"))
+    return result
+
+
+def _run_cro_proposal(
     quant_data: Dict[str, Any],
     news_data: Dict[str, Any],
     bull_thesis: str,
@@ -343,17 +271,7 @@ Instructions:
                     else:
                         result["recommended_allocation_pct"] = 0.0
 
-                tracker.log_prediction(
-                    ticker=ticker,
-                    action=result["action"],
-                    raw_confidence=result["raw_confidence"],
-                    current_price=price,
-                    date_str=datetime.date.today().isoformat(),
-                    garch_var_pct=var,
-                    stop_loss_pct=suggested_stop,
-                    expected_shortfall_pct=quant_data.get("expected_shortfall_95_pct"),
-                )
-
+                result["generation_mode"] = "gemini_proposal_with_rule_constraints"
                 return result
             except Exception as e:
                 print(f"[CRO JSON PARSE ERROR]: {e}")
@@ -428,18 +346,6 @@ Instructions:
     else:
         alloc = 0.0
 
-    today_str = datetime.date.today().isoformat()
-    tracker.log_prediction(
-        ticker=ticker,
-        action=action,
-        raw_confidence=conf,
-        current_price=price,
-        date_str=today_str,
-        garch_var_pct=var,
-        stop_loss_pct=suggested_stop,
-        expected_shortfall_pct=quant_data.get("expected_shortfall_95_pct"),
-    )
-
     if temp_anomaly.get("is_temporal_anomaly", False) and action != "REJECT_TRADE":
         recon_err = temp_anomaly.get("reconstruction_error", 0.0)
         kill = f"{kill} [LSTM Autoencoder Alert: Sequential anomaly flagged with reconstruction error {recon_err:.3f}]"
@@ -449,6 +355,7 @@ Instructions:
         kill = f"{kill} [Gated Alert: {supp_reason}]"
 
     return {
+        "generation_mode": "deterministic_rules",
         "action": action,
         "verdict": action,
         "raw_confidence": conf,
@@ -481,13 +388,13 @@ async def stream_committee(ticker: str, cutoff_date: Optional[str] = None):
         vol = quant_data.get("annualized_volatility", 20.0)
         hmm_state = quant_data.get("hmm_regime", {})
         quant_data["regime"] = {
-            "state": hmm_state.get("current_state", 1 if vol > 24.0 else 0),
-            "label": hmm_state.get("state_label", "HIGH_VOLATILITY" if vol > 24.0 else "LOW_VOLATILITY"),
-            "prob_high_vol": hmm_state.get("state_probabilities", {}).get("HIGH_VOL_PANIC", round(min(0.99, max(0.01, vol / 40.0)), 3)),
-            "state_probabilities": hmm_state.get("state_probabilities", {}),
+            "state": hmm_state.get("active_state"),
+            "label": hmm_state.get("regime_name", "UNAVAILABLE"),
+            "prob_high_vol": hmm_state.get("probabilities", {}).get("P_Panic"),
+            "state_probabilities": hmm_state.get("probabilities", {}),
             "kelly_scale_factor": hmm_state.get("kelly_scale_factor", 1.0),
         }
-        quant_data["garch_volatility_forecast_pct"] = quant_data.get("garch_vol_forecast_pct", round(vol * 1.02, 2))
+        quant_data["garch_volatility_forecast_pct"] = quant_data.get("garch_vol_forecast_pct")
         yield {
             "node": "quant",
             "data": quant_data
@@ -571,72 +478,6 @@ async def stream_committee(ticker: str, cutoff_date: Optional[str] = None):
     # 5. CRO Node
     try:
         cro_verdict = await asyncio.to_thread(run_cro_node, quant_data, news_data, bull_thesis, bear_thesis)
-
-        # Attach explainability drivers and calibrated confidence to CRO payload
-        top_drivers = {
-            "positive": [
-                {"feature": "close_gt_sma20", "value": quant_data.get("close_gt_sma20", True), "impact": "+28.4%"},
-                {"feature": "sentiment_score", "value": news_data.get("aggregate_sentiment_score", 0.0), "impact": "+22.1%"},
-                {"feature": "momentum_5d", "value": quant_data.get("recent_5d_return_pct", 0.0), "impact": "+14.2%"},
-            ],
-            "negative": [
-                {"feature": "daily_VaR_95", "value": quant_data.get("daily_VaR_95_pct", -2.1), "impact": "-31.2%"},
-                {"feature": "volatility", "value": quant_data.get("annualized_volatility", 18.5), "impact": "-24.5%"},
-                {"feature": "isolation_forest_anomalies", "value": quant_data.get("recent_10d_anomalies", 0), "impact": "-20.8%"},
-            ]
-        }
-        cro_verdict["top_drivers"] = top_drivers
-
-        # Calibrated probabilities & Conformal set
-        action = cro_verdict.get("action", "LONG")
-        conf = cro_verdict.get("confidence", 75)
-        if action == "LONG":
-            cal_probs = {"DOWN": 0.12, "FLAT": 0.22, "UP": 0.66}
-            conformal_set = ["LONG"] if conf >= 75 else ["LONG", "FLAT"]
-        elif action == "SHORT":
-            cal_probs = {"DOWN": 0.64, "FLAT": 0.24, "UP": 0.12}
-            conformal_set = ["SHORT"] if conf >= 75 else ["SHORT", "FLAT"]
-        else:
-            cal_probs = {"DOWN": 0.48, "FLAT": 0.38, "UP": 0.14}
-            conformal_set = ["REJECT_TRADE", "DOWN"]
-
-        cro_verdict["calibrated_probabilities"] = cal_probs
-        cro_verdict["conformal_prediction_set"] = conformal_set
-        tracker_meta = cro_verdict.get("rolling_accuracy_telemetry", {})
-        bayes_meta = cro_verdict.get("bayesian_calibration", {})
-        regime_meta = cro_verdict.get("regime_gating", {})
-        temp_meta = cro_verdict.get("temperature_scaling", {})
-
-        cro_verdict["confidence_breakdown"] = {
-            "raw_model_confidence": cro_verdict.get("raw_confidence", conf),
-            "bayesian_expected_accuracy_pct": bayes_meta.get("posterior_mean_accuracy_pct", 70.0),
-            "credible_interval_90": [
-                bayes_meta.get("credible_lower_bound_pct", 50.0),
-                bayes_meta.get("credible_upper_bound_pct", 85.0)
-            ],
-            "bayesian_allocation_multiplier": bayes_meta.get("bayesian_allocation_multiplier", 1.0),
-            "rolling_accuracy_multiplier": tracker_meta.get("confidence_multiplier", 1.0),
-            "rolling_hit_rate_pct": tracker_meta.get("rolling_hit_rate_pct", 65.0),
-            "agreement_penalty": 0.0 if conf >= 80 else 4.0,
-            "anomaly_penalty": min(16.0, quant_data.get("recent_10d_anomalies", 0) * 3.5),
-            "regime_penalty": 5.0 if quant_data.get("annualized_volatility", 0.0) > 25.0 else 0.0,
-            "regime_scale_factor": regime_meta.get("regime_scale_factor", 1.0),
-            "is_regime_suppressed": regime_meta.get("is_suppressed", False),
-            "forgetting_factor_lambda": bayes_meta.get("forgetting_factor_lambda", 0.85),
-            "temperature_scaled_prob": temp_meta.get("temperature_scaled_probability"),
-            "brier_score": tracker_meta.get("brier_metrics", {}).get("brier_score", 0.22),
-            "brier_skill_score": tracker_meta.get("brier_metrics", {}).get("brier_skill_score", 0.0),
-            "wfv_scaling_factor": tracker_meta.get("walk_forward_metrics", {}).get("wfv_scaling_factor", 1.0),
-            "is_wfv_gated": tracker_meta.get("walk_forward_metrics", {}).get("is_gated", False),
-            "expected_shortfall_95_pct": quant_data.get("expected_shortfall_95_pct"),
-            "empirical_coverage_pct": quant_data.get("empirical_coverage_pct"),
-            "calibrated_confidence": conf,
-        }
-        cro_verdict["hmm_regime"] = quant_data.get("hmm_regime", {})
-        cro_verdict["temporal_anomaly"] = quant_data.get("temporal_anomaly", {})
-        cro_verdict["aspect_sentiment"] = news_data.get("aspect_sentiment", {})
-        cro_verdict["tone_shift_index"] = news_data.get("tone_shift_index", 0.0)
-        cro_verdict["tone_shift_regime"] = news_data.get("tone_shift_regime", "NEUTRAL")
 
         yield {
             "node": "cro",

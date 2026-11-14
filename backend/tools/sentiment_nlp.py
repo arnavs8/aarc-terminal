@@ -102,6 +102,7 @@ class FinBertSentimentAnalyzer:
                 "label": final_label,
                 "score": round(cal_conf, 3),
                 "published_at": str(published_at).strip() if published_at else "",
+                "source_url": meta.get("source_url", ""),
                 "net_polarity": round(final_net, 3),
                 "heuristic_routing": calibrated["routing"],
                 "lm_matches": calibrated["lm_matches"],
@@ -184,7 +185,7 @@ def _parse_published_at(value: str) -> Optional[pd.Timestamp]:
     if parsed is None or pd.isna(parsed):
         return None
     if getattr(parsed, "tzinfo", None) is not None:
-        parsed = parsed.tz_localize(None)
+        parsed = parsed.tz_convert("UTC").tz_localize(None)
     return parsed
 
 
@@ -220,7 +221,10 @@ def analyze_ticker_sentiment(
         try:
             cutoff_dt = pd.to_datetime(cutoff_date).tz_localize(None)
         except Exception:
-            cutoff_dt = None
+            return _unavailable(ticker, "Invalid historical news cutoff")
+
+    reference_dt = cutoff_dt if cutoff_dt is not None else pd.Timestamp.now(tz="UTC").tz_localize(None)
+    oldest_dt = reference_dt - pd.Timedelta(days=30)
 
     items: List[Dict[str, str]] = []
 
@@ -244,23 +248,23 @@ def analyze_ticker_sentiment(
                 )
             pub_dt = _parse_published_at(str(pub_date).strip() if pub_date else "")
 
-            if cutoff_dt is not None:
-                # Historical mode: discard future news and undated news, since
-                # neither can be verified to predate the cutoff.
-                if pub_dt is None or pub_dt.date() > cutoff_dt.date():
-                    continue
+            # A date-only historical cutoff uses midnight UTC conservatively.
+            # Reject undated, future and >30-day-old headlines in both modes.
+            if pub_dt is None or not oldest_dt <= pub_dt <= reference_dt:
+                continue
 
             if title:
                 items.append({
                     "title": title,
-                    "published_at": str(pub_date).strip() if pub_date else ""
+                    "published_at": str(pub_date).strip() if pub_date else "",
+                    "source_url": getattr(entry, "link", "") or (entry.get("link", "") if isinstance(entry, dict) else ""),
                 })
 
     if not items:
         reason = (
-            "No dated headlines available on or before the cutoff"
+            "No dated headlines within 30 days on or before the cutoff"
             if cutoff_dt is not None
-            else "No headlines returned by the news provider"
+            else "No recent dated headlines returned by the news provider"
         )
         return _unavailable(ticker, reason)
 
