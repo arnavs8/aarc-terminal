@@ -1,5 +1,7 @@
 # AARC Quant Terminal
 
+Historical data ingestion, chronological benchmarks and model retraining are documented in [HISTORICAL_BENCHMARK.md](HISTORICAL_BENCHMARK.md). Run `python -m backend.historical --help` for the new workflow.
+
 Autonomous Adversarial Risk Committee (AARC) is a dark-mode stock research dashboard. It combines historical market data, technical/risk metrics, financial-news sentiment, and adversarial LONG/SHORT analysis. It is a research and decision-support tool, **not financial advice or a live execution/trading system**.
 
 ## Features

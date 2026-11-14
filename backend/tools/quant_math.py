@@ -7,6 +7,7 @@ from backend.models.garch_engine import GARCHVolatilityEngine
 from backend.features.ensemble_anomaly import MultiTimeframeEnsembleIsolationForest
 from backend.models.hmm_regime import MarketRegimePipeline
 from backend.models.lstm_autoencoder import LSTMTemporalAnomalyDetector
+from backend.models.historical_forecast import historical_forecast
 
 
 def _clean_number(val: Any) -> float:
@@ -314,6 +315,7 @@ def analyze_ticker_quant(ticker: str, cutoff_date: Optional[str] = None) -> Dict
 
     return {
         "ticker": clean_ticker_sym,
+        "learned_forecast": historical_forecast(clean_ticker_sym, history_df),
         "current_price": current_price,
         "annualized_volatility": ann_vol,
         "daily_VaR_95_pct": var_95,

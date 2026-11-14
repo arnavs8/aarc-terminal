@@ -11,3 +11,7 @@ backend/.venv/
 backend/data_cache/
 .pytest_cache/
 .DS_Store
+datasets/
+benchmark-runs/
+*.joblib
+backend/artifacts/historical-*.json

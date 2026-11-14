@@ -1,0 +1,374 @@
+{
+  "market": "india",
+  "source": "hk7797/stock-market-india",
+  "model_name": "regularized_logistic_all_blend_1",
+  "horizon": 5,
+  "temperature": 1.5,
+  "training_data_end": "2019-12-31",
+  "purpose": "frozen benchmark model",
+  "features": [
+    "return_1d",
+    "return_5d",
+    "return_20d",
+    "realized_vol_20d",
+    "vol_ratio_20_60",
+    "rsi_14_raw",
+    "rsi_14_norm",
+    "macd_hist_ratio",
+    "macd_signal_ratio",
+    "bollinger_pct_b",
+    "bollinger_bandwidth",
+    "sma20_z_score",
+    "atr_14_ratio",
+    "volume_zscore_20d",
+    "volume_ratio_5_20",
+    "ma_ratio_close_sma20",
+    "ma_ratio_close_sma50",
+    "ma_ratio_sma20_sma50",
+    "hl_spread"
+  ],
+  "symbols": [
+    "HDFCBANK",
+    "HINDUNILVR",
+    "ICICIBANK",
+    "INFY",
+    "ITC",
+    "LT",
+    "MARUTI",
+    "RELIANCE",
+    "SBIN",
+    "TCS"
+  ],
+  "selection": {
+    "method": "three purged expanding-window folds inside training; separate validation for shrinkage and temperature",
+    "candidate_scores": {
+      "logistic_all": {
+        "fold_macro_log_loss": [
+          1.0976942838776758,
+          1.0705899091044917,
+          1.1234122518743774
+        ],
+        "mean": 1.097232148285515
+      },
+      "regularized_logistic_all": {
+        "fold_macro_log_loss": [
+          1.0934643309058054,
+          1.0702657599973766,
+          1.118257691668068
+        ],
+        "mean": 1.09399592752375
+      },
+      "regularized_logistic_252": {
+        "fold_macro_log_loss": [
+          1.0934643309058054,
+          1.0718039029704964,
+          1.1200052408385976
+        ],
+        "mean": 1.0950911582382998
+      },
+      "regularized_logistic_756": {
+        "fold_macro_log_loss": [
+          1.0934643309058054,
+          1.0702657599973766,
+          1.118257691668068
+        ],
+        "mean": 1.09399592752375
+      },
+      "small_tree_756": {
+        "fold_macro_log_loss": [
+          1.1538433518110884,
+          1.101672073726378,
+          1.184575885319356
+        ],
+        "mean": 1.1466971036189408
+      }
+    },
+    "selected_candidate": "regularized_logistic_all",
+    "training_window_sessions": null,
+    "model_weight": 1.0,
+    "validation_macro_log_loss": 1.069717724293842,
+    "baseline_validation_macro_log_loss": 1.0906250431328322,
+    "folds": [
+      {
+        "fit_label_end": "2018-01-30",
+        "validation_start": "2018-01-31",
+        "validation_label_end": "2018-05-21"
+      },
+      {
+        "fit_label_end": "2018-05-21",
+        "validation_start": "2018-05-22",
+        "validation_label_end": "2018-09-03"
+      },
+      {
+        "fit_label_end": "2018-09-03",
+        "validation_start": "2018-09-04",
+        "validation_label_end": "2018-12-21"
+      }
+    ]
+  },
+  "data_hashes": {
+    "HDFCBANK": "5901184b378b558ccaad6242adad953bf7dafc5ee5665abf3516776c05c29b30",
+    "HINDUNILVR": "c2a679cbbf42c133c7fd33d606d5a840fd92b0c2eb301382db6ac51df795786d",
+    "ICICIBANK": "ae34d7af17f3ae0642252941edb563da8e7355341f1067216ee2be81a8a5e02c",
+    "INFY": "6d94fe12fbeac9973ec38974b615f106e58bcc936db50b1b77c6e688f038330d",
+    "ITC": "c1136668646724302e33a2503fd2f5e5fe7c86a84ce7b77ec67d1c786b0ec39e",
+    "LT": "32c4a962a76d237a538965caca01848ecbd399650dcbbd6c105441fd5b7a5551",
+    "MARUTI": "7296aa1990829b2837042849ad85dff7320484a56e0e21889509acd97cfac916",
+    "RELIANCE": "c7935f5e69709d15bf20f50d0944c33e6f818da9f1af6cfbaf8df2c11f3c4d26",
+    "SBIN": "e0c7be54def6388edff4fc1fe1bdad1a67763ac2cc020b445faca541366f9106",
+    "TCS": "7be282225fd7be4913dc635843e1521c99b1412a0e4b57fc8fc1adc985d0bf1f"
+  },
+  "train_end": "2018-12-31",
+  "validation_end": "2019-12-31",
+  "split_rows": {
+    "train": 4400,
+    "validation": 2400,
+    "test": 2480
+  },
+  "test_start": "2020-01-01",
+  "test_end": "2021-01-01",
+  "selection_audit": {
+    "method": "three purged expanding-window folds inside training; separate validation for shrinkage and temperature",
+    "candidate_scores": {
+      "logistic_all": {
+        "fold_macro_log_loss": [
+          1.0976942838776758,
+          1.0705899091044917,
+          1.1234122518743774
+        ],
+        "mean": 1.097232148285515
+      },
+      "regularized_logistic_all": {
+        "fold_macro_log_loss": [
+          1.0934643309058054,
+          1.0702657599973766,
+          1.118257691668068
+        ],
+        "mean": 1.09399592752375
+      },
+      "regularized_logistic_252": {
+        "fold_macro_log_loss": [
+          1.0934643309058054,
+          1.0718039029704964,
+          1.1200052408385976
+        ],
+        "mean": 1.0950911582382998
+      },
+      "regularized_logistic_756": {
+        "fold_macro_log_loss": [
+          1.0934643309058054,
+          1.0702657599973766,
+          1.118257691668068
+        ],
+        "mean": 1.09399592752375
+      },
+      "small_tree_756": {
+        "fold_macro_log_loss": [
+          1.1538433518110884,
+          1.101672073726378,
+          1.184575885319356
+        ],
+        "mean": 1.1466971036189408
+      }
+    },
+    "selected_candidate": "regularized_logistic_all",
+    "training_window_sessions": null,
+    "model_weight": 1.0,
+    "validation_macro_log_loss": 1.069717724293842,
+    "baseline_validation_macro_log_loss": 1.0906250431328322,
+    "folds": [
+      {
+        "fit_label_end": "2018-01-30",
+        "validation_start": "2018-01-31",
+        "validation_label_end": "2018-05-21"
+      },
+      {
+        "fit_label_end": "2018-05-21",
+        "validation_start": "2018-05-22",
+        "validation_label_end": "2018-09-03"
+      },
+      {
+        "fit_label_end": "2018-09-03",
+        "validation_start": "2018-09-04",
+        "validation_label_end": "2018-12-21"
+      }
+    ]
+  },
+  "evaluation_status": "Previously inspected test periods are development comparisons; reserve fresh dates/universe for confirmation.",
+  "test_metrics": {
+    "class_prior": {
+      "n": 2480,
+      "accuracy": 0.4173387096774194,
+      "log_loss": 1.0835198902175809,
+      "brier": 0.6562697980538522,
+      "ece_10_bins": 0.019252199413489712
+    },
+    "momentum": {
+      "n": 2480,
+      "accuracy": 0.31693548387096776,
+      "log_loss": 1.2612486951384814,
+      "brier": 0.7864516129032258,
+      "ece_10_bins": 0.2830645161290322
+    },
+    "selected_raw": {
+      "n": 2480,
+      "accuracy": 0.41330645161290325,
+      "log_loss": 1.1760089834707683,
+      "brier": 0.6914566312506818,
+      "ece_10_bins": 0.08795185634993395
+    },
+    "selected_calibrated": {
+      "n": 2480,
+      "accuracy": 0.41330645161290325,
+      "log_loss": 1.1229516116255578,
+      "brier": 0.6727334061152903,
+      "ece_10_bins": 0.03651273849894065
+    }
+  },
+  "macro_symbol_log_loss": 1.122951611625558,
+  "per_symbol": {
+    "HDFCBANK": {
+      "n": 248,
+      "accuracy": 0.32661290322580644,
+      "log_loss": 1.16727504664497,
+      "brier": 0.7042273712343935,
+      "ece_10_bins": 0.1180271128092575
+    },
+    "HINDUNILVR": {
+      "n": 248,
+      "accuracy": 0.46774193548387094,
+      "log_loss": 1.0627690164227739,
+      "brier": 0.6396929844857558,
+      "ece_10_bins": 0.07360482776582808
+    },
+    "ICICIBANK": {
+      "n": 248,
+      "accuracy": 0.3467741935483871,
+      "log_loss": 1.2169451241216598,
+      "brier": 0.7278864910298031,
+      "ece_10_bins": 0.1353383701042825
+    },
+    "INFY": {
+      "n": 248,
+      "accuracy": 0.4596774193548387,
+      "log_loss": 1.0395402906064082,
+      "brier": 0.6224359310667025,
+      "ece_10_bins": 0.0775209099722779
+    },
+    "ITC": {
+      "n": 248,
+      "accuracy": 0.40725806451612906,
+      "log_loss": 1.117977415897461,
+      "brier": 0.6659040260235572,
+      "ece_10_bins": 0.05936646466923441
+    },
+    "LT": {
+      "n": 248,
+      "accuracy": 0.3588709677419355,
+      "log_loss": 1.1582754920022837,
+      "brier": 0.6987400325463733,
+      "ece_10_bins": 0.08964068196207883
+    },
+    "MARUTI": {
+      "n": 248,
+      "accuracy": 0.3548387096774194,
+      "log_loss": 1.1391073780814278,
+      "brier": 0.6804507073214298,
+      "ece_10_bins": 0.09812489527951446
+    },
+    "RELIANCE": {
+      "n": 248,
+      "accuracy": 0.47580645161290325,
+      "log_loss": 1.12227390644685,
+      "brier": 0.6570185237424215,
+      "ece_10_bins": 0.06490523093261281
+    },
+    "SBIN": {
+      "n": 248,
+      "accuracy": 0.3951612903225806,
+      "log_loss": 1.1538877217761667,
+      "brier": 0.6999584235989186,
+      "ece_10_bins": 0.08513386324867801
+    },
+    "TCS": {
+      "n": 248,
+      "accuracy": 0.5403225806451613,
+      "log_loss": 1.0514647242555781,
+      "brier": 0.6310195701035476,
+      "ece_10_bins": 0.12024943653467228
+    }
+  },
+  "strategy": {
+    "HDFCBANK": {
+      "strategy_return": 0.0,
+      "always_long_same_schedule_return": -0.25757586229322604,
+      "max_drawdown_at_exit": -0.0,
+      "active_trades": 0
+    },
+    "HINDUNILVR": {
+      "strategy_return": 0.0,
+      "always_long_same_schedule_return": -0.10463500501805667,
+      "max_drawdown_at_exit": -0.0,
+      "active_trades": 0
+    },
+    "ICICIBANK": {
+      "strategy_return": 0.0,
+      "always_long_same_schedule_return": -0.4041553205944075,
+      "max_drawdown_at_exit": -0.0,
+      "active_trades": 0
+    },
+    "INFY": {
+      "strategy_return": 0.0,
+      "always_long_same_schedule_return": 0.31919393739010626,
+      "max_drawdown_at_exit": -0.0,
+      "active_trades": 0
+    },
+    "ITC": {
+      "strategy_return": 0.0,
+      "always_long_same_schedule_return": -0.3892964542352292,
+      "max_drawdown_at_exit": -0.0,
+      "active_trades": 0
+    },
+    "LT": {
+      "strategy_return": 0.0,
+      "always_long_same_schedule_return": -0.3577314027726949,
+      "max_drawdown_at_exit": -0.0,
+      "active_trades": 0
+    },
+    "MARUTI": {
+      "strategy_return": 0.0,
+      "always_long_same_schedule_return": -0.27403929231992696,
+      "max_drawdown_at_exit": -0.0,
+      "active_trades": 0
+    },
+    "RELIANCE": {
+      "strategy_return": 0.0,
+      "always_long_same_schedule_return": -0.11814119483650387,
+      "max_drawdown_at_exit": -0.0,
+      "active_trades": 0
+    },
+    "SBIN": {
+      "strategy_return": 0.0,
+      "always_long_same_schedule_return": -0.4964177785718116,
+      "max_drawdown_at_exit": -0.0,
+      "active_trades": 0
+    },
+    "TCS": {
+      "strategy_return": 0.0,
+      "always_long_same_schedule_return": 0.003111052037019224,
+      "max_drawdown_at_exit": -0.0,
+      "active_trades": 0
+    }
+  },
+  "round_trip_bps": 30,
+  "limitations": [
+    "Selected historical universe can have survivorship and selection bias.",
+    "Source corporate-action adjustment basis is unverified.",
+    "Price/volume only; historical news and point-in-time fundamentals excluded.",
+    "Test labels overlap for classification; effective sample size is lower than row count.",
+    "Strategy uses non-overlapping long/cash trades and exit-only drawdown, excludes dividends and overnight gaps between trades.",
+    "Historic test performance does not establish current-market performance."
+  ],
+  "beats_class_prior": false,
+  "promotion": "Research candidate only; requires recent, untouched data and verified price basis."
+}

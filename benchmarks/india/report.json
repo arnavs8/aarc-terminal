@@ -1,0 +1,231 @@
+{
+  "market": "india",
+  "source": "hk7797/stock-market-india",
+  "model_name": "logistic",
+  "horizon": 5,
+  "temperature": 1.5,
+  "training_data_end": "2019-12-31",
+  "purpose": "frozen benchmark model",
+  "features": [
+    "return_1d",
+    "return_5d",
+    "return_20d",
+    "realized_vol_20d",
+    "vol_ratio_20_60",
+    "rsi_14_raw",
+    "rsi_14_norm",
+    "macd_hist_ratio",
+    "macd_signal_ratio",
+    "bollinger_pct_b",
+    "bollinger_bandwidth",
+    "sma20_z_score",
+    "atr_14_ratio",
+    "volume_zscore_20d",
+    "volume_ratio_5_20",
+    "ma_ratio_close_sma20",
+    "ma_ratio_close_sma50",
+    "ma_ratio_sma20_sma50",
+    "hl_spread"
+  ],
+  "symbols": [
+    "HDFCBANK",
+    "HINDUNILVR",
+    "ICICIBANK",
+    "INFY",
+    "ITC",
+    "LT",
+    "MARUTI",
+    "RELIANCE",
+    "SBIN",
+    "TCS"
+  ],
+  "train_end": "2018-12-31",
+  "validation_end": "2019-12-31",
+  "split_rows": {
+    "train": 4400,
+    "validation": 2400,
+    "test": 2480
+  },
+  "test_start": "2020-01-01",
+  "test_end": "2021-01-01",
+  "selection_validation_log_loss": {
+    "logistic": 1.0775736246215823,
+    "lightgbm": 1.1613377999507712
+  },
+  "test_metrics": {
+    "class_prior": {
+      "n": 2480,
+      "accuracy": 0.4173387096774194,
+      "log_loss": 1.0835198902175809,
+      "brier": 0.6562697980538522,
+      "ece_10_bins": 0.019252199413489712
+    },
+    "momentum": {
+      "n": 2480,
+      "accuracy": 0.31693548387096776,
+      "log_loss": 1.2612486951384814,
+      "brier": 0.7864516129032258,
+      "ece_10_bins": 0.2830645161290322
+    },
+    "selected_raw": {
+      "n": 2480,
+      "accuracy": 0.41330645161290325,
+      "log_loss": 1.1863022264278946,
+      "brier": 0.6943545284777889,
+      "ece_10_bins": 0.0905600477652288
+    },
+    "selected_calibrated": {
+      "n": 2480,
+      "accuracy": 0.41330645161290325,
+      "log_loss": 1.1282718174473765,
+      "brier": 0.6748743652822067,
+      "ece_10_bins": 0.039020357782420384
+    }
+  },
+  "macro_symbol_log_loss": 1.1282718174473765,
+  "per_symbol": {
+    "HDFCBANK": {
+      "n": 248,
+      "accuracy": 0.32661290322580644,
+      "log_loss": 1.1719852296544573,
+      "brier": 0.7061195400514252,
+      "ece_10_bins": 0.12055993070445852
+    },
+    "HINDUNILVR": {
+      "n": 248,
+      "accuracy": 0.45161290322580644,
+      "log_loss": 1.0621567471018305,
+      "brier": 0.6390020323732419,
+      "ece_10_bins": 0.07118079473025274
+    },
+    "ICICIBANK": {
+      "n": 248,
+      "accuracy": 0.3629032258064516,
+      "log_loss": 1.2320711046357757,
+      "brier": 0.7340739441486922,
+      "ece_10_bins": 0.13754006770225755
+    },
+    "INFY": {
+      "n": 248,
+      "accuracy": 0.46774193548387094,
+      "log_loss": 1.0390914450678899,
+      "brier": 0.6225029312443263,
+      "ece_10_bins": 0.06930451103112728
+    },
+    "ITC": {
+      "n": 248,
+      "accuracy": 0.4112903225806452,
+      "log_loss": 1.1195700545188105,
+      "brier": 0.6652334900689332,
+      "ece_10_bins": 0.06415175077702015
+    },
+    "LT": {
+      "n": 248,
+      "accuracy": 0.3548387096774194,
+      "log_loss": 1.168821183157232,
+      "brier": 0.7036087466134665,
+      "ece_10_bins": 0.09726115166982935
+    },
+    "MARUTI": {
+      "n": 248,
+      "accuracy": 0.3588709677419355,
+      "log_loss": 1.1440796943860756,
+      "brier": 0.6815813189132138,
+      "ece_10_bins": 0.09671094091761286
+    },
+    "RELIANCE": {
+      "n": 248,
+      "accuracy": 0.4798387096774194,
+      "log_loss": 1.1262633960353998,
+      "brier": 0.658498600696702,
+      "ece_10_bins": 0.06773006158576012
+    },
+    "SBIN": {
+      "n": 248,
+      "accuracy": 0.3911290322580645,
+      "log_loss": 1.1674643784714784,
+      "brier": 0.7072490966693746,
+      "ece_10_bins": 0.07619261190285193
+    },
+    "TCS": {
+      "n": 248,
+      "accuracy": 0.5282258064516129,
+      "log_loss": 1.051214941444815,
+      "brier": 0.6308739520426914,
+      "ece_10_bins": 0.10265830568474756
+    }
+  },
+  "strategy": {
+    "HDFCBANK": {
+      "strategy_return": 0.0,
+      "always_long_same_schedule_return": -0.25757586229322604,
+      "max_drawdown_at_exit": -0.0,
+      "active_trades": 0
+    },
+    "HINDUNILVR": {
+      "strategy_return": 0.0,
+      "always_long_same_schedule_return": -0.10463500501805667,
+      "max_drawdown_at_exit": -0.0,
+      "active_trades": 0
+    },
+    "ICICIBANK": {
+      "strategy_return": 0.0,
+      "always_long_same_schedule_return": -0.4041553205944075,
+      "max_drawdown_at_exit": -0.0,
+      "active_trades": 0
+    },
+    "INFY": {
+      "strategy_return": 0.0,
+      "always_long_same_schedule_return": 0.31919393739010626,
+      "max_drawdown_at_exit": -0.0,
+      "active_trades": 0
+    },
+    "ITC": {
+      "strategy_return": 0.0,
+      "always_long_same_schedule_return": -0.3892964542352292,
+      "max_drawdown_at_exit": -0.0,
+      "active_trades": 0
+    },
+    "LT": {
+      "strategy_return": 0.0,
+      "always_long_same_schedule_return": -0.3577314027726949,
+      "max_drawdown_at_exit": -0.0,
+      "active_trades": 0
+    },
+    "MARUTI": {
+      "strategy_return": 0.0,
+      "always_long_same_schedule_return": -0.27403929231992696,
+      "max_drawdown_at_exit": -0.0,
+      "active_trades": 0
+    },
+    "RELIANCE": {
+      "strategy_return": 0.0,
+      "always_long_same_schedule_return": -0.11814119483650387,
+      "max_drawdown_at_exit": -0.0,
+      "active_trades": 0
+    },
+    "SBIN": {
+      "strategy_return": 0.0,
+      "always_long_same_schedule_return": -0.4964177785718116,
+      "max_drawdown_at_exit": -0.0,
+      "active_trades": 0
+    },
+    "TCS": {
+      "strategy_return": 0.0,
+      "always_long_same_schedule_return": 0.003111052037019224,
+      "max_drawdown_at_exit": -0.0,
+      "active_trades": 0
+    }
+  },
+  "round_trip_bps": 30,
+  "limitations": [
+    "Selected historical universe can have survivorship and selection bias.",
+    "Source corporate-action adjustment basis is unverified.",
+    "Price/volume only; historical news and point-in-time fundamentals excluded.",
+    "Test labels overlap for classification; effective sample size is lower than row count.",
+    "Strategy uses non-overlapping long/cash trades and exit-only drawdown, excludes dividends and overnight gaps between trades.",
+    "Historic test performance does not establish current-market performance."
+  ],
+  "beats_class_prior": false,
+  "promotion": "Research candidate only; requires recent, untouched data and verified price basis."
+}

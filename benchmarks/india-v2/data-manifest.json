@@ -1,0 +1,153 @@
+{
+  "schema_version": 1,
+  "market": "india",
+  "source": "hk7797/stock-market-india",
+  "price_basis": "as supplied by source; adjustment status unverified",
+  "aggregation": "daily local-session OHLC and summed volume",
+  "missing_bar_policy": "All-empty source bars omitted; partial/nonfinite bars rejected. Daily aggregates use available observations; inspect quality counts.",
+  "requested_symbols": [
+    "HDFCBANK",
+    "HINDUNILVR",
+    "ICICIBANK",
+    "INFY",
+    "ITC",
+    "LT",
+    "MARUTI",
+    "RELIANCE",
+    "SBIN",
+    "TCS"
+  ],
+  "records": [
+    {
+      "symbol": "HDFCBANK",
+      "member": "FullDataCsv/HDFCBANK__EQ__NSE__NSE__MINUTE.csv",
+      "source_sha256": "52fb6ca29dcad49d366d10045b4755b06b9b0b4cfd6745087674527ecdaf5eb1",
+      "daily_sha256": "5901184b378b558ccaad6242adad953bf7dafc5ee5665abf3516776c05c29b30",
+      "rows": 992,
+      "start": "2017-01-02",
+      "end": "2021-01-01",
+      "quality": {
+        "missing_source_bars": 141,
+        "sessions_with_missing_bars": 10
+      }
+    },
+    {
+      "symbol": "HINDUNILVR",
+      "member": "FullDataCsv/HINDUNILVR__EQ__NSE__NSE__MINUTE.csv",
+      "source_sha256": "de3625ca71bf00f4bbeba852693c617f480ed72a3b0222967202a12085353b1f",
+      "daily_sha256": "c2a679cbbf42c133c7fd33d606d5a840fd92b0c2eb301382db6ac51df795786d",
+      "rows": 992,
+      "start": "2017-01-02",
+      "end": "2021-01-01",
+      "quality": {
+        "missing_source_bars": 141,
+        "sessions_with_missing_bars": 10
+      }
+    },
+    {
+      "symbol": "ICICIBANK",
+      "member": "FullDataCsv/ICICIBANK__EQ__NSE__NSE__MINUTE.csv",
+      "source_sha256": "5782698717acd9f5c59cb65863e27bf5bd99adda51c723904bd32b814591aa25",
+      "daily_sha256": "ae34d7af17f3ae0642252941edb563da8e7355341f1067216ee2be81a8a5e02c",
+      "rows": 992,
+      "start": "2017-01-02",
+      "end": "2021-01-01",
+      "quality": {
+        "missing_source_bars": 141,
+        "sessions_with_missing_bars": 10
+      }
+    },
+    {
+      "symbol": "INFY",
+      "member": "FullDataCsv/INFY__EQ__NSE__NSE__MINUTE.csv",
+      "source_sha256": "ac3d7a7f0acef50e71787563eaaa42f4eef36863c24148f92837710b6ea4a8ee",
+      "daily_sha256": "6d94fe12fbeac9973ec38974b615f106e58bcc936db50b1b77c6e688f038330d",
+      "rows": 992,
+      "start": "2017-01-02",
+      "end": "2021-01-01",
+      "quality": {
+        "missing_source_bars": 141,
+        "sessions_with_missing_bars": 10
+      }
+    },
+    {
+      "symbol": "ITC",
+      "member": "FullDataCsv/ITC__EQ__NSE__NSE__MINUTE.csv",
+      "source_sha256": "08001f337a29b9e2bb0a5d250b3a990f2c2567089748d481c2fba8e3d69ab747",
+      "daily_sha256": "c1136668646724302e33a2503fd2f5e5fe7c86a84ce7b77ec67d1c786b0ec39e",
+      "rows": 992,
+      "start": "2017-01-02",
+      "end": "2021-01-01",
+      "quality": {
+        "missing_source_bars": 141,
+        "sessions_with_missing_bars": 10
+      }
+    },
+    {
+      "symbol": "LT",
+      "member": "FullDataCsv/LT__EQ__NSE__NSE__MINUTE.csv",
+      "source_sha256": "037217e18016f8b774b323cf2b5a92d0c931c65977a4423d31dfaab753beb79f",
+      "daily_sha256": "32c4a962a76d237a538965caca01848ecbd399650dcbbd6c105441fd5b7a5551",
+      "rows": 992,
+      "start": "2017-01-02",
+      "end": "2021-01-01",
+      "quality": {
+        "missing_source_bars": 141,
+        "sessions_with_missing_bars": 10
+      }
+    },
+    {
+      "symbol": "MARUTI",
+      "member": "FullDataCsv/MARUTI__EQ__NSE__NSE__MINUTE.csv",
+      "source_sha256": "66be00b06fb1e94cbbc46872ca35763c33dc5537d5a4f77d1025b22efc59bc5b",
+      "daily_sha256": "7296aa1990829b2837042849ad85dff7320484a56e0e21889509acd97cfac916",
+      "rows": 992,
+      "start": "2017-01-02",
+      "end": "2021-01-01",
+      "quality": {
+        "missing_source_bars": 141,
+        "sessions_with_missing_bars": 10
+      }
+    },
+    {
+      "symbol": "RELIANCE",
+      "member": "FullDataCsv/RELIANCE__EQ__NSE__NSE__MINUTE.csv",
+      "source_sha256": "f81734065e748f3828f0decfb9c400955b362d109b4de5643cac4aacd04045d2",
+      "daily_sha256": "c7935f5e69709d15bf20f50d0944c33e6f818da9f1af6cfbaf8df2c11f3c4d26",
+      "rows": 992,
+      "start": "2017-01-02",
+      "end": "2021-01-01",
+      "quality": {
+        "missing_source_bars": 141,
+        "sessions_with_missing_bars": 10
+      }
+    },
+    {
+      "symbol": "SBIN",
+      "member": "FullDataCsv/SBIN__EQ__NSE__NSE__MINUTE.csv",
+      "source_sha256": "fb655672bb415d8c94ff1b08dba316d26575df4c65d37c594b70615ea1c27c7d",
+      "daily_sha256": "e0c7be54def6388edff4fc1fe1bdad1a67763ac2cc020b445faca541366f9106",
+      "rows": 992,
+      "start": "2017-01-02",
+      "end": "2021-01-01",
+      "quality": {
+        "missing_source_bars": 141,
+        "sessions_with_missing_bars": 10
+      }
+    },
+    {
+      "symbol": "TCS",
+      "member": "FullDataCsv/TCS__EQ__NSE__NSE__MINUTE.csv",
+      "source_sha256": "1db59363e83bcb1318800bbddcdad30299f178edc8a9320689d5a2957369aa78",
+      "daily_sha256": "7be282225fd7be4913dc635843e1521c99b1412a0e4b57fc8fc1adc985d0bf1f",
+      "rows": 992,
+      "start": "2017-01-02",
+      "end": "2021-01-01",
+      "quality": {
+        "missing_source_bars": 141,
+        "sessions_with_missing_bars": 10
+      }
+    }
+  ],
+  "rejected": []
+}

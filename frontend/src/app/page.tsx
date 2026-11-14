@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
+
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8000';
 import {
   TrendingUp,
   TrendingDown,
@@ -58,6 +60,16 @@ interface ChartPoint {
 }
 
 interface QuantData {
+  learned_forecast?: {
+    available: boolean;
+    reason?: string;
+    model?: string;
+    decision?: string;
+    horizon_sessions?: number;
+    training_data_end?: string;
+    age_calendar_days?: number;
+    probabilities?: Record<string, number>;
+  };
   ticker: string;
   current_price: number;
   annualized_volatility: number;
@@ -206,7 +218,7 @@ export default function TerminalPage() {
   useEffect(() => {
     if (TICKER_NAMES[ticker]) return;
     const controller = new AbortController();
-    fetch(`http://localhost:8000/api/instrument?${new URLSearchParams({ ticker })}`, { signal: controller.signal })
+    fetch(`${API_BASE}/api/instrument?${new URLSearchParams({ ticker })}`, { signal: controller.signal })
       .then((response) => response.ok ? response.json() : null)
       .then((data) => {
         if (data?.ticker === ticker && typeof data.name === 'string') {
@@ -228,7 +240,7 @@ export default function TerminalPage() {
     const timer = window.setTimeout(async () => {
       try {
         const response = await fetch(
-          `http://localhost:8000/api/instruments/search?${new URLSearchParams({ q: query })}`,
+          `${API_BASE}/api/instruments/search?${new URLSearchParams({ q: query })}`,
           { signal: controller.signal },
         );
         if (!response.ok) throw new Error('Stock search is temporarily unavailable');
@@ -272,7 +284,7 @@ export default function TerminalPage() {
       query.append('cutoff_date', targetCutoff.trim());
     }
 
-    const sseUrl = `http://localhost:8000/api/stream?${query.toString()}`;
+    const sseUrl = `${API_BASE}/api/stream?${query.toString()}`;
     const es = new EventSource(sseUrl);
     eventSourceRef.current = es;
 
@@ -672,6 +684,33 @@ export default function TerminalPage() {
           </div>
         </div>
       </section>
+
+      {quantData?.learned_forecast && (
+        <section className="bg-[#12141C] border border-[#1E2230] rounded-xl p-4 text-sm space-y-2">
+          <h2 className="font-semibold">Historical price-model forecast</h2>
+          {quantData.learned_forecast.available ? (
+            <>
+              <p className="text-[#94A3B8]">
+                {quantData.learned_forecast.model} · {quantData.learned_forecast.horizon_sessions} sessions ·
+                Training and calibration through {quantData.learned_forecast.training_data_end}
+              </p>
+              <div className="flex gap-6">
+                {Object.entries(quantData.learned_forecast.probabilities || {}).map(([label, value]) => (
+                  <span key={label}>{label} <strong>{(value * 100).toFixed(1)}%</strong></span>
+                ))}
+              </div>
+              {quantData.learned_forecast.decision && (
+                <p>Model decision <strong>{quantData.learned_forecast.decision}</strong></p>
+              )}
+              <p className="text-xs text-[#94A3B8]">
+                Experimental OHLCV model. Committee confidence is calculated separately.
+                Model age at this observation is {quantData.learned_forecast.age_calendar_days} calendar days.
+                Validate on recent data before use.
+              </p>
+            </>
+          ) : <p className="text-[#94A3B8]">{quantData.learned_forecast.reason}</p>}
+        </section>
+      )}
 
       {/* ROW 1: 4 MONOSPACE TELEMETRY CARDS */}
       <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -1266,21 +1305,23 @@ export default function TerminalPage() {
                 <div className="p-3 bg-[#12141C] border border-[#1E2230] rounded-md flex flex-col justify-center">
                   <span className="text-[#94A3B8] block text-[11px]">Committee Backtest Assessment</span>
                   <div className="text-xs text-white font-sans mt-1">
-                    {(croData?.action === 'REJECT_TRADE' || croData?.verdict === 'REJECT_TRADE') && (quantData.time_machine_actual_return_pct ?? 0) < 0 ? (
+                    {croData?.recommended_allocation_pct === 0 ? (
+                      <span className="text-[#CBD5E1]">No position approved. The observed price move produced no allocated strategy return.</span>
+                    ) : (croData?.action === 'REJECT_TRADE' || croData?.verdict === 'REJECT_TRADE') && (quantData.time_machine_actual_return_pct ?? 0) < 0 ? (
                       <span className="text-[#10B981] font-semibold">
                         ✓ Capital Preserved: CRO trade rejection successfully dodged market drawdown!
                       </span>
                     ) : (croData?.action === 'SHORT' || croData?.verdict === 'SHORT') && (quantData.time_machine_actual_return_pct ?? 0) < 0 ? (
                       <span className="text-[#10B981] font-semibold">
-                        ✓ Short Alpha Captured: CRO SHORT decree capitalized on the {quantData.time_machine_actual_return_pct}% drop!
+                        Short direction matched the subsequent decline. Realized P&amp;L requires entry, stop and cost simulation.
                       </span>
                     ) : (croData?.action === 'LONG' || croData?.verdict === 'LONG') && (quantData.time_machine_actual_return_pct ?? 0) > 0 ? (
                       <span className="text-[#10B981] font-semibold">
-                        ✓ Alpha Captured: Long decree successfully exploited subsequent upside!
+                        Long direction matched the subsequent rise. Realized P&amp;L requires entry, stop and cost simulation.
                       </span>
                     ) : (
                       <span className="text-[#CBD5E1]">
-                        Adversarial risk bounds contained tail exposure within specified stop-loss parameters.
+                        Direction did not match the observed move, or outcome evidence is incomplete.
                       </span>
                     )}
                   </div>

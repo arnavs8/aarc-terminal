@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "market": "us",
+  "source": "borismarjanovic/price-volume-data-for-all-us-stocks-etfs",
+  "price_basis": "as supplied by source; adjustment status unverified",
+  "aggregation": "daily local-session OHLC and summed volume",
+  "requested_symbols": [
+    "AAPL",
+    "AMZN",
+    "GOOGL",
+    "JNJ",
+    "JPM",
+    "MSFT",
+    "NVDA",
+    "PG",
+    "WMT",
+    "XOM"
+  ],
+  "records": [
+    {
+      "symbol": "AAPL",
+      "member": "Data/Stocks/aapl.us.txt",
+      "source_sha256": "28ea6bff6cc5de7b7c9bde7ccf75544ce9e2ae66be32d9057d7cc32525f798e3",
+      "daily_sha256": "bd2f9fcc1f444dcdd02b0427550d6221e9efcc2ca7b5380809a9d5f44082f5f8",
+      "rows": 8364,
+      "start": "1984-09-07",
+      "end": "2017-11-10"
+    },
+    {
+      "symbol": "AMZN",
+      "member": "Data/Stocks/amzn.us.txt",
+      "source_sha256": "e3821245c19c63eab70f5424b44dae872cfa2705f5de7cdb4e0e031e78e27bbe",
+      "daily_sha256": "f784395bd7da7efc58e5ad027ba5910cc2f525aa3a6fb2d881c2e12a5faccce7",
+      "rows": 5153,
+      "start": "1997-05-16",
+      "end": "2017-11-10"
+    },
+    {
+      "symbol": "GOOGL",
+      "member": "Data/Stocks/googl.us.txt",
+      "source_sha256": "122e0ff8c967963d734d5e1dfe61d6832f28604dc7c004af5a5a018891c62ab8",
+      "daily_sha256": "bbcb3b5ac3b817cbba9455ddae1e803aa2f83b70ae0615b2a946ab1d7ecb3119",
+      "rows": 3333,
+      "start": "2004-08-19",
+      "end": "2017-11-10"
+    },
+    {
+      "symbol": "JNJ",
+      "member": "Data/Stocks/jnj.us.txt",
+      "source_sha256": "1f1562d0b107e06188c5a5d69c706b8a20a93f96ec7d488144c58c51b5b79a1a",
+      "daily_sha256": "21afa95bc219092d73bc56e69e8dc5b4bf06c0325ee319c652fa0f10ff210713",
+      "rows": 12074,
+      "start": "1970-01-02",
+      "end": "2017-11-10"
+    },
+    {
+      "symbol": "JPM",
+      "member": "Data/Stocks/jpm.us.txt",
+      "source_sha256": "5560eb649046379bed42d855660123496579dd0d5a618804f81c79d4ff3b6588",
+      "daily_sha256": "b3c148c1ba6cf1b5cbe1aafc7e139fbd7840910001c28c7bcd1b7cc6e248cc73",
+      "rows": 12074,
+      "start": "1970-01-02",
+      "end": "2017-11-10"
+    },
+    {
+      "symbol": "MSFT",
+      "member": "Data/Stocks/msft.us.txt",
+      "source_sha256": "46e6ea467ee59cddb86bf213c396866030cbd386d99b76dd66d1b56d7ae718d8",
+      "daily_sha256": "42c00f2893071d39bd267b625f307ecbbf78dbde6684a08f44f8bb2cb580a8f4",
+      "rows": 7983,
+      "start": "1986-03-13",
+      "end": "2017-11-10"
+    },
+    {
+      "symbol": "NVDA",
+      "member": "Data/Stocks/nvda.us.txt",
+      "source_sha256": "54b212ec29b88a11f0c1465a973d7bd4b791e37cff749533fda691afbc8bf290",
+      "daily_sha256": "e125ef630ce5a4b81af688aaf8895b4f102e19fedb1451fcbde9abecb4588754",
+      "rows": 4733,
+      "start": "1999-01-22",
+      "end": "2017-11-10"
+    },
+    {
+      "symbol": "PG",
+      "member": "Data/Stocks/pg.us.txt",
+      "source_sha256": "b837733978859993040a4144065b632cf6f542cf22c9bd218707cd99f18ed978",
+      "daily_sha256": "258668631e86adcd829ea8ca72afb3f66b1f68315a92ce78d5f63a5a4387bd6d",
+      "rows": 12075,
+      "start": "1970-01-02",
+      "end": "2017-11-10"
+    },
+    {
+      "symbol": "WMT",
+      "member": "Data/Stocks/wmt.us.txt",
+      "source_sha256": "7250c383eb8b03680b85ede4d164e4c730b5edad1a36065ca74ab5cb999ff356",
+      "daily_sha256": "ffb7b3375d97138f945a382eb8b1a110fed34aa0fe3334e654f62d0451dc5298",
+      "rows": 11443,
+      "start": "1972-03-20",
+      "end": "2017-11-10"
+    },
+    {
+      "symbol": "XOM",
+      "member": "Data/Stocks/xom.us.txt",
+      "source_sha256": "3fc3b3ee53703293171999fab3c0e1a4089bffeef7c928e5c5be1f4848f651c1",
+      "daily_sha256": "e494f4c91c2b4db52ffd5fdb072a63f4ad6299388fa4f01d26f287745ad604e8",
+      "rows": 12074,
+      "start": "1970-01-02",
+      "end": "2017-11-10"
+    }
+  ],
+  "rejected": []
+}

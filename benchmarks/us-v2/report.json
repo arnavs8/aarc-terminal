@@ -1,0 +1,374 @@
+{
+  "market": "us",
+  "source": "borismarjanovic/price-volume-data-for-all-us-stocks-etfs",
+  "model_name": "logistic_all_blend_1",
+  "horizon": 5,
+  "temperature": 0.75,
+  "training_data_end": "2014-12-31",
+  "purpose": "frozen benchmark model",
+  "features": [
+    "return_1d",
+    "return_5d",
+    "return_20d",
+    "realized_vol_20d",
+    "vol_ratio_20_60",
+    "rsi_14_raw",
+    "rsi_14_norm",
+    "macd_hist_ratio",
+    "macd_signal_ratio",
+    "bollinger_pct_b",
+    "bollinger_bandwidth",
+    "sma20_z_score",
+    "atr_14_ratio",
+    "volume_zscore_20d",
+    "volume_ratio_5_20",
+    "ma_ratio_close_sma20",
+    "ma_ratio_close_sma50",
+    "ma_ratio_sma20_sma50",
+    "hl_spread"
+  ],
+  "symbols": [
+    "AAPL",
+    "AMZN",
+    "GOOGL",
+    "JNJ",
+    "JPM",
+    "MSFT",
+    "NVDA",
+    "PG",
+    "WMT",
+    "XOM"
+  ],
+  "selection": {
+    "method": "three purged expanding-window folds inside training; separate validation for shrinkage and temperature",
+    "candidate_scores": {
+      "logistic_all": {
+        "fold_macro_log_loss": [
+          1.0685106037425882,
+          1.0786780346303853,
+          1.067894318528637
+        ],
+        "mean": 1.0716943189672035
+      },
+      "regularized_logistic_all": {
+        "fold_macro_log_loss": [
+          1.0690444211811367,
+          1.0788722759901008,
+          1.0679783482513003
+        ],
+        "mean": 1.071965015140846
+      },
+      "regularized_logistic_252": {
+        "fold_macro_log_loss": [
+          1.0698734347851602,
+          1.1024738302059567,
+          1.0987468125890403
+        ],
+        "mean": 1.090364692526719
+      },
+      "regularized_logistic_756": {
+        "fold_macro_log_loss": [
+          1.0674820330267178,
+          1.0938631492888973,
+          1.0735208451265486
+        ],
+        "mean": 1.0782886758140544
+      },
+      "small_tree_756": {
+        "fold_macro_log_loss": [
+          1.080644834093286,
+          1.1349867828323066,
+          1.0871156734550227
+        ],
+        "mean": 1.1009157634602051
+      }
+    },
+    "selected_candidate": "logistic_all",
+    "training_window_sessions": null,
+    "model_weight": 1.0,
+    "validation_macro_log_loss": 1.063199992336819,
+    "baseline_validation_macro_log_loss": 1.073680001788529,
+    "folds": [
+      {
+        "fit_label_end": "1991-07-19",
+        "validation_start": "1991-07-22",
+        "validation_label_end": "1998-09-01"
+      },
+      {
+        "fit_label_end": "1998-09-01",
+        "validation_start": "1998-09-02",
+        "validation_label_end": "2005-10-28"
+      },
+      {
+        "fit_label_end": "2005-10-28",
+        "validation_start": "2005-10-31",
+        "validation_label_end": "2012-12-21"
+      }
+    ]
+  },
+  "data_hashes": {
+    "AAPL": "bd2f9fcc1f444dcdd02b0427550d6221e9efcc2ca7b5380809a9d5f44082f5f8",
+    "AMZN": "f784395bd7da7efc58e5ad027ba5910cc2f525aa3a6fb2d881c2e12a5faccce7",
+    "GOOGL": "bbcb3b5ac3b817cbba9455ddae1e803aa2f83b70ae0615b2a946ab1d7ecb3119",
+    "JNJ": "21afa95bc219092d73bc56e69e8dc5b4bf06c0325ee319c652fa0f10ff210713",
+    "JPM": "b3c148c1ba6cf1b5cbe1aafc7e139fbd7840910001c28c7bcd1b7cc6e248cc73",
+    "MSFT": "42c00f2893071d39bd267b625f307ecbbf78dbde6684a08f44f8bb2cb580a8f4",
+    "NVDA": "e125ef630ce5a4b81af688aaf8895b4f102e19fedb1451fcbde9abecb4588754",
+    "PG": "258668631e86adcd829ea8ca72afb3f66b1f68315a92ce78d5f63a5a4387bd6d",
+    "WMT": "ffb7b3375d97138f945a382eb8b1a110fed34aa0fe3334e654f62d0451dc5298",
+    "XOM": "e494f4c91c2b4db52ffd5fdb072a63f4ad6299388fa4f01d26f287745ad604e8"
+  },
+  "train_end": "2012-12-31",
+  "validation_end": "2014-12-31",
+  "split_rows": {
+    "train": 76506,
+    "validation": 4990,
+    "test": 7170
+  },
+  "test_start": "2015-01-02",
+  "test_end": "2017-11-10",
+  "selection_audit": {
+    "method": "three purged expanding-window folds inside training; separate validation for shrinkage and temperature",
+    "candidate_scores": {
+      "logistic_all": {
+        "fold_macro_log_loss": [
+          1.0685106037425882,
+          1.0786780346303853,
+          1.067894318528637
+        ],
+        "mean": 1.0716943189672035
+      },
+      "regularized_logistic_all": {
+        "fold_macro_log_loss": [
+          1.0690444211811367,
+          1.0788722759901008,
+          1.0679783482513003
+        ],
+        "mean": 1.071965015140846
+      },
+      "regularized_logistic_252": {
+        "fold_macro_log_loss": [
+          1.0698734347851602,
+          1.1024738302059567,
+          1.0987468125890403
+        ],
+        "mean": 1.090364692526719
+      },
+      "regularized_logistic_756": {
+        "fold_macro_log_loss": [
+          1.0674820330267178,
+          1.0938631492888973,
+          1.0735208451265486
+        ],
+        "mean": 1.0782886758140544
+      },
+      "small_tree_756": {
+        "fold_macro_log_loss": [
+          1.080644834093286,
+          1.1349867828323066,
+          1.0871156734550227
+        ],
+        "mean": 1.1009157634602051
+      }
+    },
+    "selected_candidate": "logistic_all",
+    "training_window_sessions": null,
+    "model_weight": 1.0,
+    "validation_macro_log_loss": 1.063199992336819,
+    "baseline_validation_macro_log_loss": 1.073680001788529,
+    "folds": [
+      {
+        "fit_label_end": "1991-07-19",
+        "validation_start": "1991-07-22",
+        "validation_label_end": "1998-09-01"
+      },
+      {
+        "fit_label_end": "1998-09-01",
+        "validation_start": "1998-09-02",
+        "validation_label_end": "2005-10-28"
+      },
+      {
+        "fit_label_end": "2005-10-28",
+        "validation_start": "2005-10-31",
+        "validation_label_end": "2012-12-21"
+      }
+    ]
+  },
+  "evaluation_status": "Previously inspected test periods are development comparisons; reserve fresh dates/universe for confirmation.",
+  "test_metrics": {
+    "class_prior": {
+      "n": 7170,
+      "accuracy": 0.4701534170153417,
+      "log_loss": 1.0546295548063032,
+      "brier": 0.6369872235327324,
+      "ece_10_bins": 0.04081454163301884
+    },
+    "momentum": {
+      "n": 7170,
+      "accuracy": 0.3379358437935844,
+      "log_loss": 1.2381774416610416,
+      "brier": 0.7696513249651324,
+      "ece_10_bins": 0.2620641562064155
+    },
+    "selected_raw": {
+      "n": 7170,
+      "accuracy": 0.47126917712691774,
+      "log_loss": 1.0435339544043982,
+      "brier": 0.628379420196206,
+      "ece_10_bins": 0.047192494053790106
+    },
+    "selected_calibrated": {
+      "n": 7170,
+      "accuracy": 0.47126917712691774,
+      "log_loss": 1.0371697284798902,
+      "brier": 0.6241203428436501,
+      "ece_10_bins": 0.01655007677606289
+    }
+  },
+  "macro_symbol_log_loss": 1.0371697284798898,
+  "per_symbol": {
+    "AAPL": {
+      "n": 717,
+      "accuracy": 0.44630404463040446,
+      "log_loss": 1.0572244869733853,
+      "brier": 0.637989913317597,
+      "ece_10_bins": 0.04924856475895638
+    },
+    "AMZN": {
+      "n": 717,
+      "accuracy": 0.45327754532775455,
+      "log_loss": 1.041897968809786,
+      "brier": 0.6268320528467838,
+      "ece_10_bins": 0.06917580744054798
+    },
+    "GOOGL": {
+      "n": 717,
+      "accuracy": 0.4407252440725244,
+      "log_loss": 1.0553733789057085,
+      "brier": 0.6386715510835617,
+      "ece_10_bins": 0.01837377171451258
+    },
+    "JNJ": {
+      "n": 717,
+      "accuracy": 0.4825662482566248,
+      "log_loss": 1.0509095912280182,
+      "brier": 0.6342417517447752,
+      "ece_10_bins": 0.036578408742643786
+    },
+    "JPM": {
+      "n": 717,
+      "accuracy": 0.4476987447698745,
+      "log_loss": 1.052578264203682,
+      "brier": 0.6352480428130158,
+      "ece_10_bins": 0.014889125229287644
+    },
+    "MSFT": {
+      "n": 717,
+      "accuracy": 0.502092050209205,
+      "log_loss": 1.0061518346382252,
+      "brier": 0.6034784558857696,
+      "ece_10_bins": 0.04216328904655871
+    },
+    "NVDA": {
+      "n": 717,
+      "accuracy": 0.45327754532775455,
+      "log_loss": 1.0091801489196968,
+      "brier": 0.6050178828593296,
+      "ece_10_bins": 0.04811151188285571
+    },
+    "PG": {
+      "n": 717,
+      "accuracy": 0.48535564853556484,
+      "log_loss": 1.0399337202007168,
+      "brier": 0.6252318692982513,
+      "ece_10_bins": 0.03954202281267749
+    },
+    "WMT": {
+      "n": 717,
+      "accuracy": 0.48535564853556484,
+      "log_loss": 1.0237211948583649,
+      "brier": 0.6134043068436126,
+      "ece_10_bins": 0.04446531875399466
+    },
+    "XOM": {
+      "n": 717,
+      "accuracy": 0.5160390516039052,
+      "log_loss": 1.0347266960613164,
+      "brier": 0.621087601743806,
+      "ece_10_bins": 0.08423632335740602
+    }
+  },
+  "strategy": {
+    "AAPL": {
+      "strategy_return": 0.0,
+      "always_long_same_schedule_return": 0.27150711043899545,
+      "max_drawdown_at_exit": -0.0,
+      "active_trades": 0
+    },
+    "AMZN": {
+      "strategy_return": 0.0,
+      "always_long_same_schedule_return": 1.1113959610087556,
+      "max_drawdown_at_exit": -0.0,
+      "active_trades": 0
+    },
+    "GOOGL": {
+      "strategy_return": 0.0,
+      "always_long_same_schedule_return": 0.2583170187347106,
+      "max_drawdown_at_exit": -0.0,
+      "active_trades": 0
+    },
+    "JNJ": {
+      "strategy_return": 0.0,
+      "always_long_same_schedule_return": 0.008249013942022154,
+      "max_drawdown_at_exit": -0.0,
+      "active_trades": 0
+    },
+    "JPM": {
+      "strategy_return": 0.0,
+      "always_long_same_schedule_return": 0.19019323534753307,
+      "max_drawdown_at_exit": -0.0,
+      "active_trades": 0
+    },
+    "MSFT": {
+      "strategy_return": 0.0,
+      "always_long_same_schedule_return": 0.38324087229680814,
+      "max_drawdown_at_exit": -0.0,
+      "active_trades": 0
+    },
+    "NVDA": {
+      "strategy_return": 0.0,
+      "always_long_same_schedule_return": 5.309824926349788,
+      "max_drawdown_at_exit": -0.0,
+      "active_trades": 0
+    },
+    "PG": {
+      "strategy_return": 0.0,
+      "always_long_same_schedule_return": -0.2667652885321997,
+      "max_drawdown_at_exit": -0.0,
+      "active_trades": 0
+    },
+    "WMT": {
+      "strategy_return": 0.0,
+      "always_long_same_schedule_return": -0.2053392782755894,
+      "max_drawdown_at_exit": -0.0,
+      "active_trades": 0
+    },
+    "XOM": {
+      "strategy_return": 0.0,
+      "always_long_same_schedule_return": -0.21445713857534965,
+      "max_drawdown_at_exit": -0.0,
+      "active_trades": 0
+    }
+  },
+  "round_trip_bps": 30,
+  "limitations": [
+    "Selected historical universe can have survivorship and selection bias.",
+    "Source corporate-action adjustment basis is unverified.",
+    "Price/volume only; historical news and point-in-time fundamentals excluded.",
+    "Test labels overlap for classification; effective sample size is lower than row count.",
+    "Strategy uses non-overlapping long/cash trades and exit-only drawdown, excludes dividends and overnight gaps between trades.",
+    "Historic test performance does not establish current-market performance."
+  ],
+  "beats_class_prior": true,
+  "promotion": "Research candidate only; requires recent, untouched data and verified price basis."
+}
