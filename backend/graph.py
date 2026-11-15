@@ -173,6 +173,11 @@ def _run_cro_proposal(
 
     # 3. LONG when Close > SMA20 or (sentiment > 0.15 and rsi < 75)
     is_long_regime = (close_gt_sma20 or (sentiment > 0.15 and rsi < 75.0)) and not is_short_regime and not is_reject_regime
+    # Adapted from upstream 819dd33: reject conflicting generated proposals instead
+    # of silently flipping their direction. Preserve our evidence-based no-trade case.
+    expected_action = ('REJECT_TRADE' if is_reject_regime else 'SHORT' if is_short_regime
+                       else 'LONG' if (is_long_regime or close_gt_sma20 or sentiment > 0)
+                       else 'REJECT_TRADE')
 
     prompt = f"""You are the Chief Risk Officer (CRO) of an Autonomous Adversarial Risk Committee (AARC).
 Analyze the Bull and Bear cases alongside quantitative signals and render a definitive verdict.
@@ -211,16 +216,8 @@ Instructions:
                 raw_data = json.loads(res.text)
                 verdict = CROVerdict.model_validate(raw_data)
 
-                # Ensure strict alignment with the institutional rules
-                if is_reject_regime:
-                    verdict.action = "REJECT_TRADE"
-                    verdict.recommended_allocation_pct = 0.0
-                elif is_short_regime and verdict.action == "LONG":
-                    verdict.action = "SHORT"
-                    verdict.recommended_allocation_pct = min(kelly, 12.0)
-                elif is_long_regime and verdict.action != "LONG":
-                    verdict.action = "LONG"
-                    verdict.recommended_allocation_pct = min(kelly, 15.0)
+                if verdict.action != expected_action:
+                    raise ValueError(f'CRO proposal {verdict.action} conflicts with supported rule action {expected_action}')
 
                 # Set allocation floors
                 if verdict.action in ("LONG", "SHORT"):

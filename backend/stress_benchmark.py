@@ -82,14 +82,21 @@ def trade_path(verdict, future, cost_bps=30, borrow_rate=.03):
     entry=float(future.iloc[0].Open);entry_date=future.index[0];stop_pct=float(verdict['stop_loss_pct'])
     if not 0<stop_pct<100: raise ValueError('Invalid stop')
     stop=entry*(1-direction*stop_pct/100)
+    target_r=verdict.get('execution_plan',{}).get('take_profit_r_multiple')
+    if target_r is not None and (not np.isfinite(target_r) or target_r<=0):raise ValueError('Invalid reward-to-risk target')
+    target=entry*(1+direction*stop_pct/100*target_r) if target_r is not None else None
+    target_hit=False
     path=[];dividends=0.;closed=False;stop_hit=False;exit_price=None;exit_date=None;net=0.;gross=0.;borrow=0.
     for date,bar in future.iterrows():
         if not closed:
             # Buying at the ex-dividend open does not earn that day's dividend.
             if date > entry_date: dividends+=float(bar.get('Dividends',0))
             hit=(bar.Low<=stop) if direction==1 else (bar.High>=stop)
-            exit_now=hit or date==future.index[-1]
+            profit_hit=target is not None and ((bar.High>=target) if direction==1 else (bar.Low<=target))
+            exit_now=hit or profit_hit or date==future.index[-1]
             price=(min(stop,float(bar.Open)) if direction==1 else max(stop,float(bar.Open))) if hit else float(bar.Close)
+            if profit_hit and not hit:
+                price=max(target,float(bar.Open)) if direction==1 else min(target,float(bar.Open));target_hit=True
             borrow=(max(1,(date-entry_date).days+1)/365*borrow_rate) if direction==-1 else 0.
             gross=direction*(price/entry-1)+direction*dividends/entry
             net=gross-borrow-cost_bps/20000-(cost_bps/20000 if exit_now else 0)
@@ -97,6 +104,7 @@ def trade_path(verdict, future, cost_bps=30, borrow_rate=.03):
         path.append({'date':str(date.date()),'return':float(net)})
     return {'traded':True,'action':action,'allocation':allocation,'entry_date':str(entry_date.date()),'entry_price':entry,
             'exit_date':str(exit_date.date()),'exit_price':exit_price,'stop_price':stop,'stop_hit':stop_hit,
+            'target_price':target,'target_hit':target_hit,
             'gross_return':gross,'dividends_per_share':dividends,'borrow_cost_fraction':borrow,'round_trip_cost_fraction':cost_bps/10000,
             'net_return':float(net),'weighted_return':float(allocation*net),'path':path}
 

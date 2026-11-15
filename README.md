@@ -1,3 +1,5 @@
+Latest upstream review: open `/upstream-comparison` or read [original-versus-fork results](UPSTREAM_COMPARISON.md). The new 2R exit plan is experimental and separate from the ETF return result.
+
 # Latest research release
 
 Open `/validation` for the new portfolio, 2010 flash crash and mid-trade volume tests. Read [results and limitations](RESEARCH_RESULTS.md). Groq Qwen is the default live news reader.

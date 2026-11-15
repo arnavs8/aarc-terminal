@@ -49,6 +49,26 @@ async def portfolio_recommendation():
     try:return await asyncio.to_thread(calculate)
     except Exception as exc:raise HTTPException(status_code=503,detail='Portfolio inputs unavailable: '+type(exc).__name__)
 
+
+@app.get('/api/risk/low-volume-analysis/{ticker}')
+async def low_volume_analysis(ticker: str):
+    import re
+    if not re.fullmatch(r'[A-Za-z0-9.^=-]{1,25}',ticker):raise HTTPException(status_code=422,detail='Invalid ticker')
+    def calculate():
+        import pandas as pd
+        from backend.liquidity_diagnostics import daily_liquidity
+        symbol=TICKER_ALIASES.get(ticker.upper(),ticker.upper())
+        f=yf.download(symbol,period='6mo',auto_adjust=False,progress=False,threads=False)
+        if isinstance(f.columns,pd.MultiIndex):f.columns=f.columns.get_level_values(0)
+        f.index=pd.DatetimeIndex(f.index).tz_localize(None)
+        # Exclude the current calendar date conservatively, never label a partial bar as thin.
+        f=f.loc[f.index<pd.Timestamp.now().normalize()]
+        result=daily_liquidity(f)
+        if not result['available']:raise ValueError(result['reason'])
+        return {'ticker':symbol,**result}
+    try:return await asyncio.to_thread(calculate)
+    except Exception as exc:raise HTTPException(status_code=503,detail='Real volume history unavailable: '+type(exc).__name__)
+
 # Enable CORS for frontend requests
 app.add_middleware(
     CORSMiddleware,
@@ -436,6 +456,7 @@ async def evaluate_risk_consolidated(
                 "suggested_stop_loss_pct": cro_verdict.get("stop_loss_pct"),
                 "kill_switch_reason": cro_verdict.get("kill_switch_reason"),
             },
+            "execution_plan": cro_verdict.get("execution_plan"),
             "theses": {
                 "bull_thesis": bull_thesis,
                 "bear_thesis": bear_thesis,

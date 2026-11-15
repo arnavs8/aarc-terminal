@@ -1,0 +1,15 @@
+{
+  "reviewed_head": "94bd421f72c4b5d3bb31a532b064dc94fd69d82f",
+  "benchmarked_model_commit": "49bf9c043d84d779c077f27570ec8243178e3457",
+  "model_code_identical": true,
+  "latest_update_paths": [
+    ".gitignore",
+    "backend/main.py",
+    "backend/risk/liquidity_router.py",
+    "backend/tests/test_liquidity_risk.py",
+    "frontend/src/components/dashboard/LowVolumeScanner.tsx"
+  ],
+  "new_liquidity_diagnostic": "Advisory only; tested separately, no change to allocation or returns",
+  "full_replay_cases": 356,
+  "full_vs_matched_trade_differences": 3
+}

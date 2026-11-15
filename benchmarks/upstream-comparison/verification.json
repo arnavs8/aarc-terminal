@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "cases": 356,
+  "active_trades_checked": 1564,
+  "portfolios": 24,
+  "checks": [
+    "Independent exit prices, stop/target ordering, dividends, borrow and cost reconciliation",
+    "Next-open entry strictly after signal",
+    "Every final basket balance rebuilt from trade returns",
+    "Updated fork uses identical directions and allocation sizes to the previous fork on the frozen replay"
+  ]
+}

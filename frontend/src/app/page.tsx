@@ -60,6 +60,7 @@ interface ChartPoint {
 }
 
 interface QuantData {
+  daily_liquidity?: {available:boolean;as_of?:string;rvol?:number|null;status?:string;scope?:string};
   learned_forecast?: {
     available: boolean;
     reason?: string;
@@ -138,6 +139,7 @@ interface CROVerdict {
   evidence_audit?: { corrections: string[]; scope: string };
   recommended_allocation_pct: number;
   stop_loss_pct: number;
+  execution_plan?: {mode:string;take_profit_r_multiple:number|null;take_profit_pct_from_actual_entry:number|null;maximum_holding_sessions:number};
   kill_switch_reason: string;
   verdict_summary: string;
 }
@@ -444,7 +446,7 @@ export default function TerminalPage() {
             <span className="text-white font-medium">Evidence-grounded committee</span>
           </div>
           <div className="flex items-center gap-2 bg-[#12141C] border border-[#1E2230] px-3 py-1.5 rounded-md">
-            <a href="/validation" className="text-[#06B6D4]">Returns & flash-crash tests</a><span>·</span><a href="/model-lab" className="text-[#06B6D4]">Model lab</a>
+            <a href="/validation" className="text-[#06B6D4]">Returns & flash-crash tests</a><span>·</span><a href="/upstream-comparison" className="text-[#06B6D4]">Original vs fork</a>
           </div>
         </div>
       </header>
@@ -766,6 +768,7 @@ export default function TerminalPage() {
           </div>}
         </div>
 
+        {quantData?.daily_liquidity?.available && <div className="bg-[#12141C] border border-[#1E2230] rounded-xl p-4 text-xs space-y-2"><p className="text-[#94A3B8]">DAILY VOLUME · {quantData.daily_liquidity.as_of}</p><p className="text-[#06B6D4] font-bold">{quantData.daily_liquidity.rvol?.toFixed(2) ?? 'N/A'}× prior 20-session volume</p><p>{quantData.daily_liquidity.status?.replaceAll('_',' ')}</p><p className="text-[#64748B]">Advisory only. Daily volume does not reveal order-book depth.</p></div>}
         {/* Card 3: Isolation Forest Anomalies Count */}
         <div className="bg-[#12141C] border border-[#1E2230] rounded-xl p-4 flex flex-col justify-between">
           <div className="flex items-center justify-between text-xs text-[#94A3B8]">
@@ -1252,7 +1255,8 @@ export default function TerminalPage() {
               <div className="bg-[#090A0F] border border-[#1E2230] p-3 rounded-lg">
                 <span className="text-[#64748B] block text-[10px] uppercase">Stop Loss</span>
                 <span className="text-[#F43F5E] font-bold text-sm">{croData.stop_loss_pct}%</span>
-                <span className="text-[10px] text-[#64748B] block">2x ATR trailing</span>
+                <span className="text-[10px] text-[#64748B] block">Fixed distance from actual entry</span>
+                {croData.execution_plan?.take_profit_r_multiple && <span className="text-[10px] text-[#06B6D4] block mt-1">Experimental paper target: {croData.execution_plan.take_profit_pct_from_actual_entry}% ({croData.execution_plan.take_profit_r_multiple}R), up to {croData.execution_plan.maximum_holding_sessions} sessions</span>}
               </div>
 
               <div className="col-span-2 sm:col-span-1 bg-[#090A0F] border border-[#1E2230] p-3 rounded-lg">

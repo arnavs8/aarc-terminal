@@ -1,3 +1,5 @@
+Follow-up: [latest upstream comparison and experimental 2R exits](UPSTREAM_COMPARISON.md). The historical results below preserve the previous release; the ETF policy is unchanged.
+
 # Returns, flash-crash replay and Groq news
 
 Open **`/validation`** for the judge-facing dashboard. It has annual profits, account-value charts, the real 2010 flash-crash replay, nine volume-injection scenarios, daily committee outputs, model comparisons and a current paper allocation button. `/model-lab` preserves the unsuccessful Timestral experiment; `/stress-test` preserves the earlier COVID/2022 evidence.

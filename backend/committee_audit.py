@@ -76,6 +76,16 @@ def finalize_verdict(proposal, q, news):
     result.update(action=action, verdict=action, recommended_allocation_pct=allocation,
                   stop_loss_pct=stop, confidence_kind='heuristic_score_not_probability',
                   calibrated_probabilities=None, conformal_prediction_set=None)
+    result['execution_plan'] = {
+        'mode': 'experimental_paper_plan',
+        'entry': 'next_session_open',
+        'stop_loss_pct': stop,
+        'take_profit_r_multiple': 2.0 if allocation > 0 else None,
+        'take_profit_pct_from_actual_entry': 2 * stop if allocation > 0 else None,
+        'maximum_holding_sessions': 5,
+        'same_bar_stop_and_target': 'stop_first',
+        'scope': 'Retrospective 2R candidate improved three of four crisis portfolios; no live orders or guarantee.',
+    }
     result['verdict_summary'] = (
         f'No position approved (allocation 0%). Proposed direction: {result["proposed_action"]}. '
         if allocation == 0 else
@@ -88,6 +98,9 @@ def finalize_verdict(proposal, q, news):
                                      if news.get('interpretation_available') else 'Historical/news evidence is unavailable. ')
     if issues:
         result['verdict_summary'] += ' '.join(issues)
+    if allocation > 0:
+        result['verdict_summary'] += ' Experimental paper plan: fixed stop, profit target at twice that distance from the actual next-open entry, or exit by session five.'
+        result['kill_switch_reason'] = str(result.get('kill_switch_reason','')).replace('trailing stop','fixed stop')
     result['evidence_audit'] = {
         'scope': 'Consistency with supplied metrics; external news truth is not verified.',
         'corrections': issues, 'allocation_cap_pct': round(cap, 2),

@@ -28,6 +28,16 @@ TICKER_ALIASES: Dict[str, str] = {
 }
 
 
+def chronological_bars(frame: pd.DataFrame) -> pd.DataFrame:
+    """Adapt upstream's ascending-date guarantee; reject ambiguous duplicate bars."""
+    result=frame.copy()
+    result.index=pd.DatetimeIndex(pd.to_datetime(result.index,errors='raise'))
+    if result.index.tz is not None:result.index=result.index.tz_localize(None)
+    if result.index.hasnans or result.index.has_duplicates:
+        raise ValueError('Price history must have unique valid session dates')
+    return result.sort_index()
+
+
 def analyze_ticker_quant(ticker: str, cutoff_date: Optional[str] = None, *, price_data: Optional[pd.DataFrame] = None) -> Dict[str, Any]:
     """
     Downloads historical OHLCV data for ticker, flags price/volume anomalies via IsolationForest,
@@ -96,6 +106,8 @@ def analyze_ticker_quant(ticker: str, cutoff_date: Optional[str] = None, *, pric
     if raw_df.empty:
         raise ValueError(f"Empty close price series for ticker: {ticker}")
 
+    # Ordering must be established before indicators, trailing windows and cutoffs.
+    raw_df = chronological_bars(raw_df)
     # Split into historical (<= cutoff_date) and future (> cutoff_date)
     if cutoff_dt:
         history_df = raw_df[raw_df.index <= cutoff_dt].copy()
@@ -317,8 +329,11 @@ def analyze_ticker_quant(ticker: str, cutoff_date: Optional[str] = None, *, pric
         # Express as positive percentage of maximum drop from peak
         max_drawdown_5d_pct = _clean_number(round(abs(min_dd), 2))
 
+    from backend.liquidity_diagnostics import daily_liquidity
+    completed = history_df if cutoff_dt is not None else history_df.loc[history_df.index < pd.Timestamp.now().normalize()]
     return {
         "ticker": clean_ticker_sym,
+        "daily_liquidity": daily_liquidity(completed),
         "as_of_date": history_df.index[-1].strftime("%Y-%m-%d"),
         "is_historical_replay": cutoff_date is not None,
         "learned_forecast": historical_forecast(clean_ticker_sym, history_df),
