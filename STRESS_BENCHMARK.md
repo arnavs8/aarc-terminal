@@ -2,6 +2,8 @@
 
 Open `/stress-test` in the running frontend. It includes all scheduled decisions for February–June 2020 and the full 2022 rate-hike year, in US and Indian instruments. Choose a market, period and decision to inspect the evidence, exact committee answer and next five price bars. Download the standalone offline report from that page.
 
+Download the [complete frozen evidence archive](benchmarks/evidence/AARC-crisis-evidence.zip) from the fork (GitHub: View raw / Download). Archive SHA-256: `65723645950fad76733db7372104f7acaf9d55810a3e7a03c0d20f388ff2305f`.
+
 Read [the results](benchmarks/stress/report.md), [machine-readable summary](benchmarks/stress/report.json), [independent reconciliation](benchmarks/stress/verification.json) and [trade ledger](benchmarks/stress/trade-ledger.csv). Results are simulations after stated costs, not actual fills.
 
 ## What was tested
