@@ -439,7 +439,7 @@ export default function TerminalPage() {
             <span className="text-white font-medium">Evidence-grounded committee</span>
           </div>
           <div className="flex items-center gap-2 bg-[#12141C] border border-[#1E2230] px-3 py-1.5 rounded-md">
-            <a href="/benchmark" className="text-[#06B6D4]">View committee benchmark</a>
+            <a href="/stress-test" className="text-[#06B6D4]">COVID & 2022 benchmarks</a>
           </div>
         </div>
       </header>

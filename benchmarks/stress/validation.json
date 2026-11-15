@@ -1,0 +1,35 @@
+{
+  "backend_tests": {
+    "passed": 76,
+    "command": "python -m pytest backend/tests -q"
+  },
+  "frontend_build": "passed",
+  "browser": {
+    "online": [
+      {
+        "episode": "covid",
+        "market": "us",
+        "cases": 80
+      },
+      {
+        "episode": "covid",
+        "market": "india",
+        "cases": 76
+      },
+      {
+        "episode": "hikes",
+        "market": "us",
+        "cases": 100
+      },
+      {
+        "episode": "hikes",
+        "market": "india",
+        "cases": 100
+      }
+    ],
+    "offlineCases": 356,
+    "browserErrors": [],
+    "mobileOverflow": false
+  },
+  "accounting_verification": "verification.json"
+}

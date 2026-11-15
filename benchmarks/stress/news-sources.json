@@ -1,0 +1,92 @@
+[
+  {
+    "id": "fed-20200303",
+    "date": "2020-03-03",
+    "available_from": "2020-03-04",
+    "publisher": "Federal Reserve",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20200303a.htm",
+    "title": "Federal Reserve cuts rates by half a percentage point as coronavirus threatens economic activity.",
+    "kind": "Curated factual paraphrase written for this benchmark, not a verbatim headline"
+  },
+  {
+    "id": "who-20200311",
+    "date": "2020-03-11",
+    "available_from": "2020-03-12",
+    "publisher": "WHO",
+    "url": "https://www.who.int/news-room/speeches/item/who-director-general-s-opening-remarks-at-the-media-briefing-on-covid-19---11-march-2020",
+    "title": "WHO characterizes COVID-19 as a pandemic amid alarming spread and severity.",
+    "kind": "Curated factual paraphrase written for this benchmark, not a verbatim headline"
+  },
+  {
+    "id": "fed-20200315",
+    "date": "2020-03-15",
+    "available_from": "2020-03-16",
+    "publisher": "Federal Reserve",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20200315a.htm",
+    "title": "Federal Reserve cuts its target rate to zero to 0.25 percent as coronavirus disrupts economic activity.",
+    "kind": "Curated factual paraphrase written for this benchmark, not a verbatim headline"
+  },
+  {
+    "id": "fed-20220316",
+    "date": "2022-03-16",
+    "available_from": "2022-03-17",
+    "publisher": "Federal Reserve",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20220316a.htm",
+    "title": "Federal Reserve raises rates to 0.25 to 0.50 percent as inflation remains elevated and anticipates further increases.",
+    "kind": "Curated factual paraphrase written for this benchmark, not a verbatim headline"
+  },
+  {
+    "id": "fed-20220504",
+    "date": "2022-05-04",
+    "available_from": "2022-05-05",
+    "publisher": "Federal Reserve",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20220504a.htm",
+    "title": "Federal Reserve raises rates to 0.75 to 1 percent and announces balance-sheet reduction while inflation remains elevated.",
+    "kind": "Curated factual paraphrase written for this benchmark, not a verbatim headline"
+  },
+  {
+    "id": "fed-20220615",
+    "date": "2022-06-15",
+    "available_from": "2022-06-16",
+    "publisher": "Federal Reserve",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20220615a.htm",
+    "title": "Federal Reserve raises rates to 1.50 to 1.75 percent as inflation and pressure on economic activity persist.",
+    "kind": "Curated factual paraphrase written for this benchmark, not a verbatim headline"
+  },
+  {
+    "id": "fed-20220727",
+    "date": "2022-07-27",
+    "available_from": "2022-07-28",
+    "publisher": "Federal Reserve",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20220727a.htm",
+    "title": "Federal Reserve raises rates to 2.25 to 2.50 percent while spending and production soften and inflation remains elevated.",
+    "kind": "Curated factual paraphrase written for this benchmark, not a verbatim headline"
+  },
+  {
+    "id": "fed-20220921",
+    "date": "2022-09-21",
+    "available_from": "2022-09-22",
+    "publisher": "Federal Reserve",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20220921a.htm",
+    "title": "Federal Reserve raises rates to 3 to 3.25 percent and anticipates further increases to address elevated inflation.",
+    "kind": "Curated factual paraphrase written for this benchmark, not a verbatim headline"
+  },
+  {
+    "id": "fed-20221102",
+    "date": "2022-11-02",
+    "available_from": "2022-11-03",
+    "publisher": "Federal Reserve",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20221102a.htm",
+    "title": "Federal Reserve raises rates to 3.75 to 4 percent and anticipates further tightening to bring inflation down.",
+    "kind": "Curated factual paraphrase written for this benchmark, not a verbatim headline"
+  },
+  {
+    "id": "fed-20221214",
+    "date": "2022-12-14",
+    "available_from": "2022-12-15",
+    "publisher": "Federal Reserve",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20221214a.htm",
+    "title": "Federal Reserve raises rates to 4.25 to 4.50 percent as inflation remains elevated and ongoing increases are anticipated.",
+    "kind": "Curated factual paraphrase written for this benchmark, not a verbatim headline"
+  }
+]

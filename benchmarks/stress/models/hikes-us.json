@@ -1,0 +1,98 @@
+{
+  "market": "us",
+  "source": "Yahoo Finance daily history (frozen download)",
+  "model_name": "regularized_logistic_all_blend_0.5",
+  "horizon": 5,
+  "temperature": 1.25,
+  "training_data_end": "2021-12-31",
+  "fit_end": "2020-12-23",
+  "purpose": "deployment candidate; validate before promotion",
+  "selection": {
+    "method": "three purged expanding-window folds inside training; separate validation for shrinkage and temperature",
+    "candidate_scores": {
+      "logistic_all": {
+        "fold_macro_log_loss": [
+          1.110888595266112,
+          1.0834032933430289,
+          1.123972861150075
+        ],
+        "mean": 1.1060882499197386
+      },
+      "regularized_logistic_all": {
+        "fold_macro_log_loss": [
+          1.1044748758824858,
+          1.0827596475507923,
+          1.1217059060808183
+        ],
+        "mean": 1.1029801431713655
+      },
+      "regularized_logistic_252": {
+        "fold_macro_log_loss": [
+          1.2106996260367968,
+          1.1316084336391499,
+          1.190937922540604
+        ],
+        "mean": 1.1777486607388503
+      },
+      "regularized_logistic_756": {
+        "fold_macro_log_loss": [
+          1.1044748758824858,
+          1.084043655262197,
+          1.133454278580027
+        ],
+        "mean": 1.1073242699082366
+      },
+      "small_tree_756": {
+        "fold_macro_log_loss": [
+          1.1684601549525135,
+          1.1202862866481345,
+          1.0911223301094881
+        ],
+        "mean": 1.1266229239033787
+      }
+    },
+    "selected_candidate": "regularized_logistic_all",
+    "training_window_sessions": null,
+    "model_weight": 0.5,
+    "validation_macro_log_loss": 1.0648799446462003,
+    "baseline_validation_macro_log_loss": 1.068503439086224,
+    "folds": [
+      {
+        "fit_label_end": "2018-07-31",
+        "validation_start": "2018-08-01",
+        "validation_label_end": "2019-05-17"
+      },
+      {
+        "fit_label_end": "2019-05-17",
+        "validation_start": "2019-05-20",
+        "validation_label_end": "2020-03-04"
+      },
+      {
+        "fit_label_end": "2020-03-04",
+        "validation_start": "2020-03-05",
+        "validation_label_end": "2020-12-16"
+      }
+    ]
+  },
+  "symbols": [
+    "AAPL",
+    "JPM",
+    "SPY",
+    "XOM"
+  ],
+  "data_hashes": {
+    "SPY": "7bd5b74f70cd3644f8f172dd6216153faf283661f3425afdc602cd036e9bdfe5",
+    "AAPL": "ed3f196aec8da45b02a46f06f78d41bfd76c0db886ac66ae5aa68e742ec732fe",
+    "JPM": "b17b19e2990943bc104e186d6559ea2296b114c3cadb7395eff52e43820f06a7",
+    "XOM": "90ed5c98ec2fa3ad81d006fc6bb98131f084825fe5c6652eb129142cf9204875"
+  },
+  "created_at_utc": "2026-11-15T04:27:45.083704+00:00",
+  "random_seed": 42,
+  "versions": {
+    "numpy": "2.5.4",
+    "pandas": "3.1.1",
+    "scikit-learn": "1.9.1",
+    "lightgbm": "4.7.0",
+    "joblib": "1.6.0"
+  }
+}

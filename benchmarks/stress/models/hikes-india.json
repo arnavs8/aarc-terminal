@@ -1,0 +1,98 @@
+{
+  "market": "india",
+  "source": "Yahoo Finance daily history (frozen download)",
+  "model_name": "regularized_logistic_756_blend_0.5",
+  "horizon": 5,
+  "temperature": 1.25,
+  "training_data_end": "2021-12-31",
+  "fit_end": "2020-12-17",
+  "purpose": "deployment candidate; validate before promotion",
+  "selection": {
+    "method": "three purged expanding-window folds inside training; separate validation for shrinkage and temperature",
+    "candidate_scores": {
+      "logistic_all": {
+        "fold_macro_log_loss": [
+          1.096150724028331,
+          1.07939828998021,
+          1.1482523302766894
+        ],
+        "mean": 1.1079337814284103
+      },
+      "regularized_logistic_all": {
+        "fold_macro_log_loss": [
+          1.0917458427400248,
+          1.0771734205594976,
+          1.138408141256078
+        ],
+        "mean": 1.1024424681852
+      },
+      "regularized_logistic_252": {
+        "fold_macro_log_loss": [
+          1.1660531060357446,
+          1.1032052006632438,
+          1.0825324645555987
+        ],
+        "mean": 1.1172635904181958
+      },
+      "regularized_logistic_756": {
+        "fold_macro_log_loss": [
+          1.0917458427400248,
+          1.0761132644822722,
+          1.1273627736165213
+        ],
+        "mean": 1.0984072936129394
+      },
+      "small_tree_756": {
+        "fold_macro_log_loss": [
+          1.1464071526986708,
+          1.0934664769883187,
+          1.1766121347888727
+        ],
+        "mean": 1.1388285881586206
+      }
+    },
+    "selected_candidate": "regularized_logistic_756",
+    "training_window_sessions": 756,
+    "model_weight": 0.5,
+    "validation_macro_log_loss": 1.0817852996707278,
+    "baseline_validation_macro_log_loss": 1.0863118723108662,
+    "folds": [
+      {
+        "fit_label_end": "2018-07-23",
+        "validation_start": "2018-07-24",
+        "validation_label_end": "2019-05-16"
+      },
+      {
+        "fit_label_end": "2019-05-16",
+        "validation_start": "2019-05-17",
+        "validation_label_end": "2020-02-28"
+      },
+      {
+        "fit_label_end": "2020-02-28",
+        "validation_start": "2020-03-02",
+        "validation_label_end": "2020-12-10"
+      }
+    ]
+  },
+  "symbols": [
+    "HDFCBANK.NS",
+    "INFY.NS",
+    "ITC.NS",
+    "RELIANCE.NS"
+  ],
+  "data_hashes": {
+    "RELIANCE.NS": "bed954042eb879fe47592580bd9dc8e92abe651c1e31f3cc1122dddcaa949354",
+    "HDFCBANK.NS": "ddf4e553ab059e4424cdcf387745b0578bcd985b0b641813e53c04e590ef3282",
+    "INFY.NS": "500b27d66cb6e5a0acf9a414fb77b3cda55a3a1837e9c13735cd641a23a62a01",
+    "ITC.NS": "4ba61b1b86115d6afe43dfb739056e519e9e9a130ab9270c0249e6cc50ab5340"
+  },
+  "created_at_utc": "2026-11-15T04:27:47.968743+00:00",
+  "random_seed": 42,
+  "versions": {
+    "numpy": "2.5.4",
+    "pandas": "3.1.1",
+    "scikit-learn": "1.9.1",
+    "lightgbm": "4.7.0",
+    "joblib": "1.6.0"
+  }
+}

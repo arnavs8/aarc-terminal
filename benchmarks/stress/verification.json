@@ -1,0 +1,13 @@
+{
+  "cases_verified": 356,
+  "active_trades_reconciled": 533,
+  "checks": [
+    "source tape matches all future bars",
+    "training ends before signal",
+    "macro sources available before signal",
+    "independent fee/dividend/borrow arithmetic",
+    "independent compounded ending balances"
+  ],
+  "report_sha256": "949271cefb4d440b6a662c9f55825afd41df5ded478366fc9c528a21ff46c9e1",
+  "report_hash_basis": "UTF-8 with LF-normalized line endings, so Git checkout settings do not change the hash"
+}

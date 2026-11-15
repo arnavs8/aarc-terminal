@@ -30,6 +30,7 @@ export default function BenchmarkPage() {
   return <main className="min-h-screen bg-[#090d15] text-slate-200 p-6 md:p-12">
     <div className="max-w-6xl mx-auto space-y-8">
       <a href="/" className="text-cyan-300 text-sm">← Back to terminal</a>
+      <a href="/stress-test" className="inline-block ml-6 text-cyan-300 text-sm underline">COVID & 2022 stress tests</a>
       <header className="space-y-3">
         <p className="uppercase tracking-[.2em] text-cyan-300 text-xs">AARC · recorded evaluation</p>
         <h1 className="text-3xl md:text-4xl font-semibold text-white">Can you trust the final answer?</h1>

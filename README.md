@@ -131,3 +131,10 @@ package.json          Root npm scripts for the API and frontend
 ## Whole-committee evaluation
 
 The final committee answer now passes through an evidence and allocation reviewer. Open `/benchmark` in the frontend to inspect paired historical answers and simulated outcomes. See [COMMITTEE_BENCHMARK.md](COMMITTEE_BENCHMARK.md) for the method, limitations and reproduction commands, and [the recorded pilot results](benchmarks/committee/report.md). These checks evaluate specific consistency failures; they are not a claim of universal factual accuracy or future profitability.
+
+
+## COVID and 2022 crisis replay
+
+Open `/stress-test` for 356 recorded committee decisions across US and Indian instruments, account-balance comparisons, evidence checks, and every original/current answer with its next five price bars. Download the offline visual report or trade ledger directly from that page. See [the method and reproduction steps](STRESS_BENCHMARK.md) and [recorded crisis results](benchmarks/stress/report.md). These retrospective simulations explicitly exclude unconfigured Gemini reasoning and do not establish future profitability.
+
+For the plain-language verdict, read [what the crisis results actually show](benchmarks/stress/FINDINGS.md).

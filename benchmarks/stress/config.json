@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "frozen_production_commit": "2dce2ab09df4c6f691270f397a10a50301899358",
+  "original_graph_commit": "dcae346",
+  "symbols": {"us": ["SPY", "AAPL", "JPM", "XOM"], "india": ["RELIANCE.NS", "HDFCBANK.NS", "INFY.NS", "ITC.NS"]},
+  "periods": {
+    "covid": {"title": "COVID crash and early recovery", "start": "2020-02-01", "end": "2020-06-30", "stride_sessions": 5, "train_through": "2019-12-31"},
+    "hikes": {"title": "2022 Federal Reserve rate-hike year", "start": "2022-01-01", "end": "2022-12-30", "stride_sessions": 10, "train_through": "2021-12-31"}
+  },
+  "price_start": "2016-01-01", "price_end_exclusive": "2023-01-15",
+  "horizon_sessions": 5, "seed": 42, "round_trip_bps": 30,
+  "sensitivity_costs_bps": [0, 30, 100],
+  "starting_capital": 10000,
+  "execution": "Next-session open; fixed stop with adverse gap fills; exit at fifth-session close. No overlapping trades per symbol.",
+  "calibration": "Frozen cold-start prior with no outcome updates during either episode; state isolated from the live application.",
+  "selection": "Four predeclared instruments per market spanning broad US equity, technology, finance, energy and Indian large caps. Selected surviving instruments, not a point-in-time universe.",
+  "news": "Curated summaries of primary-source macro announcements, available only from the next calendar day; trailing 30-day window. Not a complete company-news archive.",
+  "model_mode": "Actual production quant, FinBERT, grounded arguments, deterministic CRO and final auditor. Gemini not configured and not evaluated. Learned classifier is evaluated separately because production CRO does not consume it."
+}
