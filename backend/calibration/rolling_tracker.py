@@ -4,6 +4,7 @@ import json
 import os
 import threading
 from pathlib import Path
+from backend.calibration.storage import calibration_path
 from typing import Dict, Any, List, Optional, Tuple
 import numpy as np
 import pandas as pd
@@ -22,10 +23,10 @@ class RollingAccuracyTracker:
 
     def __init__(
         self,
-        storage_path: str = "backend/data_cache/rolling_accuracy.json",
+        storage_path: Optional[str] = None,
         window_size: int = 25,
     ):
-        self.storage_path = Path(storage_path)
+        self.storage_path = Path(storage_path) if storage_path is not None else calibration_path("rolling_accuracy.json")
         self.storage_path.parent.mkdir(parents=True, exist_ok=True)
         self.window_size = window_size
         self._brier_calibrator = BrierScoreCalibrator(rolling_window=window_size)

@@ -127,6 +127,8 @@ interface CROVerdict {
   action: 'LONG' | 'SHORT' | 'REJECT_TRADE';
   verdict?: 'LONG' | 'SHORT' | 'REJECT_TRADE';
   confidence: number;
+  raw_confidence?: number;
+  bayesian_calibration?: { sample_updates?: number };
   generation_mode?: string;
   evidence_audit?: { corrections: string[]; scope: string };
   recommended_allocation_pct: number;
@@ -1219,6 +1221,7 @@ export default function TerminalPage() {
               {croData && (
                 <span className="text-xs font-mono text-[#94A3B8]">
                   Heuristic score: <span className="text-white font-bold">{croData.confidence}/100</span>
+                  <span className="block text-[10px] text-[#94A3B8] mt-1">Raw score: {croData.raw_confidence ?? "unavailable"}/100 · Calibration updates: {croData.bayesian_calibration?.sample_updates ?? 0}. Final score includes market-regime and tail-risk adjustments; it is not a success probability.</span>
                 </span>
               )}
             </div>

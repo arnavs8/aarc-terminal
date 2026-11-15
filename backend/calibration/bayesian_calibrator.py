@@ -10,6 +10,7 @@ Upgrades:
 import json
 import threading
 from pathlib import Path
+from backend.calibration.storage import calibration_path
 from typing import Dict, Any, Tuple, Optional
 import numpy as np
 from scipy.stats import beta as beta_dist
@@ -38,13 +39,13 @@ class BetaBinomialConfidenceCalibrator:
         alpha_0: float = 7.0,
         beta_0: float = 3.0,
         gamma: float = 0.85,  # lambda forgetting factor
-        storage_path: str = "backend/data_cache/bayesian_calibration.json",
+        storage_path: Optional[str] = None,
         temperature: float = DEFAULT_RISK_TEMPERATURE,
     ):
         self.alpha_0 = alpha_0
         self.beta_0 = beta_0
         self.gamma = gamma  # Exponential decay forgetting factor lambda
-        self.storage_path = Path(storage_path)
+        self.storage_path = Path(storage_path) if storage_path is not None else calibration_path("bayesian_calibration.json")
         self.storage_path.parent.mkdir(parents=True, exist_ok=True)
         self.temperature = temperature
         self._gater = RegimeConditionalConfidenceGater()
