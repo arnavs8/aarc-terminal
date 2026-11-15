@@ -1,0 +1,122 @@
+{
+  "dataset": {
+    "id": "zeroshot/twitter-financial-news-sentiment",
+    "revision": "ccbe24de388e287beb92dd393a335c376b350ac3",
+    "files": [
+      ".gitattributes",
+      "README.md",
+      "sent_dataset_meta.txt",
+      "sent_train.csv",
+      "sent_valid.csv"
+    ]
+  },
+  "split": "sent_valid.csv; full provided validation split; no label tuning",
+  "rows": 2388,
+  "source_sha256": "31ea8274c98b52212daa68f2fb962811bf1913c1efe51b99765c8e2311806de6",
+  "labels": [
+    "negative",
+    "neutral",
+    "positive"
+  ],
+  "results": {
+    "ProsusAI/finbert": {
+      "revision": "0bc2ac10dda6929bcb1f77ccc43c7ec5c424f031",
+      "raw": {
+        "accuracy": 0.7252931323283082,
+        "macro_f1": 0.6681732301000801,
+        "confusion_matrix": [
+          [
+            264,
+            71,
+            12
+          ],
+          [
+            213,
+            1184,
+            169
+          ],
+          [
+            58,
+            133,
+            284
+          ]
+        ]
+      },
+      "with_existing_lexicon_gate": {
+        "accuracy": 0.724036850921273,
+        "macro_f1": 0.6695894974503546,
+        "confusion_matrix": [
+          [
+            260,
+            73,
+            14
+          ],
+          [
+            212,
+            1177,
+            177
+          ],
+          [
+            44,
+            139,
+            292
+          ]
+        ]
+      },
+      "seconds": 190.36
+    },
+    "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+      "revision": "fa8b21b6b6549ca70263ee96b9ec52aba67cd2b4",
+      "raw": {
+        "accuracy": 0.7361809045226131,
+        "macro_f1": 0.6664243695140407,
+        "confusion_matrix": [
+          [
+            228,
+            96,
+            23
+          ],
+          [
+            166,
+            1264,
+            136
+          ],
+          [
+            25,
+            184,
+            266
+          ]
+        ]
+      },
+      "with_existing_lexicon_gate": {
+        "accuracy": 0.7349246231155779,
+        "macro_f1": 0.66534531411668,
+        "confusion_matrix": [
+          [
+            226,
+            97,
+            24
+          ],
+          [
+            170,
+            1260,
+            136
+          ],
+          [
+            24,
+            182,
+            269
+          ]
+        ]
+      },
+      "seconds": 253.36
+    }
+  },
+  "scope": "Annotated tweet/news sentiment, not next-day stock returns or company-targeted Qwen reasoning.",
+  "limitations": [
+    "Both published classifiers report PhraseBank training; unreported pretraining overlap cannot be ruled out.",
+    "Single cross-domain dataset, not comprehensive news-quality or trading-profit validation.",
+    "Financial text labels describe sentiment, not realized returns.",
+    "Latency includes model loading and is not a dedicated serving benchmark."
+  ]
+}

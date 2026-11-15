@@ -1,4 +1,6 @@
 import urllib.parse
+import os
+import threading
 import feedparser
 import pandas as pd
 import torch
@@ -9,20 +11,34 @@ from backend.features.financial_lexicon import LoughranMcDonaldVerifier
 from backend.features.aspect_sentiment import AspectBasedSentimentAnalyzer
 
 _GLOBAL_FINBERT_INSTANCE = None
+_MODEL_LOCK = threading.Lock()
+LOCAL_MODELS = {
+    'finbert': ('ProsusAI/finbert', '0bc2ac10dda6929bcb1f77ccc43c7ec5c424f031'),
+    'finsense': ('AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis', 'fa8b21b6b6549ca70263ee96b9ec52aba67cd2b4'),
+}
 
 
 class FinBertSentimentAnalyzer:
     def __init__(self, model_name: str = "ProsusAI/finbert"):
+        self.model_name = model_name
+        self.revision = next((rev for name, rev in LOCAL_MODELS.values() if name == model_name), None)
+        if self.revision is None:
+            raise ValueError('Only reviewed, pinned sentiment models are supported')
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
-        self.tokenizer = AutoTokenizer.from_pretrained(model_name)
-        self.model = AutoModelForSequenceClassification.from_pretrained(model_name).to(self.device)
+        self.tokenizer = AutoTokenizer.from_pretrained(model_name, revision=self.revision)
+        self.model = AutoModelForSequenceClassification.from_pretrained(model_name, revision=self.revision).to(self.device)
         self.model.eval()
 
     @classmethod
     def get_instance(cls) -> "FinBertSentimentAnalyzer":
         global _GLOBAL_FINBERT_INSTANCE
-        if _GLOBAL_FINBERT_INSTANCE is None:
-            _GLOBAL_FINBERT_INSTANCE = cls()
+        selected = os.getenv('AARC_LOCAL_SENTIMENT_MODEL', 'finbert')
+        if selected not in LOCAL_MODELS:
+            raise ValueError('Unknown AARC_LOCAL_SENTIMENT_MODEL')
+        name = LOCAL_MODELS[selected][0]
+        with _MODEL_LOCK:
+            if _GLOBAL_FINBERT_INSTANCE is None or _GLOBAL_FINBERT_INSTANCE.model_name != name:
+                _GLOBAL_FINBERT_INSTANCE = cls(name)
         return _GLOBAL_FINBERT_INSTANCE
 
     def score_headlines(self, headlines: Union[List[str], List[Dict[str, Any]]]) -> Dict[str, Any]:
@@ -58,6 +74,8 @@ class FinBertSentimentAnalyzer:
             probs = torch.nn.functional.softmax(outputs.logits, dim=-1).cpu().numpy()
 
         id2label = {int(k): str(v).lower() for k, v in self.model.config.id2label.items()}
+        if set(id2label.values()) != {'positive', 'negative', 'neutral'}:
+            raise ValueError('Unverified sentiment label mapping; refusing to invent neutral labels')
         
         # Determine index for positive and negative
         pos_idx = None
@@ -116,6 +134,8 @@ class FinBertSentimentAnalyzer:
         absa_result = absa.analyze_aspects_and_tone_shift(results)
 
         return {
+            "sentiment_model": self.model_name,
+            "model_revision": self.revision,
             "aggregate_sentiment_score": aggregate_score,
             "ema_smoothed_sentiment": absa_result.get("ema_smoothed_sentiment", aggregate_score),
             "headlines": results,
@@ -268,6 +288,17 @@ def analyze_ticker_sentiment(
         )
         return _unavailable(ticker, reason)
 
+    if os.getenv('AARC_NEWS_PROVIDER', 'qwen') == 'qwen':
+        from backend.tools.qwen_news import analyze
+        interpreted = analyze(ticker, items)
+        if not interpreted['available']:
+            return {**_unavailable(ticker, interpreted['reason']), 'sentiment_model': interpreted['model']}
+        return {'ticker': ticker, 'news_available': True, 'interpretation_available': True,
+                'sentiment_model': interpreted['model'], 'sentiment_provider': 'Groq',
+                'aggregate_sentiment_score': interpreted['aggregate_sentiment_score'],
+                'headlines': interpreted['headlines'], 'evidence_review': interpreted['scope'],
+                'request_sha256': interpreted['request_sha256'], 'confidence_kind': interpreted['confidence_kind']}
+
     try:
         analyzer = FinBertSentimentAnalyzer.get_instance()
         scored = analyzer.score_headlines(items)
@@ -276,6 +307,8 @@ def analyze_ticker_sentiment(
 
     return {
         "ticker": ticker,
+        "sentiment_model": scored.get("sentiment_model", "ProsusAI/finbert"),
+        "model_revision": scored.get("model_revision"),
         "aggregate_sentiment_score": scored["aggregate_sentiment_score"],
         "ema_smoothed_sentiment": scored.get("ema_smoothed_sentiment", scored["aggregate_sentiment_score"]),
         "headlines": scored["headlines"],

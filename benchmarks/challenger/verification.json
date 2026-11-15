@@ -1,0 +1,14 @@
+{
+  "cases": 788,
+  "ledger_events_reconciled": 1622,
+  "annual_portfolios_reconciled": 16,
+  "checks": [
+    "Signal precedes execution",
+    "Open/final-close prices match frozen tape",
+    "Turnover fees independently recomputed",
+    "Dividends credited to prior holders",
+    "All final balances independently reconciled",
+    "No leverage or negative cash"
+  ],
+  "protocol_sha256": "17be4bba585bcaf910b955e23d857217f526349375feedae2bfa942e7467253e"
+}

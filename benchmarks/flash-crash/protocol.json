@@ -1,0 +1,29 @@
+{
+  "entry": "13:55:00",
+  "injection": "14:00:00 for 300 seconds",
+  "volume_multipliers": [
+    2,
+    5,
+    10
+  ],
+  "directions": [
+    "bullish",
+    "bearish",
+    "unsigned"
+  ],
+  "flow_imbalance": 0.8,
+  "latency_seconds": [
+    5,
+    30,
+    60
+  ],
+  "extra_slippage_bps": [
+    0,
+    10,
+    50
+  ],
+  "fee_bps_per_side": 15,
+  "maximum_participation_best_bid_depth": 0.1,
+  "guard_rules": "One-minute adverse move >=1% or spread >=10bps -> exit; depth <=25% prior median or volume >=3x and adverse signed imbalance >=60% -> halve; no reentry",
+  "freeze_note": "Rules fixed before event replay; designed with knowledge of flash-crash mechanism, not blind discovery"
+}

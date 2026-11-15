@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "frozen_before_new_outcomes": true,
+  "target": "Above 10% full-calendar-year return after costs; show every year and market, including failures",
+  "years": [2024, 2025],
+  "markets": {"us": ["SPY", "AAPL", "JPM", "XOM"], "india": ["RELIANCE.NS", "HDFCBANK.NS", "INFY.NS", "ITC.NS"]},
+  "price_start": "2022-01-01",
+  "price_end_exclusive": "2026-01-10",
+  "initial_capital": 10000,
+  "context_sessions": 252,
+  "signal_stride": 5,
+  "forecast_horizon": 5,
+  "one_way_cost_bps": 15,
+  "cost_sensitivity_one_way_bps": [0, 15, 50],
+  "annual_risk_target": 0.20,
+  "forecast_cost_hurdle": 0.003,
+  "variants": ["timestral", "trend_vol", "buy_hold", "cash"],
+  "policy": "Four equal initial sleeves; long-only, no leverage; above 200-session moving average; 60-session volatility sizing capped at 100% of each sleeve. Timestral additionally requires five-session median price change above 0.3%. Signals execute next open; weight changes pay turnover costs; dividends to prior holders; liquidate final close.",
+  "promotion": "No automatic promotion. Display target achievement, excess return versus both baselines, drawdown, exposure and cost sensitivity for all four groups.",
+  "news": "No complete archived company-news tape is available for 2024-2025; hosted Qwen is separately tested and is not credited with this price-only P&L.",
+  "limitations": "New periods untouched by this strategy selection, but Timestral is a 2026 pretrained model with unknown historical pretraining overlap. Retrospective reconstruction, not a clean vintage out-of-sample claim. Selected surviving instruments, fractional shares, no taxes/FX/cash interest. No promise of 10% returns."
+}

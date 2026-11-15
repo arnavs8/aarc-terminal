@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "transactions": 75,
+  "portfolios": 2,
+  "checks": [
+    "Each daily balance reconstructed from raw prices, dividend cash, shares and fees",
+    "Signals precede executions",
+    "No negative cash or short positions",
+    "No recomputed strategy targets used in reconciliation"
+  ]
+}

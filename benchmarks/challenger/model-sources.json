@@ -1,0 +1,22 @@
+[
+  {
+    "id": "mistralai/Timestral-28M",
+    "revision": "49b26409ac87b5935539a5d8ffe7f397b720db47",
+    "source": "https://huggingface.co/mistralai/Timestral-28M"
+  },
+  {
+    "id": "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis",
+    "revision": "fa8b21b6b6549ca70263ee96b9ec52aba67cd2b4",
+    "source": "https://huggingface.co/AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis"
+  },
+  {
+    "id": "neoyipeng/ModernFinBERT-base",
+    "revision": "71404b76e6148b499b89d59d251e64fea52d8760",
+    "source": "https://huggingface.co/neoyipeng/ModernFinBERT-base"
+  },
+  {
+    "id": "ProsusAI/finbert",
+    "revision": "0bc2ac10dda6929bcb1f77ccc43c7ec5c424f031",
+    "source": "https://huggingface.co/ProsusAI/finbert"
+  }
+]

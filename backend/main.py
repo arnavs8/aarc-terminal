@@ -25,6 +25,30 @@ app = FastAPI(
     version="1.0.0"
 )
 
+
+@app.get('/api/portfolio/recommendation')
+async def portfolio_recommendation():
+    """Paper allocation from the frozen training policy; never submits orders."""
+    def calculate():
+        import pandas as pd
+        from backend.portfolio_research import targets
+        root=Path(__file__).resolve().parent.parent
+        policy=json.loads((root/'benchmarks/strategy/frozen-policy.json').read_text())['selected']
+        frames={}
+        for symbol in ('SPY','QQQ','TLT','GLD'):
+            frame=yf.download(symbol,period='2y',auto_adjust=False,actions=True,progress=False,threads=False)
+            if isinstance(frame.columns,pd.MultiIndex):frame.columns=frame.columns.get_level_values(0)
+            if len(frame)<253:raise ValueError('Insufficient price history')
+            # Exclude today's potentially incomplete bar, using exchange-local date.
+            index=pd.DatetimeIndex(frame.index).tz_localize(None)
+            frame.index=index
+            frames[symbol]=frame.loc[index<pd.Timestamp.now(tz='America/New_York').tz_localize(None).normalize()]
+        as_of=min(f.index[-1] for f in frames.values())
+        weights=targets({s:f.loc[:as_of] for s,f in frames.items()},policy['lookback'],policy['risk_target'])
+        return {'as_of':str(as_of.date()),'weights':weights,'cash_weight':max(0.,1-sum(weights.values())),'policy':policy,'mode':'paper_only','execution':'Monthly allocation planner; trade no earlier than next session open. This endpoint places no orders.','scope':'Separate USD ETF portfolio; not single-stock committee or a guaranteed 10% return.'}
+    try:return await asyncio.to_thread(calculate)
+    except Exception as exc:raise HTTPException(status_code=503,detail='Portfolio inputs unavailable: '+type(exc).__name__)
+
 # Enable CORS for frontend requests
 app.add_middleware(
     CORSMiddleware,
@@ -33,6 +57,29 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.get('/api/research/forecast')
+async def research_forecast(ticker: str = Query(default='AAPL', max_length=25)):
+    """Live Timestral research scenario, explicitly separate from the production CRO."""
+    import re
+    clean = ticker.strip().upper()
+    if not re.fullmatch(r'[A-Z0-9][A-Z0-9.\-]{0,24}', clean):
+        raise HTTPException(status_code=400, detail='Use an equity ticker such as AAPL or RELIANCE.NS')
+    def run():
+        import pandas as pd
+        from backend.models.timestral_forecast import forecast_batch, decide
+        frame = yf.download(clean, period='2y', auto_adjust=False, progress=False, threads=False)
+        if isinstance(frame.columns, pd.MultiIndex):
+            frame.columns = frame.columns.get_level_values(0)
+        frame.index = pd.DatetimeIndex(frame.index).tz_localize(None)
+        forecast = forecast_batch([frame.Close.to_numpy()[-252:]])[0]
+        return {'ticker': clean, 'forecast': forecast, 'decision': decide(frame, forecast),
+                'production_enabled': False, 'scope': 'Experimental five-session scenario; not the production committee verdict or an order.'}
+    try:
+        return await asyncio.to_thread(run)
+    except Exception as exc:
+        raise HTTPException(status_code=503, detail=f'Research forecast unavailable: {type(exc).__name__}') from exc
 
 CACHE_FILE = Path(__file__).resolve().parent / "demo_cache.json"
 
@@ -315,6 +362,10 @@ async def get_sentiment_aspects(
             "tone_shift_regime": news_data.get("tone_shift_regime", "NEUTRAL"),
             "aspect_relevance": news_data.get("aspect_relevance", {}),
             "news_available": news_data.get("news_available", True),
+            "news_error": news_data.get("news_error"),
+            "sentiment_model": news_data.get("sentiment_model"),
+            "interpretation_available": news_data.get("interpretation_available"),
+            "evidence_review": news_data.get("evidence_review"),
             "headlines": news_data.get("headlines", []),
         }
     except Exception as exc:

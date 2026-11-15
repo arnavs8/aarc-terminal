@@ -1,4 +1,10 @@
+# Latest research release
+
+Open `/validation` for the new portfolio, 2010 flash crash and mid-trade volume tests. Read [results and limitations](RESEARCH_RESULTS.md). Groq Qwen is the default live news reader.
+
 # AARC Quant Terminal
+
+Timestral forecasting, hosted Qwen evidence-based news interpretation, and the measured ModernBERT comparison are documented in [CHALLENGER_MODELS.md](CHALLENGER_MODELS.md). Open `/model-lab` to inspect the annual 10% target experiment, including unsuccessful results.
 
 Historical data ingestion, chronological benchmarks and model retraining are documented in [HISTORICAL_BENCHMARK.md](HISTORICAL_BENCHMARK.md). Run `python -m backend.historical --help` for the new workflow.
 

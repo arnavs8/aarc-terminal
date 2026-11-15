@@ -96,7 +96,10 @@ interface QuantData {
 interface HeadlineItem {
   title: string;
   label: string;
-  score: number;
+  score: number | null;
+  explanation?: string;
+  evidence_quote?: string;
+  relevance?: string;
   published_at?: string;
   source_url?: string;
 }
@@ -113,6 +116,8 @@ interface NewsData {
   headlines: HeadlineItem[];
   news_available?: boolean;
   news_error?: string;
+  sentiment_model?: string;
+  evidence_review?: string;
 }
 
 interface BullData {
@@ -427,7 +432,7 @@ export default function TerminalPage() {
               </span>
             </div>
             <p className="text-xs text-[#94A3B8]">
-              Autonomous Adversarial Risk Committee • Quant ML + FinBERT NLP + Multi-Agent Arbitration
+              Autonomous Adversarial Risk Committee • Quant ML + Financial News NLP + Multi-Agent Arbitration
             </p>
           </div>
         </div>
@@ -439,7 +444,7 @@ export default function TerminalPage() {
             <span className="text-white font-medium">Evidence-grounded committee</span>
           </div>
           <div className="flex items-center gap-2 bg-[#12141C] border border-[#1E2230] px-3 py-1.5 rounded-md">
-            <a href="/stress-test" className="text-[#06B6D4]">COVID & 2022 benchmarks</a>
+            <a href="/validation" className="text-[#06B6D4]">Returns & flash-crash tests</a><span>·</span><a href="/model-lab" className="text-[#06B6D4]">Model lab</a>
           </div>
         </div>
       </header>
@@ -652,7 +657,7 @@ export default function TerminalPage() {
           <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
             {[
               { id: 1, label: '[1] Quant ML', ready: !!quantData },
-              { id: 2, label: '[2] FinBERT NLP', ready: !!newsData },
+              { id: 2, label: '[2] Financial News NLP', ready: !!newsData },
               ...(!isIndex ? [
                 { id: 3, label: '[3] Bull Agent', ready: !!bullData },
                 { id: 4, label: '[4] Short-Seller', ready: !!bearData },
@@ -808,7 +813,7 @@ export default function TerminalPage() {
         {/* Card 4: FinBERT Sentiment Score */}
         <div className="bg-[#12141C] border border-[#1E2230] rounded-xl p-4 flex flex-col justify-between">
           <div className="flex items-center justify-between text-xs text-[#94A3B8]">
-            <span className="uppercase tracking-wider font-medium">FinBERT Sentiment NLP</span>
+            <span className="uppercase tracking-wider font-medium">Financial News NLP</span>
             <Zap className="h-4 w-4 text-[#10B981]" />
           </div>
           <div className="my-2 flex items-baseline justify-between">
@@ -827,12 +832,14 @@ export default function TerminalPage() {
                 ? 'N/A'
                 : sentimentScore !== null
                 ? `${sentimentScore > 0 ? '+' : ''}${sentimentScore}`
-                : '---'}
+                : newsData ? 'N/A' : '---'}
             </div>
             {newsData && (
               <span className="text-[11px] font-mono text-[#94A3B8]">
                 {!newsAvailable
                   ? 'UNAVAILABLE'
+                  : sentimentScore === null
+                  ? 'UNCERTAIN'
                   : sentimentScore !== null && sentimentScore > 0.15
                   ? 'BULLISH'
                   : sentimentScore !== null && sentimentScore < -0.15
@@ -1046,10 +1053,10 @@ export default function TerminalPage() {
               <div className="flex items-center gap-2">
                 <Layers className="h-4 w-4 text-[#10B981]" />
                 <h3 className="text-xs font-semibold uppercase tracking-wider text-white">
-                  FinBERT Headlines for {ticker} ({newsData?.headlines.length ?? 0}/8)
+                  News Evidence for {ticker} ({newsData?.headlines.length ?? 0}/8)
                 </h3>
               </div>
-              <span className="text-[10px] font-mono text-[#64748B]">Google News RSS</span>
+              <span className="text-[10px] font-mono text-[#64748B]">{newsData?.sentiment_model || 'News model not loaded'}</span>
             </div>
 
             <div className="max-h-56 overflow-y-auto space-y-2 pr-1">
@@ -1071,6 +1078,8 @@ export default function TerminalPage() {
                         <p className="text-[#E2E8F0] line-clamp-2 leading-relaxed">
                           {item.source_url && /^https?:\/\//i.test(item.source_url) ? <a href={item.source_url} target="_blank" rel="noopener noreferrer" className="hover:text-cyan-300 underline">{item.title}</a> : item.title}
                         </p>
+                        {item.explanation && <p className="text-slate-400 mt-2">{item.explanation}</p>}
+                        {item.evidence_quote && <p className="text-cyan-300 mt-1">Evidence: “{item.evidence_quote}”</p>}
                         {item.published_at ? (
                           <div className="flex items-center gap-1.5 mt-1.5 text-[10px] text-[#64748B] font-mono">
                             <Clock className="h-3 w-3 text-[#64748B] shrink-0" />
@@ -1085,7 +1094,7 @@ export default function TerminalPage() {
                           {item.label}
                         </span>
                         <span className="text-[10px] text-[#64748B]">
-                          {(item.score * 100).toFixed(1)}%
+                          {typeof item.score === 'number' ? `${(item.score * 100).toFixed(1)}% label score` : 'No probability claimed'}
                         </span>
                       </div>
                     </div>

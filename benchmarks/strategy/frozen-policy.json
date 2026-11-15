@@ -1,0 +1,54 @@
+{
+  "selected": {
+    "lookback": 252,
+    "risk_target": 0.15,
+    "cagr_pct": 7.019777905075353,
+    "max_drawdown_pct": 18.901788857254154,
+    "selection_score": -2.431116523551724
+  },
+  "training_trials": [
+    {
+      "lookback": 126,
+      "risk_target": 0.15,
+      "cagr_pct": 8.775037668347775,
+      "max_drawdown_pct": 22.593875048494617,
+      "selection_score": -2.521899855899534
+    },
+    {
+      "lookback": 126,
+      "risk_target": 0.25,
+      "cagr_pct": 8.883436530901268,
+      "max_drawdown_pct": 23.32037325487778,
+      "selection_score": -2.776750096537622
+    },
+    {
+      "lookback": 126,
+      "risk_target": 1.0,
+      "cagr_pct": 8.918891799322948,
+      "max_drawdown_pct": 23.320373254877747,
+      "selection_score": -2.741294828115926
+    },
+    {
+      "lookback": 252,
+      "risk_target": 0.15,
+      "cagr_pct": 7.019777905075353,
+      "max_drawdown_pct": 18.901788857254154,
+      "selection_score": -2.431116523551724
+    },
+    {
+      "lookback": 252,
+      "risk_target": 0.25,
+      "cagr_pct": 6.851609420879146,
+      "max_drawdown_pct": 20.359876803511934,
+      "selection_score": -3.3283289808768215
+    },
+    {
+      "lookback": 252,
+      "risk_target": 1.0,
+      "cagr_pct": 6.815034249760754,
+      "max_drawdown_pct": 20.950996728133152,
+      "selection_score": -3.660464114305822
+    }
+  ],
+  "protocol_sha256": "eb8a4fdc6a1a3636fb5afa1f87f23c054591bb9d8ad223843b1d033346111ef8"
+}

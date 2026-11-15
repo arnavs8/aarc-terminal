@@ -22,7 +22,8 @@ def grounded_arguments(q, news):
     vol = q.get('annualized_volatility', 'unavailable')
     anomalies = q.get('recent_10d_anomalies', 'unavailable')
     score = news.get('aggregate_sentiment_score')
-    news_text = ('News evidence unavailable; sentiment cannot support a trade.' if score is None
+    news_text = (('Headlines reviewed, but company-specific direction remains uncertain.' if news.get('interpretation_available')
+                  else 'News evidence unavailable; sentiment cannot support a trade.') if score is None
                  else f'Headline sentiment score is {score}; this measures wording, not event truth or future returns.')
     bull = (f'• Observed SMA20 trend: {trend}; five-session return: {momentum}%. A bullish continuation is a hypothesis.\n'
             f'• RSI-14: {rsi}. RSI alone does not establish upside or a reversal.\n'
@@ -43,6 +44,13 @@ def finalize_verdict(proposal, q, news):
     if allocation < 0 or allocation > cap:
         issues.append('Allocation clipped to the regime-adjusted risk cap.')
     allocation = max(0.0, min(cap, allocation))
+    guard = q.get('market_guard')
+    if guard is not None:
+        scale = max(0., min(1., finite(guard.get('exposure_multiplier'), 0.)))
+        allocation *= scale
+        result['market_guard'] = guard
+        if scale < 1:
+            issues.append('Intraday risk guard reduced exposure: ' + str(guard.get('reason', 'invalid evidence')))
     # A default LONG without a supporting trend or observed positive news is not evidence.
     sentiment = finite(news.get('aggregate_sentiment_score'))
     unsupported_long = action == 'LONG' and not q.get('close_gt_sma20', False) and sentiment <= 0
@@ -76,7 +84,8 @@ def finalize_verdict(proposal, q, news):
          f'RSI-14 {q.get("rsi_14")}, SMA20 trend {q.get("sma20_trend")}. '
          'The committee score is a heuristic, not a measured probability of success. ')
     if news.get('aggregate_sentiment_score') is None:
-        result['verdict_summary'] += 'Historical/news evidence is unavailable. '
+        result['verdict_summary'] += ('Headlines were reviewed; no directional company-specific evidence was established. '
+                                     if news.get('interpretation_available') else 'Historical/news evidence is unavailable. ')
     if issues:
         result['verdict_summary'] += ' '.join(issues)
     result['evidence_audit'] = {

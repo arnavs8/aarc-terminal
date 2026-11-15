@@ -1,0 +1,3805 @@
+{
+  "plan": {
+    "seed": 42,
+    "selection": "40 randomly sampled rows per true class; same frozen 120 rows for all models; no labels sent to Qwen",
+    "ids": [
+      21,
+      26,
+      27,
+      39,
+      69,
+      70,
+      76,
+      85,
+      103,
+      106,
+      108,
+      158,
+      186,
+      205,
+      208,
+      214,
+      218,
+      219,
+      222,
+      312,
+      379,
+      381,
+      408,
+      472,
+      537,
+      559,
+      619,
+      632,
+      667,
+      750,
+      768,
+      781,
+      848,
+      861,
+      862,
+      863,
+      877,
+      879,
+      886,
+      899,
+      907,
+      914,
+      917,
+      938,
+      939,
+      943,
+      950,
+      952,
+      955,
+      967,
+      969,
+      970,
+      1042,
+      1043,
+      1090,
+      1107,
+      1163,
+      1240,
+      1262,
+      1338,
+      1358,
+      1396,
+      1407,
+      1424,
+      1427,
+      1444,
+      1449,
+      1455,
+      1487,
+      1511,
+      1558,
+      1570,
+      1575,
+      1587,
+      1591,
+      1597,
+      1605,
+      1671,
+      1676,
+      1685,
+      1691,
+      1723,
+      1729,
+      1733,
+      1753,
+      1786,
+      1791,
+      1796,
+      1810,
+      1812,
+      1821,
+      1848,
+      1853,
+      1863,
+      1870,
+      1918,
+      1923,
+      1925,
+      1935,
+      1941,
+      1946,
+      1948,
+      1952,
+      1969,
+      1974,
+      1987,
+      2072,
+      2124,
+      2243,
+      2251,
+      2254,
+      2259,
+      2294,
+      2306,
+      2325,
+      2332,
+      2348,
+      2349,
+      2355,
+      2357
+    ],
+    "model": "qwen/qwen3.8-27b",
+    "scope": "General text sentiment, not the company-specific production news-review task, and not trading returns. Unknown pretraining overlap."
+  },
+  "planned": 120,
+  "completed": 120,
+  "failures": [],
+  "provider_errors": [
+    {
+      "ids": [
+        1163,
+        1240,
+        1262,
+        1338,
+        1358,
+        1396,
+        1407,
+        1424
+      ],
+      "http_status": 400,
+      "code": "json_validate_failed",
+      "attempt": 1
+    },
+    {
+      "ids": [
+        1575,
+        1587,
+        1591,
+        1597,
+        1605,
+        1671,
+        1676,
+        1685
+      ],
+      "http_status": 400,
+      "code": "json_validate_failed",
+      "attempt": 1
+    }
+  ],
+  "results": {
+    "ProsusAI/finbert": {
+      "accuracy": 0.6666666666666666,
+      "macro_f1": 0.6658441653815084
+    },
+    "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+      "accuracy": 0.6166666666666667,
+      "macro_f1": 0.6152064211396263
+    },
+    "qwen/qwen3.8-27b": {
+      "accuracy": 0.875,
+      "macro_f1": 0.8720588235294118,
+      "confusion_matrix": [
+        [
+          40,
+          0,
+          0
+        ],
+        [
+          5,
+          30,
+          5
+        ],
+        [
+          0,
+          5,
+          35
+        ]
+      ]
+    }
+  },
+  "cases": [
+    {
+      "id": 21,
+      "text": "Norwegian Cruise stock price target cut to $48 from $55 at CFRA",
+      "expected": "negative",
+      "qwen": {
+        "evidence_quote": "price target cut to $48 from $55",
+        "id": 21,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.7208278179168701,
+            "neutral": 0.06422576308250427,
+            "positive": 0.21494637429714203
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 0.0028564780950546265,
+            "neutral": 0.000160798299475573,
+            "positive": 0.996982753276825
+          }
+        }
+      }
+    },
+    {
+      "id": 26,
+      "text": "Trendforce cuts iPhone estimate after Foxconn delay",
+      "expected": "negative",
+      "qwen": {
+        "evidence_quote": "cuts iPhone estimate",
+        "id": 26,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.639925479888916,
+            "neutral": 0.33285778760910034,
+            "positive": 0.02721678465604782
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9999258518218994,
+            "neutral": 2.8814725737902336e-05,
+            "positive": 4.530574005912058e-05
+          }
+        }
+      }
+    },
+    {
+      "id": 27,
+      "text": "Wayfair price target lowered to $110 from $120 at Stifel, buy rating maintained",
+      "expected": "negative",
+      "qwen": {
+        "evidence_quote": "price target lowered to $110 from $120",
+        "id": 27,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.5171797871589661,
+            "neutral": 0.1996878981590271,
+            "positive": 0.28313231468200684
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9999961853027344,
+            "neutral": 3.2278512662742287e-06,
+            "positive": 5.498758923749847e-07
+          }
+        }
+      }
+    },
+    {
+      "id": 39,
+      "text": "$URBN - Urban Outfitters stands out in mall sector - BofA https://t.co/pvig3M420p",
+      "expected": "positive",
+      "qwen": {
+        "evidence_quote": "stands out in mall sector",
+        "id": 39,
+        "label": "positive"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 0.00824432261288166,
+            "neutral": 0.15266640484333038,
+            "positive": 0.8390892148017883
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.0002245871291961521,
+            "neutral": 0.9323133826255798,
+            "positive": 0.06746198236942291
+          }
+        }
+      }
+    },
+    {
+      "id": 69,
+      "text": "Model N upgraded to overweight from neutral at JPMorgan, price target raised to $36 from $30",
+      "expected": "positive",
+      "qwen": {
+        "evidence_quote": "upgraded to overweight from neutral",
+        "id": 69,
+        "label": "positive"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 0.02442862093448639,
+            "neutral": 0.028570370748639107,
+            "positive": 0.9470009207725525
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 7.402489927699207e-07,
+            "neutral": 9.424566087545827e-06,
+            "positive": 0.9999898672103882
+          }
+        }
+      }
+    },
+    {
+      "id": 70,
+      "text": "Morgan Stanley sees GM doubling in bull case scenario",
+      "expected": "positive",
+      "qwen": {
+        "evidence_quote": "sees GM doubling in bull case scenario",
+        "id": 70,
+        "label": "positive"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "positive",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.46941035985946655,
+            "neutral": 0.05996634066104889,
+            "positive": 0.47062328457832336
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 2.8675187422777526e-05,
+            "neutral": 0.0002039801183855161,
+            "positive": 0.9997673630714417
+          }
+        }
+      }
+    },
+    {
+      "id": 76,
+      "text": "Progyny started at overweight with $26 stock price target at J.P. Morgan",
+      "expected": "positive",
+      "qwen": {
+        "evidence_quote": "started at overweight",
+        "id": 76,
+        "label": "positive"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.013581745326519012,
+            "neutral": 0.9064139127731323,
+            "positive": 0.08000428974628448
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 7.324686976062367e-06,
+            "neutral": 0.9999891519546509,
+            "positive": 3.5555856356950244e-06
+          }
+        }
+      }
+    },
+    {
+      "id": 85,
+      "text": "Twitter upgraded to positive from neutral at Susquehanna",
+      "expected": "positive",
+      "qwen": {
+        "evidence_quote": "upgraded to positive from neutral",
+        "id": 85,
+        "label": "positive"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 0.031365882605314255,
+            "neutral": 0.11878196895122528,
+            "positive": 0.8498522043228149
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 7.966407338244608e-07,
+            "neutral": 3.1036638574732933e-06,
+            "positive": 0.9999960660934448
+          }
+        }
+      }
+    },
+    {
+      "id": 103,
+      "text": "Top Analyst Upgrades and Downgrades: Cardinal Health, Domino\u2019s, FedEx, Ford, GE, Grubhub, HSBC, Marvell, Twitter, Uber and More",
+      "expected": "neutral",
+      "qwen": {
+        "evidence_quote": "Top Analyst Upgrades and Downgrades",
+        "id": 103,
+        "label": "neutral"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.7035017609596252,
+            "neutral": 0.2706056237220764,
+            "positive": 0.02589256502687931
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.0073913647793233395,
+            "neutral": 0.9907969236373901,
+            "positive": 0.0018117438303306699
+          }
+        }
+      }
+    },
+    {
+      "id": 106,
+      "text": "Central bank 'collateral damage' is skewing financial markets, one economist says https://t.co/sshC7mEqzk",
+      "expected": "negative",
+      "qwen": {
+        "evidence_quote": "skewing financial markets",
+        "id": 106,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9641530513763428,
+            "neutral": 0.027114540338516235,
+            "positive": 0.008732374757528305
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9982214570045471,
+            "neutral": 0.001768796588294208,
+            "positive": 9.788471288629808e-06
+          }
+        }
+      }
+    },
+    {
+      "id": 108,
+      "text": "ECB data show eurozone banks had weak profits before coronavirus https://t.co/QI7pbqPGkG",
+      "expected": "negative",
+      "qwen": {
+        "evidence_quote": "weak profits",
+        "id": 108,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9678648710250854,
+            "neutral": 0.02204107865691185,
+            "positive": 0.01009398978203535
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.921819269657135,
+            "neutral": 0.0780184268951416,
+            "positive": 0.0001622880663489923
+          }
+        }
+      }
+    },
+    {
+      "id": 158,
+      "text": "Norway's central bank governor says it's too early to reach any conclusions on the long term outlook for inflation https://t.co/Jy76GFLKm2",
+      "expected": "neutral",
+      "qwen": {
+        "evidence_quote": "too early to reach any conclusions",
+        "id": 158,
+        "label": "neutral"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.4418676197528839,
+            "neutral": 0.526652991771698,
+            "positive": 0.031479399651288986
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.13978639245033264,
+            "neutral": 0.8601423501968384,
+            "positive": 7.12882392690517e-05
+          }
+        }
+      }
+    },
+    {
+      "id": 186,
+      "text": "BREAKING: FDA issues ban on some fruit and mint flavored vaping products\u00a0https://t.co/MxWx3AqSi8",
+      "expected": "negative",
+      "qwen": {
+        "evidence_quote": "FDA issues ban",
+        "id": 186,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.862433671951294,
+            "neutral": 0.12321638315916061,
+            "positive": 0.014349890872836113
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9871598482131958,
+            "neutral": 0.012826177291572094,
+            "positive": 1.4041712347534485e-05
+          }
+        }
+      }
+    },
+    {
+      "id": 205,
+      "text": "Transport for London has decided not to extend Uber\u2019s license to operate in the city. In a statement, transit offic\u2026 https://t.co/Wh2Fx1FLgh",
+      "expected": "negative",
+      "qwen": {
+        "evidence_quote": "decided not to extend Uber\u2019s license",
+        "id": 205,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.09691230952739716,
+            "neutral": 0.8591928482055664,
+            "positive": 0.04389490932226181
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.08495169132947922,
+            "neutral": 0.9150405526161194,
+            "positive": 7.787335562170483e-06
+          }
+        }
+      }
+    },
+    {
+      "id": 208,
+      "text": "Exxon is cutting billions of dollars in investments to keep its financial footing during the worst oil-price rout i\u2026 https://t.co/MI5vCEkhlm",
+      "expected": "negative",
+      "qwen": {
+        "evidence_quote": "cutting billions of dollars in investments",
+        "id": 208,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9562957286834717,
+            "neutral": 0.02587125077843666,
+            "positive": 0.01783304661512375
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9998815059661865,
+            "neutral": 9.740365203469992e-05,
+            "positive": 2.106431384163443e-05
+          }
+        }
+      }
+    },
+    {
+      "id": 214,
+      "text": "$SAGE - Sage Therapeutics to advance Huntington's candidate SAGE-718; shares up 2% https://t.co/Dhso6xIUJu",
+      "expected": "positive",
+      "qwen": {
+        "evidence_quote": "shares up 2%",
+        "id": 214,
+        "label": "positive"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 0.019827043637633324,
+            "neutral": 0.03597424924373627,
+            "positive": 0.944198727607727
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 1.0597686923574656e-05,
+            "neutral": 0.9988440275192261,
+            "positive": 0.0011454073246568441
+          }
+        }
+      }
+    },
+    {
+      "id": 218,
+      "text": "AT&T says it will continue investing in Mexico: Mexican president",
+      "expected": "positive",
+      "qwen": {
+        "evidence_quote": "continue investing in Mexico",
+        "id": 218,
+        "label": "positive"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.009904562495648861,
+            "neutral": 0.8424155116081238,
+            "positive": 0.1476799100637436
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 1.0232628255835152e-06,
+            "neutral": 0.9978342652320862,
+            "positive": 0.0021647163666784763
+          }
+        }
+      }
+    },
+    {
+      "id": 219,
+      "text": "BancorpSouth Bank boosts share repurchase program",
+      "expected": "positive",
+      "qwen": {
+        "evidence_quote": "boosts share repurchase program",
+        "id": 219,
+        "label": "positive"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 0.021830840036273003,
+            "neutral": 0.058323588222265244,
+            "positive": 0.9198455810546875
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 1.0750577530416194e-05,
+            "neutral": 0.004967694636434317,
+            "positive": 0.9950215816497803
+          }
+        }
+      }
+    },
+    {
+      "id": 222,
+      "text": "Canada's TD Beats Its U.S. Banking Competitors on Their Own Turf",
+      "expected": "positive",
+      "qwen": {
+        "evidence_quote": "Beats Its U.S. Banking Competitors",
+        "id": 222,
+        "label": "positive"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 0.011433102190494537,
+            "neutral": 0.14927808940410614,
+            "positive": 0.8392887711524963
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 9.037589734361973e-06,
+            "neutral": 0.999972939491272,
+            "positive": 1.805807914934121e-05
+          }
+        }
+      }
+    },
+    {
+      "id": 312,
+      "text": "Balance Point already near goal for new fundraise, just a year after $380m Fund III close",
+      "expected": "neutral",
+      "qwen": {
+        "evidence_quote": "already near goal for new fundraise",
+        "id": 312,
+        "label": "positive"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 0.020055586472153664,
+            "neutral": 0.15102073550224304,
+            "positive": 0.8289236426353455
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 6.55034018564038e-05,
+            "neutral": 0.0923837274312973,
+            "positive": 0.9075507521629333
+          }
+        }
+      }
+    },
+    {
+      "id": 379,
+      "text": "Karrie International : UNAUDITED INTERIM RESULTS FOR THE SIX MONTHS ENDED 30 SEPTEMBER 201... #KarrieInternational\u2026 https://t.co/KMY8o7CH7h",
+      "expected": "neutral",
+      "qwen": {
+        "evidence_quote": "UNAUDITED INTERIM RESULTS",
+        "id": 379,
+        "label": "neutral"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.1029641330242157,
+            "neutral": 0.8791680335998535,
+            "positive": 0.01786785200238228
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.0011933965142816305,
+            "neutral": 0.9986976385116577,
+            "positive": 0.00010896065941778943
+          }
+        }
+      }
+    },
+    {
+      "id": 381,
+      "text": "Kelley Blue Book publisher on Tesla CyberTruck: 'People are going to think about this truck' https://t.co/m1VhRuLX5R https://t.co/cTHboEEJBp",
+      "expected": "neutral",
+      "qwen": {
+        "evidence_quote": "People are going to think about this truck",
+        "id": 381,
+        "label": "neutral"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.018830452114343643,
+            "neutral": 0.9063888788223267,
+            "positive": 0.07478067278862
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.00010367532377131283,
+            "neutral": 0.9998887777328491,
+            "positive": 7.526964964199578e-06
+          }
+        }
+      }
+    },
+    {
+      "id": 408,
+      "text": "Nomura highlights casino sleeper amid coronavirus anxiety",
+      "expected": "neutral",
+      "qwen": {
+        "evidence_quote": "highlights casino sleeper",
+        "id": 408,
+        "label": "positive"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.7372036576271057,
+            "neutral": 0.1505158692598343,
+            "positive": 0.11228051036596298
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.000984919024631381,
+            "neutral": 0.9984006285667419,
+            "positive": 0.0006144368671812117
+          }
+        }
+      }
+    },
+    {
+      "id": 472,
+      "text": "Two of three SandRidge royalty trusts lose NYSE listing",
+      "expected": "neutral",
+      "qwen": {
+        "evidence_quote": "lose NYSE listing",
+        "id": 472,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.895652711391449,
+            "neutral": 0.08802486956119537,
+            "positive": 0.01632235199213028
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9998886585235596,
+            "neutral": 0.00010889871919061989,
+            "positive": 2.366576836720924e-06
+          }
+        }
+      }
+    },
+    {
+      "id": 537,
+      "text": "Nigeria won't seek a suspension of interest payments from its Eurobond bondholders, but will seek debt relief from\u2026 https://t.co/Bh7HUUF4kO",
+      "expected": "neutral",
+      "qwen": {
+        "evidence_quote": "Nigeria won't seek a suspension of interest payments from its Eurobond bondholders, but will seek debt relief",
+        "id": 537,
+        "label": "neutral"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.4567599296569824,
+            "neutral": 0.21728944778442383,
+            "positive": 0.32595059275627136
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.019264699891209602,
+            "neutral": 0.97864830493927,
+            "positive": 0.002087015425786376
+          }
+        }
+      }
+    },
+    {
+      "id": 559,
+      "text": "$BANC - Banc of California declares $0.06 dividend https://t.co/T4PbSBACvo",
+      "expected": "neutral",
+      "qwen": {
+        "evidence_quote": "Banc of California declares $0.06 dividend",
+        "id": 559,
+        "label": "neutral"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.07837364077568054,
+            "neutral": 0.8813641667366028,
+            "positive": 0.04026224464178085
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 3.482135434751399e-05,
+            "neutral": 0.9998761415481567,
+            "positive": 8.906100993044674e-05
+          }
+        }
+      }
+    },
+    {
+      "id": 619,
+      "text": "$BPIRY $BPIRD $BPIRF - Piraeus Bank reports Q3 results https://t.co/w7GoiSjs8N",
+      "expected": "neutral",
+      "qwen": {
+        "evidence_quote": "Piraeus Bank reports Q3 results",
+        "id": 619,
+        "label": "neutral"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.04839630424976349,
+            "neutral": 0.8959813117980957,
+            "positive": 0.05562235787510872
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.0026316719595342875,
+            "neutral": 0.9970295429229736,
+            "positive": 0.0003386810712981969
+          }
+        }
+      }
+    },
+    {
+      "id": 632,
+      "text": "$FISI - Financial Institutions, Inc. (FISI) CEO Marty Birmingham on Q4 2019 Results - Earnings Call Transcript.... https://t.co/x0EUXRLkqc",
+      "expected": "neutral",
+      "qwen": {
+        "evidence_quote": "CEO Marty Birmingham on Q4 2019 Results - Earnings Call Transcript",
+        "id": 632,
+        "label": "neutral"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.06887652724981308,
+            "neutral": 0.9006525874137878,
+            "positive": 0.03047085367143154
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 5.922662967350334e-05,
+            "neutral": 0.9989964365959167,
+            "positive": 0.0009443967137485743
+          }
+        }
+      }
+    },
+    {
+      "id": 667,
+      "text": "Biofrontera reports 9M results",
+      "expected": "neutral",
+      "qwen": {
+        "evidence_quote": "Biofrontera reports 9M results",
+        "id": 667,
+        "label": "neutral"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.21129123866558075,
+            "neutral": 0.7158401012420654,
+            "positive": 0.0728686973452568
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 3.4532129120634636e-06,
+            "neutral": 0.9996899366378784,
+            "positive": 0.000306665402604267
+          }
+        }
+      }
+    },
+    {
+      "id": 750,
+      "text": "$TOPS The world could soon run out of space to store oil. That may plunge prices below zero https://t.co/4ZEUx6r7qj.",
+      "expected": "negative",
+      "qwen": {
+        "evidence_quote": "The world could soon run out of space to store oil. That may plunge prices below zero",
+        "id": 750,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9277765154838562,
+            "neutral": 0.0570959709584713,
+            "positive": 0.015127643011510372
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9143047332763672,
+            "neutral": 0.08567367494106293,
+            "positive": 2.162611417588778e-05
+          }
+        }
+      }
+    },
+    {
+      "id": 768,
+      "text": "Energy Down After Coronavirus-Case Estimate Revision -- Energy Roundup #economy #MarketScreener\u2026 https://t.co/VUfTEliqBC",
+      "expected": "negative",
+      "qwen": {
+        "evidence_quote": "Energy Down After Coronavirus-Case Estimate Revision",
+        "id": 768,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.4326028823852539,
+            "neutral": 0.5271669626235962,
+            "positive": 0.040230076760053635
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.012249828316271305,
+            "neutral": 0.9877195358276367,
+            "positive": 3.060351809835993e-05
+          }
+        }
+      }
+    },
+    {
+      "id": 781,
+      "text": "Equinor Boosts Climate Targets as Oil Output Hits Record",
+      "expected": "positive",
+      "qwen": {
+        "evidence_quote": "Equinor Boosts Climate Targets as Oil Output Hits Record",
+        "id": 781,
+        "label": "neutral"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 0.008547671139240265,
+            "neutral": 0.12866559624671936,
+            "positive": 0.8627867102622986
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 1.2734304618788883e-05,
+            "neutral": 0.008504694327712059,
+            "positive": 0.9914826154708862
+          }
+        }
+      }
+    },
+    {
+      "id": 848,
+      "text": "Coach owner Tapestry cuts profit forecast on coronavirus hit",
+      "expected": "negative",
+      "qwen": {
+        "evidence_quote": "cuts profit forecast",
+        "id": 848,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9572681784629822,
+            "neutral": 0.030897626653313637,
+            "positive": 0.011834240518510342
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9999967813491821,
+            "neutral": 3.05331991512503e-06,
+            "positive": 1.1267903943235069e-07
+          }
+        }
+      }
+    },
+    {
+      "id": 861,
+      "text": "Suburban Propane Partners EPS misses by $0.02, misses on revenue",
+      "expected": "negative",
+      "qwen": {
+        "evidence_quote": "EPS misses by $0.02, misses on revenue",
+        "id": 861,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9052995443344116,
+            "neutral": 0.07224378734827042,
+            "positive": 0.02245670184493065
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9989644289016724,
+            "neutral": 0.0010290822247043252,
+            "positive": 6.467336788773537e-06
+          }
+        }
+      }
+    },
+    {
+      "id": 862,
+      "text": "Target Hospitality Corp. Just Missed EPS By 34%: Here's What Analysts Think Will Happen Next",
+      "expected": "negative",
+      "qwen": {
+        "evidence_quote": "Just Missed EPS By 34%",
+        "id": 862,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.09184757620096207,
+            "neutral": 0.8508313894271851,
+            "positive": 0.05732102692127228
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9996868371963501,
+            "neutral": 0.0003129318356513977,
+            "positive": 2.616066012706142e-07
+          }
+        }
+      }
+    },
+    {
+      "id": 863,
+      "text": "ThermoGenesis misses on revenue",
+      "expected": "negative",
+      "qwen": {
+        "evidence_quote": "misses on revenue",
+        "id": 863,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.1452006697654724,
+            "neutral": 0.8201141953468323,
+            "positive": 0.03468507528305054
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9997662901878357,
+            "neutral": 0.00020901518291793764,
+            "positive": 2.468146340106614e-05
+          }
+        }
+      }
+    },
+    {
+      "id": 877,
+      "text": "\u00c3\u201a\u00c2\u00a0Chegg Reports 2019 Financial Results and Raises 2020 Guidance",
+      "expected": "positive",
+      "qwen": {
+        "evidence_quote": "Raises 2020 Guidance",
+        "id": 877,
+        "label": "positive"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.031245112419128418,
+            "neutral": 0.9168500900268555,
+            "positive": 0.051904838532209396
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 2.8034806746290997e-05,
+            "neutral": 0.9999709129333496,
+            "positive": 1.1210628372282372e-06
+          }
+        }
+      }
+    },
+    {
+      "id": 879,
+      "text": "Becton Dickinson Earnings, Revenue Beat in Q1",
+      "expected": "positive",
+      "qwen": {
+        "evidence_quote": "Earnings, Revenue Beat",
+        "id": 879,
+        "label": "positive"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 0.0558425635099411,
+            "neutral": 0.028222940862178802,
+            "positive": 0.9159345626831055
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 1.0579376066743862e-05,
+            "neutral": 8.60250565892784e-06,
+            "positive": 0.9999808073043823
+          }
+        }
+      }
+    },
+    {
+      "id": 886,
+      "text": "Fiat Chrysler fourth-quarter lifted by North America business to meet expectations",
+      "expected": "positive",
+      "qwen": {
+        "evidence_quote": "to meet expectations",
+        "id": 886,
+        "label": "neutral"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 0.0340498723089695,
+            "neutral": 0.02336110547184944,
+            "positive": 0.9425890445709229
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 9.224432687915396e-06,
+            "neutral": 8.194449037546292e-06,
+            "positive": 0.9999825954437256
+          }
+        }
+      }
+    },
+    {
+      "id": 899,
+      "text": "Regeneron Pharmaceuticals EPS beats by $0.59, beats on revenue",
+      "expected": "positive",
+      "qwen": {
+        "evidence_quote": "EPS beats by $0.59, beats on revenue",
+        "id": 899,
+        "label": "positive"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 0.031096220016479492,
+            "neutral": 0.18583038449287415,
+            "positive": 0.7830734252929688
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 0.0002567860356066376,
+            "neutral": 0.0011366787366569042,
+            "positive": 0.9986065030097961
+          }
+        }
+      }
+    },
+    {
+      "id": 907,
+      "text": "Transurban : 1st Half Profit Up 46%, Increased Traffic Drives Toll Revenue Rise #Transurban #Stock #MarketScreener\u2026 https://t.co/246Nl7a9j3",
+      "expected": "positive",
+      "qwen": {
+        "evidence_quote": "1st Half Profit Up 46%, Increased Traffic Drives Toll Revenue Rise",
+        "id": 907,
+        "label": "positive"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 0.024136260151863098,
+            "neutral": 0.02774798311293125,
+            "positive": 0.9481157660484314
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 2.7830844828713452e-06,
+            "neutral": 4.728507701656781e-05,
+            "positive": 0.9999499320983887
+          }
+        }
+      }
+    },
+    {
+      "id": 914,
+      "text": "Yum! Brands Reports Solid Fourth-Quarter Results and Completion of Strategic Transformation; System Sales Growth of 10%; Same-Store Sales Growth of 2%; GAAP Operating Profit Decline of (26)%; Core Operating Profit Growth of 14%",
+      "expected": "positive",
+      "qwen": {
+        "evidence_quote": "Reports Solid Fourth-Quarter Results and Completion of Strategic Transformation",
+        "id": 914,
+        "label": "positive"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 0.24408046901226044,
+            "neutral": 0.025297213345766068,
+            "positive": 0.7306222319602966
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.09408461302518845,
+            "neutral": 0.516746997833252,
+            "positive": 0.3891684114933014
+          }
+        }
+      }
+    },
+    {
+      "id": 917,
+      "text": "$MOH - Molina Healthcare EPS beats by $0.07, misses on revenue https://t.co/a6bdVyNm88",
+      "expected": "neutral",
+      "qwen": {
+        "evidence_quote": "EPS beats by $0.07, misses on revenue",
+        "id": 917,
+        "label": "neutral"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 0.32925280928611755,
+            "neutral": 0.06253661215305328,
+            "positive": 0.6082106232643127
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9964720010757446,
+            "neutral": 0.003452060278505087,
+            "positive": 7.585705316159874e-05
+          }
+        }
+      }
+    },
+    {
+      "id": 938,
+      "text": "EUR/USD Failure of 1-2-3 Pattern Might be Bullish",
+      "expected": "positive",
+      "qwen": {
+        "evidence_quote": "Might be Bullish",
+        "id": 938,
+        "label": "positive"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.907281756401062,
+            "neutral": 0.06449691951274872,
+            "positive": 0.028221407905220985
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 0.00405853008851409,
+            "neutral": 0.01106871198862791,
+            "positive": 0.9848726987838745
+          }
+        }
+      }
+    },
+    {
+      "id": 939,
+      "text": "GBP/JPY Price Forecast \u2013 British Pound Gaps Higher After Election Results",
+      "expected": "positive",
+      "qwen": {
+        "evidence_quote": "Gaps Higher After Election Results",
+        "id": 939,
+        "label": "positive"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 0.0619925931096077,
+            "neutral": 0.0491630993783474,
+            "positive": 0.8888442516326904
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 6.169909465825185e-05,
+            "neutral": 0.003371447790414095,
+            "positive": 0.9965667724609375
+          }
+        }
+      }
+    },
+    {
+      "id": 943,
+      "text": "USD/JPY Forecast: USD to Consolidate Against JPY - DailyForex.com",
+      "expected": "positive",
+      "qwen": {
+        "evidence_quote": "USD to Consolidate Against JPY",
+        "id": 943,
+        "label": "neutral"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "positive",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.3707727789878845,
+            "neutral": 0.050334297120571136,
+            "positive": 0.5788928866386414
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.001314534223638475,
+            "neutral": 0.9971922039985657,
+            "positive": 0.0014932617777958512
+          }
+        }
+      }
+    },
+    {
+      "id": 950,
+      "text": "A Health Check of India Shadow Banks Points to Prolonged Trouble",
+      "expected": "negative",
+      "qwen": {
+        "evidence_quote": "Points to Prolonged Trouble",
+        "id": 950,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.8737207651138306,
+            "neutral": 0.06786475330591202,
+            "positive": 0.05841446295380592
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.0008895258069969714,
+            "neutral": 0.9866076707839966,
+            "positive": 0.012502875179052353
+          }
+        }
+      }
+    },
+    {
+      "id": 952,
+      "text": "Banks undergoing 'real stress test' as recession fears continue https://t.co/lY9UvWu4yE by @bcheungz https://t.co/aJbqRFxRQY",
+      "expected": "negative",
+      "qwen": {
+        "evidence_quote": "Banks undergoing 'real stress test' as recession fears continue",
+        "id": 952,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.5339850187301636,
+            "neutral": 0.350903183221817,
+            "positive": 0.11511175334453583
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.01865271106362343,
+            "neutral": 0.9811119437217712,
+            "positive": 0.00023535513901151717
+          }
+        }
+      }
+    },
+    {
+      "id": 955,
+      "text": "Caution Abounds Even as Emerging Markets Ready Year-Ending Rally",
+      "expected": "negative",
+      "qwen": {
+        "evidence_quote": "Caution Abounds",
+        "id": 955,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 0.11625474691390991,
+            "neutral": 0.4661104381084442,
+            "positive": 0.4176347851753235
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 0.3718608021736145,
+            "neutral": 0.628047525882721,
+            "positive": 9.164916991721839e-05
+          }
+        }
+      }
+    },
+    {
+      "id": 967,
+      "text": "The days of extraordinary market returns are over, says BlackRock https://t.co/gJu52JoL8J",
+      "expected": "negative",
+      "qwen": {
+        "evidence_quote": "extraordinary market returns are over",
+        "id": 967,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.09668142348527908,
+            "neutral": 0.721807599067688,
+            "positive": 0.1815110445022583
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 0.00015341296966653317,
+            "neutral": 0.2439032942056656,
+            "positive": 0.7559432983398438
+          }
+        }
+      }
+    },
+    {
+      "id": 969,
+      "text": "The Fraud That Is ESG Strikes Again: Six Of Top 10 ESG Funds Underperform The S&P500  https://t.co/rHbzc3YyMu",
+      "expected": "negative",
+      "qwen": {
+        "evidence_quote": "Underperform The S&P500",
+        "id": 969,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9390899538993835,
+            "neutral": 0.02630695328116417,
+            "positive": 0.03460307791829109
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9978482723236084,
+            "neutral": 0.0019169521983712912,
+            "positive": 0.00023481444804929197
+          }
+        }
+      }
+    },
+    {
+      "id": 970,
+      "text": "The job loss reflected in Friday's report is a shock that is unprecedented, as is the uncertainty surrounding it-\u009dwh\u2026 https://t.co/zqYuNg31Kb",
+      "expected": "negative",
+      "qwen": {
+        "evidence_quote": "shock that is unprecedented",
+        "id": 970,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.6455551385879517,
+            "neutral": 0.30178380012512207,
+            "positive": 0.05266108363866806
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9940881729125977,
+            "neutral": 0.005860577337443829,
+            "positive": 5.137076004757546e-05
+          }
+        }
+      }
+    },
+    {
+      "id": 1042,
+      "text": "Activism Rises In Japan as Firms Go Hostile, Investors Speak Out",
+      "expected": "neutral",
+      "qwen": {
+        "evidence_quote": "Firms Go Hostile",
+        "id": 1042,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.7515738010406494,
+            "neutral": 0.16274230182170868,
+            "positive": 0.08568393439054489
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 3.592087159631774e-05,
+            "neutral": 0.9868980646133423,
+            "positive": 0.013066098093986511
+          }
+        }
+      }
+    },
+    {
+      "id": 1043,
+      "text": "AI Poised to Impact High-Skill U.S. Jobs Including Finance, Tech",
+      "expected": "neutral",
+      "qwen": {
+        "evidence_quote": "Impact High-Skill U.S. Jobs",
+        "id": 1043,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.5074529051780701,
+            "neutral": 0.4125611484050751,
+            "positive": 0.07998590916395187
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 0.00014937459491193295,
+            "neutral": 0.013403970748186111,
+            "positive": 0.9864466190338135
+          }
+        }
+      }
+    },
+    {
+      "id": 1090,
+      "text": "Coronavirus case tally: 565 deaths, 28,256 cases",
+      "expected": "neutral",
+      "qwen": {
+        "evidence_quote": "565 deaths, 28,256 cases",
+        "id": 1090,
+        "label": "neutral"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.4929312765598297,
+            "neutral": 0.47718697786331177,
+            "positive": 0.029881715774536133
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.00038623917498625815,
+            "neutral": 0.9996137022972107,
+            "positive": 1.0733010213925809e-07
+          }
+        }
+      }
+    },
+    {
+      "id": 1107,
+      "text": "Duke University was built on a tobacco fortune. Now a tense showdown over college vaping and its health risks is ro\u2026 https://t.co/W38Vt442IL",
+      "expected": "neutral",
+      "qwen": {
+        "evidence_quote": "tense showdown",
+        "id": 1107,
+        "label": "neutral"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.8543981909751892,
+            "neutral": 0.13138537108898163,
+            "positive": 0.014216460287570953
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9663514494895935,
+            "neutral": 0.03353581950068474,
+            "positive": 0.00011282781633781269
+          }
+        }
+      }
+    },
+    {
+      "id": 1163,
+      "text": "Highlight: \u201cWhen growth is scarce, investors seem very willing to pay up for growth stock\" @PNCBank's\u2026 https://t.co/rO4fBOkBG9",
+      "expected": "neutral",
+      "qwen": {
+        "evidence_quote": "investors seem very willing to pay up for growth stock",
+        "id": 1163,
+        "label": "positive"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.02478969842195511,
+            "neutral": 0.8327887654304504,
+            "positive": 0.14242151379585266
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.16750115156173706,
+            "neutral": 0.8302686810493469,
+            "positive": 0.0022300935816019773
+          }
+        }
+      }
+    },
+    {
+      "id": 1240,
+      "text": "New Cortec PE fund biggest winner from latest Texas CDRS pension commitments",
+      "expected": "neutral",
+      "qwen": {
+        "evidence_quote": "biggest winner",
+        "id": 1240,
+        "label": "positive"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 0.021288897842168808,
+            "neutral": 0.06670795381069183,
+            "positive": 0.9120031595230103
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 0.00043401867151260376,
+            "neutral": 0.001404862618073821,
+            "positive": 0.9981611371040344
+          }
+        }
+      }
+    },
+    {
+      "id": 1262,
+      "text": "Parts with passports: how free trade drives GM's engines",
+      "expected": "neutral",
+      "qwen": {
+        "evidence_quote": "how free trade drives GM's engines",
+        "id": 1262,
+        "label": "neutral"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.019665632396936417,
+            "neutral": 0.9196272492408752,
+            "positive": 0.06070714816451073
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 1.1217526662221644e-05,
+            "neutral": 0.9999866485595703,
+            "positive": 2.2039951090846444e-06
+          }
+        }
+      }
+    },
+    {
+      "id": 1338,
+      "text": "The US has added waiters and bartenders in 112 of the past 11 7 months https://t.co/b1LS0U7EUi",
+      "expected": "neutral",
+      "qwen": {
+        "evidence_quote": "The US has added waiters and bartenders in 112 of the past 11 7 months",
+        "id": 1338,
+        "label": "neutral"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.014911008067429066,
+            "neutral": 0.5253298282623291,
+            "positive": 0.4597591757774353
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 6.64542312733829e-06,
+            "neutral": 0.00026123737916350365,
+            "positive": 0.9997320771217346
+          }
+        }
+      }
+    },
+    {
+      "id": 1358,
+      "text": "Top trending: Assange rape investigation dropped; Chick-Fil-A bans donating to anti-LGBTQ groups",
+      "expected": "neutral",
+      "qwen": {
+        "evidence_quote": "Assange rape investigation dropped; Chick-Fil-A bans donating to anti-LGBTQ groups",
+        "id": 1358,
+        "label": "neutral"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.863698422908783,
+            "neutral": 0.11110376566648483,
+            "positive": 0.025197865441441536
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.29666051268577576,
+            "neutral": 0.6923698782920837,
+            "positive": 0.010969648137688637
+          }
+        }
+      }
+    },
+    {
+      "id": 1396,
+      "text": "Wildfires are still raging across New South Wales, Australia.\n\nAustralian firefighters are battling 6 emergency-lev\u2026 https://t.co/8KQ9JZVd3L",
+      "expected": "neutral",
+      "qwen": {
+        "evidence_quote": "Wildfires are still raging across New South Wales, Australia",
+        "id": 1396,
+        "label": "neutral"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.3020595610141754,
+            "neutral": 0.6415651440620422,
+            "positive": 0.056375306099653244
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9838827848434448,
+            "neutral": 0.01610376127064228,
+            "positive": 1.3488855984178372e-05
+          }
+        }
+      }
+    },
+    {
+      "id": 1407,
+      "text": "You Can Own a Fraction of a Warhol. But Should You?",
+      "expected": "neutral",
+      "qwen": {
+        "evidence_quote": "You Can Own a Fraction of a Warhol. But Should You?",
+        "id": 1407,
+        "label": "neutral"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.03174131363630295,
+            "neutral": 0.9359086155891418,
+            "positive": 0.032350074499845505
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 4.1591124499973375e-06,
+            "neutral": 0.9999860525131226,
+            "positive": 9.747604963195045e-06
+          }
+        }
+      }
+    },
+    {
+      "id": 1424,
+      "text": "Gold Soars To 8-Year Highs As Stocks Melt-Up On Massive Short-Squeeze  https://t.co/80904NqvN0",
+      "expected": "positive",
+      "qwen": {
+        "evidence_quote": "Gold Soars To 8-Year Highs As Stocks Melt-Up On Massive Short-Squeeze",
+        "id": 1424,
+        "label": "positive"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.661666989326477,
+            "neutral": 0.06060958281159401,
+            "positive": 0.27772340178489685
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.00018565120990388095,
+            "neutral": 0.9997850060462952,
+            "positive": 2.937224053312093e-05
+          }
+        }
+      }
+    },
+    {
+      "id": 1427,
+      "text": "Gold: Prepare For Bull Market To Begin Any Day. https://t.co/H54NIPOiww #business #finance #economy",
+      "expected": "positive",
+      "qwen": {
+        "evidence_quote": "Prepare For Bull Market To Begin Any Day",
+        "id": 1427,
+        "label": "positive"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.0260770320892334,
+            "neutral": 0.9348294734954834,
+            "positive": 0.03909352794289589
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.00011884400009876117,
+            "neutral": 0.9998663663864136,
+            "positive": 1.4786671272304375e-05
+          }
+        }
+      }
+    },
+    {
+      "id": 1444,
+      "text": "OneWater Marine raised $55.4 mln in the IPO",
+      "expected": "neutral",
+      "qwen": {
+        "evidence_quote": "raised $55.4 mln in the IPO",
+        "id": 1444,
+        "label": "neutral"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.008161957375705242,
+            "neutral": 0.7415759563446045,
+            "positive": 0.2502620816230774
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 2.878486156987492e-05,
+            "neutral": 0.9998587369918823,
+            "positive": 0.00011252373951720074
+          }
+        }
+      }
+    },
+    {
+      "id": 1449,
+      "text": "Amazon's Third-Party Marketplace Faces Fresh Regulatory Headwinds",
+      "expected": "negative",
+      "qwen": {
+        "evidence_quote": "Faces Fresh Regulatory Headwinds",
+        "id": 1449,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9677579402923584,
+            "neutral": 0.020150326192378998,
+            "positive": 0.012091760523617268
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "positive",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.0707833543419838,
+            "neutral": 0.22372986376285553,
+            "positive": 0.7054867744445801
+          }
+        }
+      }
+    },
+    {
+      "id": 1455,
+      "text": "Rio Tinto faces Mongolia lawsuit over Oyu Tolgoi mine",
+      "expected": "negative",
+      "qwen": {
+        "evidence_quote": "faces Mongolia lawsuit",
+        "id": 1455,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.8689843416213989,
+            "neutral": 0.1027727872133255,
+            "positive": 0.028242990374565125
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9927494525909424,
+            "neutral": 0.007161510176956654,
+            "positive": 8.903251000447199e-05
+          }
+        }
+      }
+    },
+    {
+      "id": 1487,
+      "text": "$AMTD $SCHW - Schwab to buy TD Ameritrade in $26B all-stock deal https://t.co/eycEc0Nye9",
+      "expected": "neutral",
+      "qwen": {
+        "evidence_quote": "Schwab to buy TD Ameritrade in $26B all-stock deal",
+        "id": 1487,
+        "label": "neutral"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.010102860629558563,
+            "neutral": 0.8607925772666931,
+            "positive": 0.12910450994968414
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.0004963607061654329,
+            "neutral": 0.9942962527275085,
+            "positive": 0.005207377020269632
+          }
+        }
+      }
+    },
+    {
+      "id": 1511,
+      "text": "Coty Acquires $600M Majority Stake In Kylie Jenner's Cosmetics Company",
+      "expected": "neutral",
+      "qwen": {
+        "evidence_quote": "Acquires $600M Majority Stake",
+        "id": 1511,
+        "label": "neutral"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.011965698562562466,
+            "neutral": 0.9048909544944763,
+            "positive": 0.08314334601163864
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 1.930004373207339e-06,
+            "neutral": 0.9999563694000244,
+            "positive": 4.1772604163270444e-05
+          }
+        }
+      }
+    },
+    {
+      "id": 1558,
+      "text": "Canada\u2019s job market unexpectedly weakened for a second-straight month, registering the biggest drop in employment s\u2026 https://t.co/YEeyGW71ek",
+      "expected": "negative",
+      "qwen": {
+        "evidence_quote": "job market unexpectedly weakened",
+        "id": 1558,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9733667373657227,
+            "neutral": 0.0181086678057909,
+            "positive": 0.008524587377905846
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9999866485595703,
+            "neutral": 3.2394402751378948e-06,
+            "positive": 1.0085482244903687e-05
+          }
+        }
+      }
+    },
+    {
+      "id": 1570,
+      "text": "Lackluster U.S. retail sales dim fourth quarter economic growth outlook",
+      "expected": "negative",
+      "qwen": {
+        "evidence_quote": "dim fourth quarter economic growth outlook",
+        "id": 1570,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9566215872764587,
+            "neutral": 0.02248959243297577,
+            "positive": 0.020888887345790863
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9997724890708923,
+            "neutral": 3.010740147146862e-05,
+            "positive": 0.0001974221522687003
+          }
+        }
+      }
+    },
+    {
+      "id": 1575,
+      "text": "Mass layoffs push Canada consumer confidence to all-time low https://t.co/GVK9N8RK22",
+      "expected": "negative",
+      "qwen": {
+        "evidence_quote": "Mass layoffs push Canada consumer confidence to all-time low",
+        "id": 1575,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9666181206703186,
+            "neutral": 0.023995213210582733,
+            "positive": 0.009386598132550716
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9997517466545105,
+            "neutral": 0.0002174933470087126,
+            "positive": 3.0710449209436774e-05
+          }
+        }
+      }
+    },
+    {
+      "id": 1587,
+      "text": "The U.S. budget deficit widened in November to $208.8 billion https://t.co/PsXjeUbXvP",
+      "expected": "negative",
+      "qwen": {
+        "evidence_quote": "The U.S. budget deficit widened in November to $208.8 billion",
+        "id": 1587,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "positive",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.37093812227249146,
+            "neutral": 0.12335456162691116,
+            "positive": 0.505707323551178
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 0.002398660173639655,
+            "neutral": 0.002792916027829051,
+            "positive": 0.9948084950447083
+          }
+        }
+      }
+    },
+    {
+      "id": 1591,
+      "text": "U.S. Stocks Drop on Economic Growth Concerns #SP500 #index #MarketScreener https://t.co/f2nxgBZJfU https://t.co/0IcsN3843x",
+      "expected": "negative",
+      "qwen": {
+        "evidence_quote": "U.S. Stocks Drop on Economic Growth Concerns",
+        "id": 1591,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9617052674293518,
+            "neutral": 0.02911214344203472,
+            "positive": 0.009182573296129704
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.038912706077098846,
+            "neutral": 0.9610050320625305,
+            "positive": 8.230821549659595e-05
+          }
+        }
+      }
+    },
+    {
+      "id": 1597,
+      "text": "12.23 Lakh New Jobs Created In September: ESIC Payroll Data",
+      "expected": "positive",
+      "qwen": {
+        "evidence_quote": "12.23 Lakh New Jobs Created In September",
+        "id": 1597,
+        "label": "positive"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.786260724067688,
+            "neutral": 0.1859835684299469,
+            "positive": 0.02775568515062332
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.00016161530220415443,
+            "neutral": 0.9997088313102722,
+            "positive": 0.00012953215627931058
+          }
+        }
+      }
+    },
+    {
+      "id": 1605,
+      "text": "Consumer credit $18.9BN, Exp. $16BN, Last $9.6BN",
+      "expected": "positive",
+      "qwen": {
+        "evidence_quote": "Consumer credit $18.9BN, Exp. $16BN, Last $9.6BN",
+        "id": 1605,
+        "label": "neutral"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.02092946693301201,
+            "neutral": 0.9311622381210327,
+            "positive": 0.0479082427918911
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.0002537899126764387,
+            "neutral": 0.9997324347496033,
+            "positive": 1.3708295227843337e-05
+          }
+        }
+      }
+    },
+    {
+      "id": 1671,
+      "text": "China Risks Exporting Market Volatility Like Never Before",
+      "expected": "negative",
+      "qwen": {
+        "evidence_quote": "China Risks Exporting Market Volatility Like Never Before",
+        "id": 1671,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.716184139251709,
+            "neutral": 0.2443874478340149,
+            "positive": 0.039428405463695526
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 0.21348132193088531,
+            "neutral": 0.2649117410182953,
+            "positive": 0.5216069221496582
+          }
+        }
+      }
+    },
+    {
+      "id": 1676,
+      "text": "Final-hour selloff costs stocks all their gains Tuesday as the Dow ends down 26 https://t.co/Sc6WQUz66L https://t.co/OGoPceRsWB",
+      "expected": "negative",
+      "qwen": {
+        "evidence_quote": "Final-hour selloff costs stocks all their gains Tuesday as the Dow ends down 26",
+        "id": 1676,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.958960771560669,
+            "neutral": 0.03202519565820694,
+            "positive": 0.009014037437736988
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.03989487513899803,
+            "neutral": 0.9291224479675293,
+            "positive": 0.03098262846469879
+          }
+        }
+      }
+    },
+    {
+      "id": 1685,
+      "text": "Stock Market Update: Semiconductor stocks pull back after Qualcomm earnings",
+      "expected": "negative",
+      "qwen": {
+        "evidence_quote": "Semiconductor stocks pull back after Qualcomm earnings",
+        "id": 1685,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9630332589149475,
+            "neutral": 0.022785311564803123,
+            "positive": 0.014181452803313732
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9997878670692444,
+            "neutral": 0.00012046661140630022,
+            "positive": 9.161400521406904e-05
+          }
+        }
+      }
+    },
+    {
+      "id": 1691,
+      "text": "The S&P 500's chart is signaling a near-term pullback, technical analyst warns (via @TradingNation) https://t.co/VxNKIV5SRR",
+      "expected": "negative",
+      "qwen": {
+        "evidence_quote": "signaling a near-term pullback",
+        "id": 1691,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9619266986846924,
+            "neutral": 0.024401318281888962,
+            "positive": 0.013671988621354103
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.999890923500061,
+            "neutral": 8.185595652321354e-05,
+            "positive": 2.719585972954519e-05
+          }
+        }
+      }
+    },
+    {
+      "id": 1723,
+      "text": "So far, the train is coming in right on schedule; Dow up 25% off the lows. $BA consolidating its run up.",
+      "expected": "positive",
+      "qwen": {
+        "evidence_quote": "Dow up 25% off the lows",
+        "id": 1723,
+        "label": "positive"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 0.023937895894050598,
+            "neutral": 0.029758041724562645,
+            "positive": 0.9463040828704834
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 1.2428877198544797e-06,
+            "neutral": 7.852464136703929e-07,
+            "positive": 0.9999979734420776
+          }
+        }
+      }
+    },
+    {
+      "id": 1729,
+      "text": "Stock Market Update: Stock market drifts in record territory",
+      "expected": "positive",
+      "qwen": {
+        "evidence_quote": "drifts in record territory",
+        "id": 1729,
+        "label": "positive"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9448253512382507,
+            "neutral": 0.038454990833997726,
+            "positive": 0.016719678416848183
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.0008450545719824731,
+            "neutral": 0.9991340041160583,
+            "positive": 2.0932360712322406e-05
+          }
+        }
+      }
+    },
+    {
+      "id": 1733,
+      "text": "Stocks aim for back-to-back gains as investors focus on coronavirus case tally https://t.co/QBhdB4ipyD",
+      "expected": "positive",
+      "qwen": {
+        "evidence_quote": "aim for back-to-back gains",
+        "id": 1733,
+        "label": "positive"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 0.220357745885849,
+            "neutral": 0.15390853583812714,
+            "positive": 0.6257337331771851
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 9.250657967641018e-06,
+            "neutral": 3.781533450819552e-05,
+            "positive": 0.9999529123306274
+          }
+        }
+      }
+    },
+    {
+      "id": 1753,
+      "text": "Bloomberg Markets: China Open Full Show (02/07/2020)",
+      "expected": "neutral",
+      "qwen": {
+        "evidence_quote": "China Open Full Show",
+        "id": 1753,
+        "label": "neutral"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.01832364872097969,
+            "neutral": 0.9305452108383179,
+            "positive": 0.05113112926483154
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 2.5002271286211908e-05,
+            "neutral": 0.9999011754989624,
+            "positive": 7.378160808002576e-05
+          }
+        }
+      }
+    },
+    {
+      "id": 1786,
+      "text": "Brazil\u2019s President Jair Bolsonaro launched a new prospective political party on Thursday after resigning from the S\u2026 https://t.co/tbD5UIfAfX",
+      "expected": "neutral",
+      "qwen": {
+        "evidence_quote": "launched a new prospective political party",
+        "id": 1786,
+        "label": "neutral"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.03270850330591202,
+            "neutral": 0.9022720456123352,
+            "positive": 0.06501948833465576
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.0002402289246674627,
+            "neutral": 0.9994063377380371,
+            "positive": 0.0003535122668836266
+          }
+        }
+      }
+    },
+    {
+      "id": 1791,
+      "text": "Chinese President Xi Jinping makes his first public appearance in almost two weeks, as public anger over the corona\u2026 https://t.co/NlHHyxVrKj",
+      "expected": "neutral",
+      "qwen": {
+        "evidence_quote": "makes his first public appearance",
+        "id": 1791,
+        "label": "neutral"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.7444531321525574,
+            "neutral": 0.17375104129314423,
+            "positive": 0.08179591596126556
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 7.060728876240319e-06,
+            "neutral": 0.9999881982803345,
+            "positive": 4.826626081921859e-06
+          }
+        }
+      }
+    },
+    {
+      "id": 1796,
+      "text": "Defiant Netanyahu on the attack over bribery charges as opponents circle https://t.co/fusfekaylD",
+      "expected": "neutral",
+      "qwen": {
+        "evidence_quote": "Defiant Netanyahu on the attack",
+        "id": 1796,
+        "label": "neutral"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.42662402987480164,
+            "neutral": 0.5237374901771545,
+            "positive": 0.04963844269514084
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.8124879002571106,
+            "neutral": 0.18746984004974365,
+            "positive": 4.224242002237588e-05
+          }
+        }
+      }
+    },
+    {
+      "id": 1810,
+      "text": "Hong Kong, China, And U.K. Election Hopes Fan Modest Risk-Taking. Read more and sign up for updates:\u2026 https://t.co/NezVnEBTQu",
+      "expected": "neutral",
+      "qwen": {
+        "evidence_quote": "Fan Modest Risk-Taking",
+        "id": 1810,
+        "label": "positive"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.022177213802933693,
+            "neutral": 0.9154215455055237,
+            "positive": 0.06240123510360718
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.0009753173217177391,
+            "neutral": 0.9989640712738037,
+            "positive": 6.067406866350211e-05
+          }
+        }
+      }
+    },
+    {
+      "id": 1812,
+      "text": "House Democrats roll out articles of impeachment against Trump https://t.co/HRjKKXqIUZ",
+      "expected": "neutral",
+      "qwen": {
+        "evidence_quote": "roll out articles of impeachment against Trump",
+        "id": 1812,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.15852369368076324,
+            "neutral": 0.8085463047027588,
+            "positive": 0.03293004259467125
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.02742023766040802,
+            "neutral": 0.9725638031959534,
+            "positive": 1.603641612746287e-05
+          }
+        }
+      }
+    },
+    {
+      "id": 1821,
+      "text": "Joe Walsh to Back \u2018Any Democrat\u2019 Over Trump After Ending GOP Bid",
+      "expected": "neutral",
+      "qwen": {
+        "evidence_quote": "Back \u2018Any Democrat\u2019 Over Trump",
+        "id": 1821,
+        "label": "neutral"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.4235980212688446,
+            "neutral": 0.42728397250175476,
+            "positive": 0.14911797642707825
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.37777096033096313,
+            "neutral": 0.613791286945343,
+            "positive": 0.008437778800725937
+          }
+        }
+      }
+    },
+    {
+      "id": 1848,
+      "text": "Trump questions the downsides of banning flavored e-cigarettes in heated meeting https://t.co/O6IdEw5BWm",
+      "expected": "neutral",
+      "qwen": {
+        "evidence_quote": "questions the downsides of banning flavored e-cigarettes",
+        "id": 1848,
+        "label": "neutral"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.43773186206817627,
+            "neutral": 0.44342783093452454,
+            "positive": 0.11884032934904099
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.05968290939927101,
+            "neutral": 0.9401986002922058,
+            "positive": 0.00011851188173750415
+          }
+        }
+      }
+    },
+    {
+      "id": 1853,
+      "text": "Trump told the Treasury and Justice Departments to look into the impact of U.S. sanctions on Halkbank after being l\u2026 https://t.co/NZVl8GvLBE",
+      "expected": "neutral",
+      "qwen": {
+        "evidence_quote": "look into the impact of U.S. sanctions on Halkbank",
+        "id": 1853,
+        "label": "neutral"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.41228726506233215,
+            "neutral": 0.4933691620826721,
+            "positive": 0.09434352815151215
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.260307639837265,
+            "neutral": 0.7393192648887634,
+            "positive": 0.00037302818964235485
+          }
+        }
+      }
+    },
+    {
+      "id": 1863,
+      "text": "Watch: Trump speaks on human trafficking amid coronavirus outbreak, impeachment trial https://t.co/E7C92PFxPz",
+      "expected": "neutral",
+      "qwen": {
+        "evidence_quote": "speaks on human trafficking amid coronavirus outbreak",
+        "id": 1863,
+        "label": "neutral"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.2992856204509735,
+            "neutral": 0.6502785682678223,
+            "positive": 0.05043578892946243
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.07441628724336624,
+            "neutral": 0.9254550933837891,
+            "positive": 0.0001285970356548205
+          }
+        }
+      }
+    },
+    {
+      "id": 1870,
+      "text": "$DSKE - Daseke names Chris Easter as permanent CEO https://t.co/QMi50IDUJZ",
+      "expected": "neutral",
+      "qwen": {
+        "evidence_quote": "names Chris Easter as permanent CEO",
+        "id": 1870,
+        "label": "neutral"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.045427173376083374,
+            "neutral": 0.9305290579795837,
+            "positive": 0.02404370717704296
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 2.531336940592155e-05,
+            "neutral": 0.9999133348464966,
+            "positive": 6.141550693428144e-05
+          }
+        }
+      }
+    },
+    {
+      "id": 1918,
+      "text": "$TWLO - Yes, This Is An Unpopular Opinion: Twilio Is Overvalued. https://t.co/PCCPSLJaCP #markets #finance #stocks",
+      "expected": "negative",
+      "qwen": {
+        "evidence_quote": "Twilio Is Overvalued",
+        "id": 1918,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.7807489037513733,
+            "neutral": 0.1985708773136139,
+            "positive": 0.020680280402302742
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.6371143460273743,
+            "neutral": 0.36106327176094055,
+            "positive": 0.001822317368350923
+          }
+        }
+      }
+    },
+    {
+      "id": 1923,
+      "text": "Elon Musk Loses $5.9 Billion as Tesla Succumbs to the Laws of Gravity",
+      "expected": "negative",
+      "qwen": {
+        "evidence_quote": "Loses $5.9 Billion",
+        "id": 1923,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9367234706878662,
+            "neutral": 0.04941887408494949,
+            "positive": 0.01385770458728075
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.8372665643692017,
+            "neutral": 0.1626621037721634,
+            "positive": 7.13320478098467e-05
+          }
+        }
+      }
+    },
+    {
+      "id": 1925,
+      "text": "Hedge Funds Are Dumping Capital Senior Living Corporation (CSU)",
+      "expected": "negative",
+      "qwen": {
+        "evidence_quote": "Dumping",
+        "id": 1925,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.8486614227294922,
+            "neutral": 0.13643398880958557,
+            "positive": 0.014904581010341644
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.00047146662836894393,
+            "neutral": 0.9995046854019165,
+            "positive": 2.379423676757142e-05
+          }
+        }
+      }
+    },
+    {
+      "id": 1935,
+      "text": "Look to go short $ES if it goes offered below 3107.50 or if the a.m. open is below 3107.50 and goes offered below t\u2026 https://t.co/YM6WBkERZ3",
+      "expected": "negative",
+      "qwen": {
+        "evidence_quote": "go short",
+        "id": 1935,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.2356329709291458,
+            "neutral": 0.7366405129432678,
+            "positive": 0.027726516127586365
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9628952741622925,
+            "neutral": 0.037099454551935196,
+            "positive": 5.296064955473412e-06
+          }
+        }
+      }
+    },
+    {
+      "id": 1941,
+      "text": "$AMZN - Amazon: One Of The Best Long-Term Investment In The Tech Sector. https://t.co/zC79wifAYj #finance #investing #stocks",
+      "expected": "positive",
+      "qwen": {
+        "evidence_quote": "Best Long-Term Investment",
+        "id": 1941,
+        "label": "positive"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 0.009243412874639034,
+            "neutral": 0.36799779534339905,
+            "positive": 0.6227587461471558
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 0.00013891154958400875,
+            "neutral": 0.01629960909485817,
+            "positive": 0.9835614562034607
+          }
+        }
+      }
+    },
+    {
+      "id": 1946,
+      "text": "$BURL certainly isn't looking shabby https://t.co/3AqvmOgZuG",
+      "expected": "positive",
+      "qwen": {
+        "evidence_quote": "isn't looking shabby",
+        "id": 1946,
+        "label": "positive"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.06766185909509659,
+            "neutral": 0.8078828454017639,
+            "positive": 0.12445531785488129
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.033975519239902496,
+            "neutral": 0.945629894733429,
+            "positive": 0.020394636318087578
+          }
+        }
+      }
+    },
+    {
+      "id": 1948,
+      "text": "$CERN - Cerner:\u00a0Undervalued,\u00a0Wide Moat, Dominant. Read more: https://t.co/4KImEZVaU1 #finance #markets #economy",
+      "expected": "positive",
+      "qwen": {
+        "evidence_quote": "Undervalued",
+        "id": 1948,
+        "label": "positive"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.03080739639699459,
+            "neutral": 0.8239634037017822,
+            "positive": 0.1452292501926422
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.6971493363380432,
+            "neutral": 0.30189013481140137,
+            "positive": 0.0009605701779946685
+          }
+        }
+      }
+    },
+    {
+      "id": 1952,
+      "text": "$EDNT great news this morning. Taking some before it explodes higher. NEWS: Edison Nation is Pleased to Announce th\u2026 https://t.co/ADTMS9D2ID",
+      "expected": "positive",
+      "qwen": {
+        "evidence_quote": "great news",
+        "id": 1952,
+        "label": "positive"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 0.01407874096184969,
+            "neutral": 0.220354363322258,
+            "positive": 0.765566885471344
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 9.02207557373913e-06,
+            "neutral": 0.07096521556377411,
+            "positive": 0.9290257096290588
+          }
+        }
+      }
+    },
+    {
+      "id": 1969,
+      "text": "$TOPS Wow..... Morgan Stanley 13G 6.7%",
+      "expected": "positive",
+      "qwen": {
+        "evidence_quote": "Wow..... Morgan Stanley 13G 6.7%",
+        "id": 1969,
+        "label": "positive"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.03367525339126587,
+            "neutral": 0.8960994482040405,
+            "positive": 0.0702253058552742
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 3.123244096059352e-05,
+            "neutral": 0.9999539852142334,
+            "positive": 1.474259806855116e-05
+          }
+        }
+      }
+    },
+    {
+      "id": 1974,
+      "text": "$YEXT - Yext: A Coronavirus Bull Case. https://t.co/7wlZOFGRu6 #trading #business #stocks",
+      "expected": "positive",
+      "qwen": {
+        "evidence_quote": "A Coronavirus Bull Case",
+        "id": 1974,
+        "label": "positive"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.06470241397619247,
+            "neutral": 0.911751389503479,
+            "positive": 0.023546218872070312
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.0008384105749428272,
+            "neutral": 0.9990542531013489,
+            "positive": 0.00010731255315477028
+          }
+        }
+      }
+    },
+    {
+      "id": 1987,
+      "text": "Hedge Funds Are Betting On Catchmark Timber Trust Inc (CTT)",
+      "expected": "positive",
+      "qwen": {
+        "evidence_quote": "Betting On",
+        "id": 1987,
+        "label": "positive"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.019807815551757812,
+            "neutral": 0.9037886261940002,
+            "positive": 0.07640352100133896
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.000200290945940651,
+            "neutral": 0.9986675977706909,
+            "positive": 0.0011321253841742873
+          }
+        }
+      }
+    },
+    {
+      "id": 2072,
+      "text": "$XYL - Xylem: Headwinds To Continue Over Several Quarters. Read more and sign up for updates:\u2026 https://t.co/uD2LB5E7NG",
+      "expected": "neutral",
+      "qwen": {
+        "evidence_quote": "Headwinds To Continue",
+        "id": 2072,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.4855705499649048,
+            "neutral": 0.48283329606056213,
+            "positive": 0.03159620240330696
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 3.7814803363289684e-05,
+            "neutral": 0.9999216794967651,
+            "positive": 4.0578568587079644e-05
+          }
+        }
+      }
+    },
+    {
+      "id": 2124,
+      "text": "EOS, Ethereum and Ripple\u2019s XRP \u2013 Daily Tech Analysis \u2013 07/02/20",
+      "expected": "neutral",
+      "qwen": {
+        "evidence_quote": "Daily Tech Analysis",
+        "id": 2124,
+        "label": "neutral"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.02652687393128872,
+            "neutral": 0.9395801424980164,
+            "positive": 0.03389303386211395
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 5.499049439094961e-05,
+            "neutral": 0.9998658895492554,
+            "positive": 7.918872870504856e-05
+          }
+        }
+      }
+    },
+    {
+      "id": 2243,
+      "text": "$UBER shares down 3.7% after company loses London licence over safety failures https://t.co/mwRK6XOrbS https://t.co/l7lFNGWDRh",
+      "expected": "negative",
+      "qwen": {
+        "evidence_quote": "shares down 3.7%",
+        "id": 2243,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9693940877914429,
+            "neutral": 0.02313085086643696,
+            "positive": 0.007475086022168398
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.999873161315918,
+            "neutral": 0.00012607531971298158,
+            "positive": 7.201286393865303e-07
+          }
+        }
+      }
+    },
+    {
+      "id": 2251,
+      "text": "Athenex down 17% on oral paclitaxel data",
+      "expected": "negative",
+      "qwen": {
+        "evidence_quote": "down 17%",
+        "id": 2251,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9698126912117004,
+            "neutral": 0.019790785387158394,
+            "positive": 0.010396487079560757
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9923612475395203,
+            "neutral": 1.819264616642613e-05,
+            "positive": 0.007620570249855518
+          }
+        }
+      }
+    },
+    {
+      "id": 2254,
+      "text": "Becton, Dickinson slips 9% on lowered guidance",
+      "expected": "negative",
+      "qwen": {
+        "evidence_quote": "slips 9%",
+        "id": 2254,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9661073684692383,
+            "neutral": 0.018130846321582794,
+            "positive": 0.01576177403330803
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 8.091151539701968e-05,
+            "neutral": 0.9942611455917358,
+            "positive": 0.005657923873513937
+          }
+        }
+      }
+    },
+    {
+      "id": 2259,
+      "text": "GoPro's stock tumbles 13% premarket after Q4 results late Wednesday",
+      "expected": "negative",
+      "qwen": {
+        "evidence_quote": "tumbles 13%",
+        "id": 2259,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9684802889823914,
+            "neutral": 0.021965038031339645,
+            "positive": 0.009554624557495117
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9988828301429749,
+            "neutral": 0.00010879000183194876,
+            "positive": 0.0010082981316372752
+          }
+        }
+      }
+    },
+    {
+      "id": 2294,
+      "text": "Zoom shares slip over security concerns, rising competition https://t.co/u0l97LVQDa https://t.co/dcVT5Zzh2L",
+      "expected": "negative",
+      "qwen": {
+        "evidence_quote": "shares slip over security concerns, rising competition",
+        "id": 2294,
+        "label": "negative"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9658539891242981,
+            "neutral": 0.0219383854418993,
+            "positive": 0.012207621708512306
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.0002942393475677818,
+            "neutral": 0.9995031356811523,
+            "positive": 0.00020263102487660944
+          }
+        }
+      }
+    },
+    {
+      "id": 2306,
+      "text": "$JAN (+92.2% pre) JanOne entered into a Patent and Know How License Agreement with UAB Research Foundation, TheraVa\u2026 https://t.co/lNeVmJnG1c",
+      "expected": "positive",
+      "qwen": {
+        "evidence_quote": "JanOne entered into a Patent and Know How License Agreement",
+        "id": 2306,
+        "label": "positive"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 0.009060943499207497,
+            "neutral": 0.20045994222164154,
+            "positive": 0.7904791235923767
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 7.612939953105524e-05,
+            "neutral": 0.9993613362312317,
+            "positive": 0.0005625319317914546
+          }
+        }
+      }
+    },
+    {
+      "id": 2325,
+      "text": "$VRNS (+0.0% pre) Varonis Systems reports preliminary Q1 - SA\n\nhttps://t.co/ORtdEEogHg",
+      "expected": "positive",
+      "qwen": {
+        "evidence_quote": "Varonis Systems reports preliminary Q1",
+        "id": 2325,
+        "label": "neutral"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.03296095132827759,
+            "neutral": 0.9374725222587585,
+            "positive": 0.02956651709973812
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 1.2106440408388153e-05,
+            "neutral": 0.9998956918716431,
+            "positive": 9.21647806535475e-05
+          }
+        }
+      }
+    },
+    {
+      "id": 2332,
+      "text": "ArcelorMittal shares surge on higher operating profit, dividend than expected",
+      "expected": "positive",
+      "qwen": {
+        "evidence_quote": "shares surge on higher operating profit, dividend than expected",
+        "id": 2332,
+        "label": "positive"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 0.025881903246045113,
+            "neutral": 0.022656848654150963,
+            "positive": 0.9514613151550293
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 3.299306854387396e-07,
+            "neutral": 6.979059321565728e-07,
+            "positive": 0.999998927116394
+          }
+        }
+      }
+    },
+    {
+      "id": 2348,
+      "text": "Intelsat's stock bounces 6.6% premarket, after plummeting 55% over the past 2 days to 19-mo. low",
+      "expected": "positive",
+      "qwen": {
+        "evidence_quote": "stock bounces 6.6% premarket",
+        "id": 2348,
+        "label": "positive"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9437206387519836,
+            "neutral": 0.013563363812863827,
+            "positive": 0.04271605610847473
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.9999816417694092,
+            "neutral": 1.4289738828665577e-05,
+            "positive": 4.091069513378898e-06
+          }
+        }
+      }
+    },
+    {
+      "id": 2349,
+      "text": "Kodiak Sciences up 9% on positive early-stage KSI-301 data",
+      "expected": "positive",
+      "qwen": {
+        "evidence_quote": "up 9% on positive early-stage KSI-301 data",
+        "id": 2349,
+        "label": "positive"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 0.021878793835639954,
+            "neutral": 0.025835607200860977,
+            "positive": 0.9522855281829834
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 4.3159357687727606e-07,
+            "neutral": 2.6225998794870975e-07,
+            "positive": 0.9999992847442627
+          }
+        }
+      }
+    },
+    {
+      "id": 2355,
+      "text": "One Medical parent 1Life Healthcare stock soars 38% in early debut trading https://t.co/dRNcVEH6ob",
+      "expected": "positive",
+      "qwen": {
+        "evidence_quote": "stock soars 38% in early debut trading",
+        "id": 2355,
+        "label": "positive"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "negative",
+          "integrated": "negative",
+          "probabilities": {
+            "negative": 0.7578735947608948,
+            "neutral": 0.052317216992378235,
+            "positive": 0.189809188246727
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "positive",
+          "integrated": "positive",
+          "probabilities": {
+            "negative": 0.00015988908126018941,
+            "neutral": 0.0971444621682167,
+            "positive": 0.9026956558227539
+          }
+        }
+      }
+    },
+    {
+      "id": 2357,
+      "text": "RealNetworks CEO Rob Glaser to invest into the Company; shares +12%",
+      "expected": "positive",
+      "qwen": {
+        "evidence_quote": "shares +12%",
+        "id": 2357,
+        "label": "positive"
+      },
+      "local_models": {
+        "ProsusAI/finbert": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 0.011756173335015774,
+            "neutral": 0.9164628386497498,
+            "positive": 0.07178092747926712
+          }
+        },
+        "AnkitAI/FinSense-ModernBERT-Financial-News-Sentiment-Analysis": {
+          "predicted": "neutral",
+          "integrated": "neutral",
+          "probabilities": {
+            "negative": 1.6425215108029079e-06,
+            "neutral": 0.99991774559021,
+            "positive": 8.057752711465582e-05
+          }
+        }
+      }
+    }
+  ],
+  "limitations": [
+    "Balanced sample is not natural class prevalence.",
+    "120 examples are a diagnostic, not comprehensive validation.",
+    "Current foundation-model pretraining may contain these historical public texts.",
+    "This prompt measures general sentiment; production Qwen additionally filters company relevance and ambiguity.",
+    "Sentiment accuracy does not establish trading profitability."
+  ]
+}
